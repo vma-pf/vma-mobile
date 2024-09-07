@@ -14,8 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       title: 'VMA',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-            seedColor: const Color.fromARGB(255, 16, 129, 82)),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xff10b981)),
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,

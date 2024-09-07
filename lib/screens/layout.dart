@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:vma/screens/alert.dart';
 import 'package:vma/screens/camera.dart';
@@ -14,11 +15,11 @@ class LayoutPage extends StatefulWidget {
 }
 
 List<IconData> _icons = [
-  Icons.poll,
+  CupertinoIcons.chart_bar_fill,
   Icons.medical_services,
-  Icons.local_hospital,
-  Icons.camera_alt,
-  Icons.warning,
+  CupertinoIcons.calendar,
+  CupertinoIcons.video_camera_solid,
+  CupertinoIcons.bell,
 ];
 
 List<String> _titles = [
@@ -69,6 +70,55 @@ class _LayoutPageState extends State<LayoutPage> {
           ),
         ],
       ),
+      // bottomNavigationBar: Container(
+      //   margin: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
+      //   padding:
+      //       const EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 10),
+      //   decoration: BoxDecoration(
+      //     color: Colors.white,
+      //     borderRadius: BorderRadius.circular(20),
+      //   ),
+      //   child: BottomNavigationBar(
+      //     backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+      //     elevation: 0,
+      //     items: const <BottomNavigationBarItem>[
+      //       BottomNavigationBarItem(
+      //         icon: Icon(CupertinoIcons.chart_bar_fill),
+      //         label: 'Tổng quan',
+      //         backgroundColor: Colors.transparent,
+      //       ),
+      //       BottomNavigationBarItem(
+      //         icon: Icon(Icons.medical_services),
+      //         label: 'Tiêm phòng',
+      //         // backgroundColor: Colors.white,
+      //       ),
+      //       BottomNavigationBarItem(
+      //         icon: Icon(CupertinoIcons.calendar),
+      //         label: 'Điều trị',
+      //         // backgroundColor: Colors.white,
+      //       ),
+      //       BottomNavigationBarItem(
+      //         icon: Icon(CupertinoIcons.video_camera_solid),
+      //         label: 'Camera',
+      //         // backgroundColor: Colors.white,
+      //       ),
+      //       BottomNavigationBarItem(
+      //         icon: Icon(CupertinoIcons.bell),
+      //         label: 'Cảnh báo',
+      //         // backgroundColor: Colors.white,
+      //       ),
+      //     ],
+      //     currentIndex: _isSelectedIndex,
+      //     type: BottomNavigationBarType.shifting,
+      //     selectedItemColor: Theme.of(context).colorScheme.inversePrimary,
+      //     onTap: (index) {
+      //       setState(() {
+      //         _isSelectedIndex = index;
+      //       });
+      //     },
+      //     unselectedItemColor: Colors.grey[400],
+      //   ),
+      // ),
     );
   }
 
@@ -76,6 +126,7 @@ class _LayoutPageState extends State<LayoutPage> {
     return Container(
         height: 60,
         margin: const EdgeInsets.only(right: 20, left: 20, bottom: 20),
+        padding: const EdgeInsets.only(top: 5, left: 5, right: 5, bottom: 5),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(20),
@@ -111,7 +162,7 @@ class _LayoutPageState extends State<LayoutPage> {
                               top: 5, bottom: 0, left: 20, right: 20),
                           child: Icon(icon,
                               color: isSelected
-                                  ? Colors.teal[300]
+                                  ? Theme.of(context).colorScheme.primary
                                   : Colors.grey[600]),
                         ),
                         isSelected
@@ -119,15 +170,15 @@ class _LayoutPageState extends State<LayoutPage> {
                                 _titles[index],
                                 style: TextStyle(
                                   color: isSelected
-                                      ? Colors.teal[300]
+                                      ? Theme.of(context).colorScheme.primary
                                       : Colors.grey[600],
                                   fontSize: 12,
+                                  height: 2,
                                 ),
                               )
                             : const SizedBox(
                                 height: 10,
                               ),
-                        // const SizedBox(height: 10),
                       ],
                     ),
                   ),
