@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:vma/screens/alert.dart';
-import 'package:vma/screens/camera.dart';
-import 'package:vma/screens/foo_screen.dart';
-import 'package:vma/screens/home.dart';
-import 'package:vma/screens/treatment_plan.dart';
-import 'package:vma/screens/vaccination.dart';
+import 'package:vma/screens/management/alert.dart';
+import 'package:vma/screens/management/camera.dart';
+import 'package:vma/screens/management/foo_screen.dart';
+import 'package:vma/screens/management/home.dart';
+import 'package:vma/screens/management/treatment_plan.dart';
+import 'package:vma/screens/management/vaccination.dart';
 
 class LayoutPage extends StatefulWidget {
   const LayoutPage({super.key});
@@ -165,20 +165,16 @@ class _LayoutPageState extends State<LayoutPage> {
                                   ? Theme.of(context).colorScheme.primary
                                   : Colors.grey[600]),
                         ),
-                        isSelected
-                            ? Text(
-                                _titles[index],
-                                style: TextStyle(
-                                  color: isSelected
-                                      ? Theme.of(context).colorScheme.primary
-                                      : Colors.grey[600],
-                                  fontSize: 12,
-                                  height: 2,
-                                ),
-                              )
-                            : const SizedBox(
-                                height: 10,
-                              ),
+                        Text(
+                          _titles[index],
+                          style: TextStyle(
+                            color: isSelected
+                                ? Theme.of(context).colorScheme.primary
+                                : Colors.grey[600],
+                            fontSize: 12,
+                            height: 2,
+                          ),
+                        )
                       ],
                     ),
                   ),
