@@ -4,13 +4,13 @@ class Vaccination extends StatefulWidget {
   const Vaccination({super.key});
 
   @override
-  _VaccinationState createState() => _VaccinationState();
+  State<Vaccination> createState() => _VaccinationState();
 }
 
 class _VaccinationState extends State<Vaccination> {
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return const Center(
       child: Text("Vaccination"),
     );
   }

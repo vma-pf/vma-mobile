@@ -4,13 +4,13 @@ class TreatmentPlan extends StatefulWidget {
   const TreatmentPlan({super.key});
 
   @override
-  _TreatmentPlanState createState() => _TreatmentPlanState();
+  State<TreatmentPlan> createState() => _TreatmentPlanState();
 }
 
 class _TreatmentPlanState extends State<TreatmentPlan> {
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return const Center(
       child: Text("Treatment Plan"),
     );
   }

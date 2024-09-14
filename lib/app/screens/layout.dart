@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:vma/screens/management/alert.dart';
-import 'package:vma/screens/management/camera.dart';
-import 'package:vma/screens/management/foo_screen.dart';
-import 'package:vma/screens/management/home.dart';
-import 'package:vma/screens/management/treatment_plan.dart';
-import 'package:vma/screens/management/vaccination.dart';
+import 'package:vma/app/screens/management/alert.dart';
+import 'package:vma/app/screens/management/camera.dart';
+import 'package:vma/app/screens/management/home.dart';
+import 'package:vma/app/screens/management/treatment_plan.dart';
+import 'package:vma/app/screens/management/vaccination.dart';
 
 class LayoutPage extends StatefulWidget {
   const LayoutPage({super.key});
@@ -48,13 +47,13 @@ class _LayoutPageState extends State<LayoutPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text("VMA"),
+        title: const Text("VMA"),
         actions: [
           IconButton(
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const FooScreen()),
+                MaterialPageRoute(builder: (context) => const Vaccination()),
               );
             },
             icon: const Icon(Icons.settings),

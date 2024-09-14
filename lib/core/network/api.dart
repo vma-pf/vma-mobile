@@ -1,21 +1,21 @@
 import 'package:dio/dio.dart';
 import 'package:either_dart/either.dart';
-import 'package:vma/constants/api_constant.dart';
-import 'package:vma/network/api_response.dart';
-import 'package:vma/screens/app_router.dart';
+import 'package:vma/core/constants/api.dart';
+import 'package:vma/core/network/api_response.dart';
+import 'package:vma/app/common/app_router.dart';
 
-class Api {
+class ApiCaller {
   final Dio _dio = Dio(_baseOptions);
-  static final Api instance = Api._();
+  static final ApiCaller instance = ApiCaller._();
 
   static final _baseOptions = BaseOptions(
-    baseUrl: ApiConstant.baseApiUrl,
+    baseUrl: Api.baseApiUrl,
     connectTimeout: const Duration(seconds: 10),
     sendTimeout: const Duration(seconds: 10),
     receiveTimeout: const Duration(seconds: 30),
   );
 
-  Api._() {
+  ApiCaller._() {
     _dio.interceptors.add(InterceptorsWrapper(
       onRequest: (RequestOptions options, RequestInterceptorHandler handler) {
         // AppStorage.instance

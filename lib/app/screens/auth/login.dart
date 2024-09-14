@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:vma/constants/route_constant.dart';
-import 'package:vma/network/app_storage.dart';
+import 'package:vma/core/constants/routes.dart';
+import 'package:vma/core/network/app_storage.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
 
   @override
-  _LoginState createState() => _LoginState();
+  State<Login> createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> {
   void _login() async {
     try {
       AppStorage().write("token", "123");
-      context.go(RouteConstant.home);
+      context.go(Routes.home);
     } catch (e) {
       print(e);
     }

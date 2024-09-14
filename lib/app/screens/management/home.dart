@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:vma/constants/route_constant.dart';
+import 'package:vma/core/constants/routes.dart';
 import 'package:go_router/go_router.dart';
-import 'package:vma/network/app_storage.dart';
+import 'package:vma/core/network/app_storage.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -21,12 +21,12 @@ class _MyHomePageState extends State<MyHomePage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           ElevatedButton(
-              onPressed: () => context.go(RouteConstant.register),
+              onPressed: () => context.go(Routes.register),
               child: const Text('Go to Foo Screen')),
           ElevatedButton(
               onPressed: () {
                 AppStorage().delete("token");
-                context.go(RouteConstant.login);
+                context.go(Routes.login);
               },
               child: const Text('Logout')),
         ],

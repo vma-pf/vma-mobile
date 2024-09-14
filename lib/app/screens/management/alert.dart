@@ -4,13 +4,13 @@ class Alert extends StatefulWidget {
   const Alert({super.key});
 
   @override
-  _AlertState createState() => _AlertState();
+  State<Alert> createState() => _AlertState();
 }
 
 class _AlertState extends State<Alert> {
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return const Center(
       child: Text("Alert"),
     );
   }

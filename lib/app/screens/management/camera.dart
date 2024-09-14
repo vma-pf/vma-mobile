@@ -4,13 +4,13 @@ class Camera extends StatefulWidget {
   const Camera({super.key});
 
   @override
-  _CameraState createState() => _CameraState();
+  State<Camera> createState() => _CameraState();
 }
 
 class _CameraState extends State<Camera> {
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return const Center(
       child: Text("Camera"),
     );
   }

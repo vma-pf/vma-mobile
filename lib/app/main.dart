@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vma/screens/app_router.dart';
+import 'package:vma/app/common/app_router.dart';
 
 void main() {
   runApp(const MyApp());

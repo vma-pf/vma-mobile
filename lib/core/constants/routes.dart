@@ -1,4 +1,4 @@
-class RouteConstant {
+class Routes {
   static const String home = '/';
   static const String dashboard = '/dashboard';
   static const String vaccination = '/vaccination';
