@@ -52,9 +52,8 @@ class AppRouter {
       String token = await AppStorage().read("token");
       if (token.isEmpty) {
         return RouteConstant.login;
-      } else {
-        return RouteConstant.home;
       }
+      return null;
     },
   );
 
