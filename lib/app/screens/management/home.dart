@@ -21,9 +21,6 @@ class _MyHomePageState extends State<MyHomePage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           ElevatedButton(
-              onPressed: () => context.go(Routes.register),
-              child: const Text('Go to Foo Screen')),
-          ElevatedButton(
               onPressed: () {
                 AppStorage().delete("token");
                 context.go(Routes.login);

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:vma/app/screens/custom_appbar.dart';
 import 'package:vma/app/screens/management/alert.dart';
 import 'package:vma/app/screens/management/camera.dart';
 import 'package:vma/app/screens/management/home.dart';
@@ -18,7 +19,7 @@ List<IconData> _icons = [
   Icons.medical_services,
   CupertinoIcons.calendar,
   CupertinoIcons.video_camera_solid,
-  CupertinoIcons.bell,
+  CupertinoIcons.bell_fill,
 ];
 
 List<String> _titles = [
@@ -45,21 +46,7 @@ class _LayoutPageState extends State<LayoutPage> {
     String currentRoute = ModalRoute.of(context)!.settings.name!;
     print(currentRoute);
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text("VMA"),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const Vaccination()),
-              );
-            },
-            icon: const Icon(Icons.settings),
-          ),
-        ],
-      ),
+      appBar: customAppBar(context),
       body: Stack(
         children: [
           _widgetOptions.elementAt(_isSelectedIndex),
@@ -161,14 +148,16 @@ class _LayoutPageState extends State<LayoutPage> {
                               top: 5, bottom: 0, left: 20, right: 20),
                           child: Icon(icon,
                               color: isSelected
-                                  ? Theme.of(context).colorScheme.primary
+                                  ? Theme.of(context)
+                                      .colorScheme
+                                      .primaryFixedDim
                                   : Colors.grey[600]),
                         ),
                         Text(
                           _titles[index],
                           style: TextStyle(
                             color: isSelected
-                                ? Theme.of(context).colorScheme.primary
+                                ? Theme.of(context).colorScheme.primaryFixedDim
                                 : Colors.grey[600],
                             fontSize: 12,
                             height: 2,
