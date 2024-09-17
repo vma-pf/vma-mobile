@@ -25,26 +25,30 @@ class _PigListState extends VMAState<PigList> {
     return Scaffold(
         body: ScopedModel<PigListModel>(
       model: _model,
-      child: FutureBuilder<List<Pig>>(
-        future: _model.pigs,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          } else {
-            var pigs = snapshot.data;
-            return ListView.builder(
-              itemCount: pigs?.length ?? 0,
-              itemBuilder: (context, index) {
-                var pig = pigs?[index];
-                return ListTile(
-                  title: Text(pig?.breed ?? ''),
-                  subtitle: Text(pig?.weight.toString() ?? ''),
+      child: ScopedModelDescendant<PigListModel>(
+        builder: (context, child, model) {
+          return FutureBuilder<List<Pig>>(
+            future: _model.pigs,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return Center(child: Text('Error: ${snapshot.error}'));
+              } else {
+                var pigs = snapshot.data ?? [];
+                return ListView.builder(
+                  itemCount: pigs.length,
+                  itemBuilder: (context, index) {
+                    var pig = pigs[index];
+                    return ListTile(
+                      title: Text(pig.breed),
+                      subtitle: Text(pig.weight.toString()),
+                    );
+                  },
                 );
-              },
-            );
-          }
+              }
+            },
+          );
         },
       ),
     ));

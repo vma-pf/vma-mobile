@@ -16,9 +16,8 @@ class PigListModel extends Model {
     notifyListeners();
   }
 
-  Future<bool> loadPigs() async {
+  Future<void> loadPigs() async {
     List<Pig> pigList = await _repository.getAllPigs();
     pigs = Future.value(pigList);
-    return pigList.isNotEmpty;
   }
 }
