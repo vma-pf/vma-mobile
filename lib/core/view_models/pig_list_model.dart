@@ -17,7 +17,6 @@ class PigListModel extends Model {
   }
 
   Future<void> loadPigs() async {
-    List<Pig> pigList = await _repository.getAllPigs();
-    pigs = Future.value(pigList);
+    pigs = _repository.getAllPigs();
   }
 }
