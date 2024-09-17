@@ -3,11 +3,42 @@ import 'package:vma/core/models/pig.dart';
 class PigRepository {
   Future<List<Pig>> getAllPigs() async {
     List<Pig> pigList = [
-      Pig(weight: 1, name: "Pig 1"),
-      Pig(weight: 2, name: "Pig 2"),
-      Pig(weight: 3, name: "Pig 3"),
-      Pig(weight: 4, name: "Pig 4"),
-      Pig(weight: 5, name: "Pig 5"),
+      Pig(
+        id: '1',
+        breed: 'Pig 1',
+        herdId: '1',
+        cageId: '1',
+        weight: 1,
+        height: 1,
+        width: 1,
+        lastUpdated: DateTime.now(),
+        healthStatus: 'Healthy',
+        nextVaccinationDate: DateTime.now(),
+      ),
+      Pig(
+        id: '2',
+        breed: 'Pig 1',
+        herdId: '1',
+        cageId: '1',
+        weight: 1,
+        height: 1,
+        width: 1,
+        lastUpdated: DateTime.now(),
+        healthStatus: 'Healthy',
+        nextVaccinationDate: DateTime.now(),
+      ),
+      Pig(
+        id: '3',
+        breed: 'Pig 1',
+        herdId: '1',
+        cageId: '1',
+        weight: 1,
+        height: 1,
+        width: 1,
+        lastUpdated: DateTime.now(),
+        healthStatus: 'Healthy',
+        nextVaccinationDate: DateTime.now(),
+      ),
     ];
     return Future.value(pigList);
   }

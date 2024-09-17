@@ -39,7 +39,7 @@ class _PigListState extends VMAState<PigList> {
               itemBuilder: (context, index) {
                 var pig = pigs?[index];
                 return ListTile(
-                  title: Text(pig?.name ?? ''),
+                  title: Text(pig?.breed ?? ''),
                   subtitle: Text(pig?.weight.toString() ?? ''),
                 );
               },
