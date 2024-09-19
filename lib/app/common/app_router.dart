@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:vma/app/screens/success-screens/change-password-success.dart';
 import 'package:vma/core/constants/routes.dart';
 import 'package:vma/core/network/app_storage.dart';
 import 'package:vma/app/screens/auth/login.dart';
@@ -41,6 +42,10 @@ class AppRouter {
       GoRoute(
         path: Routes.alert,
         builder: (context, state) => const Alert(),
+      ),
+      GoRoute(
+        path: Routes.changePasswordSuccess,
+        builder: (context, state) => const ChangePasswordSuccess(),
       ),
     ],
     redirect: (context, state) async {
