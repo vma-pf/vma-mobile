@@ -42,10 +42,11 @@ class _PigListState extends VMAState<PigList> {
                 return Column(children: [
                   const SizedBox(height: 10),
                   const vma.SearchBar(),
+                  const SizedBox(height: 10),
                   Expanded(
                     child: ListView.builder(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 10),
+                          horizontal: 10, vertical: 0),
                       itemCount: pigs.length,
                       itemBuilder: (context, index) {
                         var pig = pigs[index];
