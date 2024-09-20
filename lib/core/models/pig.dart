@@ -1,13 +1,17 @@
+import 'package:vma/core/models/pig_health_status.dart';
+
 class Pig {
   String id;
   String breed;
   String herdId;
   String cageId;
+  String code;
+  String cageCode;
   double weight;
   double height;
   double width;
   DateTime lastUpdated;
-  String healthStatus;
+  PigHealthStatus healthStatus;
   DateTime nextVaccinationDate;
 
   Pig({
@@ -15,6 +19,8 @@ class Pig {
     required this.breed,
     required this.herdId,
     required this.cageId,
+    required this.code,
+    required this.cageCode,
     required this.weight,
     required this.height,
     required this.width,
@@ -29,6 +35,8 @@ class Pig {
       breed: json['breed'],
       herdId: json['herdId'],
       cageId: json['cageId'],
+      code: json['code'],
+      cageCode: json['cageCode'],
       weight: json['weight'],
       height: json['height'],
       width: json['width'],

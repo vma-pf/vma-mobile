@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:vma/app/common/vma_state.dart';
+import 'package:vma/app/screens/pig_list/search_bar.dart' as vma;
 import 'package:scoped_model/scoped_model.dart';
+import 'package:vma/app/screens/pig_list/pig_item.dart';
 import 'package:vma/core/view_models/pig_list_model.dart';
 import 'package:vma/core/models/pig.dart';
 
@@ -36,16 +38,22 @@ class _PigListState extends VMAState<PigList> {
                 return Center(child: Text('Error: ${snapshot.error}'));
               } else {
                 var pigs = snapshot.data ?? [];
-                return ListView.builder(
-                  itemCount: pigs.length,
-                  itemBuilder: (context, index) {
-                    var pig = pigs[index];
-                    return ListTile(
-                      title: Text(pig.breed),
-                      subtitle: Text(pig.weight.toString()),
-                    );
-                  },
-                );
+
+                return Column(children: [
+                  const SizedBox(height: 10),
+                  const vma.SearchBar(),
+                  Expanded(
+                    child: ListView.builder(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 10),
+                      itemCount: pigs.length,
+                      itemBuilder: (context, index) {
+                        var pig = pigs[index];
+                        return PigItem(pig: pig);
+                      },
+                    ),
+                  ),
+                ]);
               }
             },
           );
