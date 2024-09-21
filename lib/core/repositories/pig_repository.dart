@@ -15,7 +15,7 @@ class PigRepository {
         height: 1,
         width: 1,
         lastUpdated: DateTime.now(),
-        healthStatus: PigHealthStatus.healthy,
+        healthStatus: PigHealthStatus.normal,
         nextVaccinationDate: DateTime.now(),
       ),
       Pig(
@@ -29,7 +29,7 @@ class PigRepository {
         height: 1,
         width: 1,
         lastUpdated: DateTime.now(),
-        healthStatus: PigHealthStatus.healthy,
+        healthStatus: PigHealthStatus.normal,
         nextVaccinationDate: DateTime.now(),
       ),
       Pig(
@@ -43,7 +43,7 @@ class PigRepository {
         height: 1,
         width: 1,
         lastUpdated: DateTime.now(),
-        healthStatus: PigHealthStatus.healthy,
+        healthStatus: PigHealthStatus.normal,
         nextVaccinationDate: DateTime.now(),
       ),
       Pig(
@@ -57,7 +57,7 @@ class PigRepository {
         height: 1,
         width: 1,
         lastUpdated: DateTime.now(),
-        healthStatus: PigHealthStatus.healthy,
+        healthStatus: PigHealthStatus.normal,
         nextVaccinationDate: DateTime.now(),
       ),
       Pig(
@@ -71,7 +71,7 @@ class PigRepository {
         height: 1,
         width: 1,
         lastUpdated: DateTime.now(),
-        healthStatus: PigHealthStatus.healthy,
+        healthStatus: PigHealthStatus.normal,
         nextVaccinationDate: DateTime.now(),
       ),
       Pig(
@@ -85,7 +85,7 @@ class PigRepository {
         height: 1,
         width: 1,
         lastUpdated: DateTime.now(),
-        healthStatus: PigHealthStatus.healthy,
+        healthStatus: PigHealthStatus.normal,
         nextVaccinationDate: DateTime.now(),
       ),
       Pig(
@@ -99,7 +99,7 @@ class PigRepository {
         height: 1,
         width: 1,
         lastUpdated: DateTime.now(),
-        healthStatus: PigHealthStatus.healthy,
+        healthStatus: PigHealthStatus.normal,
         nextVaccinationDate: DateTime.now(),
       ),
       Pig(
@@ -113,7 +113,7 @@ class PigRepository {
         height: 1,
         width: 1,
         lastUpdated: DateTime.now(),
-        healthStatus: PigHealthStatus.healthy,
+        healthStatus: PigHealthStatus.normal,
         nextVaccinationDate: DateTime.now(),
       ),
       Pig(
@@ -127,7 +127,7 @@ class PigRepository {
         height: 1,
         width: 1,
         lastUpdated: DateTime.now(),
-        healthStatus: PigHealthStatus.healthy,
+        healthStatus: PigHealthStatus.normal,
         nextVaccinationDate: DateTime.now(),
       ),
       Pig(
@@ -141,7 +141,7 @@ class PigRepository {
         height: 1,
         width: 1,
         lastUpdated: DateTime.now(),
-        healthStatus: PigHealthStatus.healthy,
+        healthStatus: PigHealthStatus.normal,
         nextVaccinationDate: DateTime.now(),
       ),
       Pig(
@@ -155,7 +155,7 @@ class PigRepository {
         height: 1,
         width: 1,
         lastUpdated: DateTime.now(),
-        healthStatus: PigHealthStatus.healthy,
+        healthStatus: PigHealthStatus.normal,
         nextVaccinationDate: DateTime.now(),
       ),
       Pig(
@@ -169,7 +169,7 @@ class PigRepository {
         height: 1,
         width: 1,
         lastUpdated: DateTime.now(),
-        healthStatus: PigHealthStatus.healthy,
+        healthStatus: PigHealthStatus.normal,
         nextVaccinationDate: DateTime.now(),
       ),
       Pig(
@@ -183,7 +183,7 @@ class PigRepository {
         height: 1,
         width: 1,
         lastUpdated: DateTime.now(),
-        healthStatus: PigHealthStatus.healthy,
+        healthStatus: PigHealthStatus.normal,
         nextVaccinationDate: DateTime.now(),
       ),
       Pig(
@@ -197,7 +197,7 @@ class PigRepository {
         height: 1,
         width: 1,
         lastUpdated: DateTime.now(),
-        healthStatus: PigHealthStatus.healthy,
+        healthStatus: PigHealthStatus.normal,
         nextVaccinationDate: DateTime.now(),
       ),
       Pig(
@@ -225,7 +225,7 @@ class PigRepository {
         height: 1,
         width: 1,
         lastUpdated: DateTime.now(),
-        healthStatus: PigHealthStatus.dead,
+        healthStatus: PigHealthStatus.normal,
         nextVaccinationDate: DateTime.now(),
       ),
     ];

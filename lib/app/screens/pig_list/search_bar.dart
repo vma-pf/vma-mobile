@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vma/app/common/vma_state.dart';
+import 'package:vma/app/screens/pig_list/filter_sheet.dart';
+import 'package:vma/core/constants/routes.dart';
 
 class SearchBar extends StatefulWidget {
-  const SearchBar({Key? key}) : super(key: key);
+  const SearchBar({super.key});
 
   @override
   State<SearchBar> createState() => _SearchBarState();
@@ -10,6 +13,15 @@ class SearchBar extends StatefulWidget {
 
 class _SearchBarState extends VMAState<SearchBar> {
   final TextEditingController _controller = TextEditingController();
+
+  void _showFilterSheet() {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return const FilterSheet();
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +37,7 @@ class _SearchBarState extends VMAState<SearchBar> {
             ),
             suffixIcon: IconButton(
               icon: const Icon(Icons.filter_list_alt),
-              onPressed: () {
-                _controller.clear();
-              },
+              onPressed: _showFilterSheet,
             ),
           ),
         ));

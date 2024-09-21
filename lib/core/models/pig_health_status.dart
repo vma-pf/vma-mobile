@@ -1,6 +1,5 @@
 enum PigHealthStatus {
-  healthy,
+  normal,
   sick,
-  dead,
   unknown,
 }
