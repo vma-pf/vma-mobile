@@ -8,4 +8,5 @@ class Routes {
   static const String login = '/login';
   static const String register = '/register';
   static const String notFound = '/not-found';
+  static const String pigListFilter = '/pig-list-filter';
 }

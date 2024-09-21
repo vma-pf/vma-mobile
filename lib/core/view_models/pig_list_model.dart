@@ -1,7 +1,14 @@
 import 'package:scoped_model/scoped_model.dart';
 import 'package:vma/core/models/pig.dart';
+import 'package:vma/core/repositories/pig_repository.dart';
 
 class PigListModel extends Model {
+  late PigRepository _repository;
+
+  PigListModel() {
+    _repository = PigRepository();
+  }
+
   Future<List<Pig>> _pigs = Future.value([]);
   Future<List<Pig>> get pigs => _pigs;
   set pigs(Future<List<Pig>> value) {
@@ -9,16 +16,7 @@ class PigListModel extends Model {
     notifyListeners();
   }
 
-  Future<bool> setPigs() async {
-    await Future.delayed(const Duration(seconds: 3));
-    List<Pig> pigList = [
-      Pig(weight: 1, name: "Pig 1"),
-      Pig(weight: 2, name: "Pig 2"),
-      Pig(weight: 3, name: "Pig 3"),
-      Pig(weight: 4, name: "Pig 4"),
-      Pig(weight: 5, name: "Pig 5"),
-    ];
-    pigs = Future.value(pigList);
-    return pigList.isNotEmpty;
+  Future<void> loadPigs() async {
+    pigs = _repository.getAllPigs();
   }
 }
