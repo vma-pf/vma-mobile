@@ -1,0 +1,66 @@
+import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
+import 'package:vma/app/common/vma_state.dart';
+import 'package:vma/core/models/pig_detail.dart' as models;
+import 'package:vma/core/view_models/pig_detail_model.dart';
+
+class PigDetail extends StatefulWidget {
+  final String pigId;
+  const PigDetail({super.key, required this.pigId});
+
+  @override
+  State<PigDetail> createState() => _PigDetailState();
+}
+
+class _PigDetailState extends VMAState<PigDetail> {
+  final PigDetailModel _model = PigDetailModel();
+
+  @override
+  void initState() {
+    super.initState();
+    _model.loadPig(widget.pigId);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ScopedModel<PigDetailModel>(
+        model: _model,
+        child: ScopedModelDescendant<PigDetailModel>(builder:
+            (BuildContext context, Widget? child, PigDetailModel model) {
+          return FutureBuilder(
+            future: model.pig,
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return Center(child: Text('Error: ${snapshot.error}'));
+              } else {
+                var pig = snapshot.data as models.PigDetail;
+                return SizedBox(
+                    width: double.infinity,
+                    child: Column(children: [
+                      Text('Chi tiết heo',
+                          style: TextStyle(
+                              fontSize: 32,
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(context).primaryColor)),
+                      Text('Breed: ${pig.breed}'),
+                      Text('Code: ${pig.code}'),
+                      Text('Gender: ${pig.gender}'),
+                    ]));
+                // DecoratedBox(
+                //     decoration: BoxDecoration(
+                //         borderRadius: BorderRadius.circular(8),
+                //         color: Colors.red),
+                //     child: Column(children: [
+                //       const SizedBox(height: 10),
+                //       Text('Breed: ${pig.breed}'),
+                //       Text('Code: ${pig.code}'),
+                //       Text('Weight: ${pig.weight}'),
+                //     ]));
+              }
+            },
+          );
+        }));
+  }
+}

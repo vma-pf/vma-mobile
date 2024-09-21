@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:sheet/route.dart';
+import 'package:vma/app/screens/pig_detail/pig_detail.dart';
 import 'package:vma/app/screens/pig_list/filter_sheet.dart';
 import 'package:vma/core/constants/routes.dart';
 import 'package:vma/core/network/app_storage.dart';
@@ -50,6 +51,12 @@ class AppRouter {
                 key: state.pageKey,
                 child: const FilterSheet(),
               )),
+      GoRoute(
+          path: Routes.pigDetail,
+          builder: (context, state) {
+            final id = state.extra as String;
+            return PigDetail(pigId: id);
+          }),
     ],
     redirect: (context, state) async {
       String token = await AppStorage().read("token");

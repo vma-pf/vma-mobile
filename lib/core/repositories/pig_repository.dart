@@ -1,5 +1,7 @@
+import 'package:vma/core/models/enums/pig_status.dart';
 import 'package:vma/core/models/pig.dart';
-import 'package:vma/core/models/pig_health_status.dart';
+import 'package:vma/core/models/enums/pig_health_status.dart';
+import 'package:vma/core/models/pig_detail.dart';
 
 class PigRepository {
   Future<List<Pig>> getAllPigs() async {
@@ -230,5 +232,19 @@ class PigRepository {
       ),
     ];
     return Future.value(pigList);
+  }
+
+  Future<PigDetail?> getPigById(String id) {
+    var pig = PigDetail(
+      id: '1',
+      breed: 'Pig 1',
+      herdId: '1',
+      code: 'PIG0001',
+      gender: 'Male',
+      status: PigStatus.alive,
+      monitoringDevelopmentLogs: [],
+      pigVaccinationStages: [],
+    );
+    return Future.value(pig);
   }
 }

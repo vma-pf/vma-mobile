@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vma/core/models/pig_health_status.dart';
+import 'package:vma/core/models/enums/pig_health_status.dart';
 import 'package:vma/core/utils/string_helper.dart';
 
 class StatusLabel extends StatelessWidget {
