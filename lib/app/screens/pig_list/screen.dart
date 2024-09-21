@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:vma/app/common/vma_state.dart';
-import 'package:vma/app/screens/pig_list/search_bar.dart' as vma;
+import 'package:vma/app/screens/pig_list/widgets/search_bar.dart' as vma;
 import 'package:scoped_model/scoped_model.dart';
-import 'package:vma/app/screens/pig_list/pig_item.dart';
+import 'package:vma/app/screens/pig_list/widgets/pig_item.dart';
 import 'package:vma/core/view_models/pig_list_model.dart';
 import 'package:vma/core/models/pig.dart';
 

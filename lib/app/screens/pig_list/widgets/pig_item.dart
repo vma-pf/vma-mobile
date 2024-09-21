@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:vma/app/screens/pig_list/detail_info_text.dart';
-import 'package:vma/app/screens/pig_list/status_label.dart';
+import 'package:vma/app/screens/pig_list/widgets/detail_info_text.dart';
+import 'package:vma/app/screens/pig_list/widgets/status_label.dart';
 import 'package:vma/core/constants/routes.dart';
 import 'package:vma/core/models/pig.dart';
 

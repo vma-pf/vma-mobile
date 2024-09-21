@@ -1,7 +1,5 @@
 import 'package:go_router/go_router.dart';
-import 'package:sheet/route.dart';
-import 'package:vma/app/screens/pig_detail/pig_detail.dart';
-import 'package:vma/app/screens/pig_list/filter_sheet.dart';
+import 'package:vma/app/screens/pig_detail/screen.dart';
 import 'package:vma/core/constants/routes.dart';
 import 'package:vma/core/network/app_storage.dart';
 import 'package:vma/app/screens/auth/login.dart';
@@ -45,12 +43,6 @@ class AppRouter {
         path: Routes.alert,
         builder: (context, state) => const Alert(),
       ),
-      GoRoute(
-          path: Routes.pigListFilter,
-          pageBuilder: (context, state) => CupertinoSheetPage<void>(
-                key: state.pageKey,
-                child: const FilterSheet(),
-              )),
       GoRoute(
           path: Routes.pigDetail,
           builder: (context, state) {

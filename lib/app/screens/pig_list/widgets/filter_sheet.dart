@@ -2,7 +2,7 @@ import 'package:accordion/accordion.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vma/app/common/vma_state.dart';
-import 'package:vma/app/screens/pig_list/selectable_label.dart';
+import 'package:vma/app/screens/pig_list/widgets/selectable_label.dart';
 import 'package:vma/core/models/enums/pig_health_status.dart';
 
 class FilterSheet extends StatefulWidget {
