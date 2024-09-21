@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:vma/app/common/vma_state.dart';
+import 'package:vma/app/screens/pig_detail/detail_info.dart';
 import 'package:vma/core/models/pig_detail.dart' as models;
 import 'package:vma/core/view_models/pig_detail_model.dart';
 
@@ -36,28 +37,7 @@ class _PigDetailState extends VMAState<PigDetail> {
                 return Center(child: Text('Error: ${snapshot.error}'));
               } else {
                 var pig = snapshot.data as models.PigDetail;
-                return SizedBox(
-                    width: double.infinity,
-                    child: Column(children: [
-                      Text('Chi tiết heo',
-                          style: TextStyle(
-                              fontSize: 32,
-                              fontWeight: FontWeight.bold,
-                              color: Theme.of(context).primaryColor)),
-                      Text('Breed: ${pig.breed}'),
-                      Text('Code: ${pig.code}'),
-                      Text('Gender: ${pig.gender}'),
-                    ]));
-                // DecoratedBox(
-                //     decoration: BoxDecoration(
-                //         borderRadius: BorderRadius.circular(8),
-                //         color: Colors.red),
-                //     child: Column(children: [
-                //       const SizedBox(height: 10),
-                //       Text('Breed: ${pig.breed}'),
-                //       Text('Code: ${pig.code}'),
-                //       Text('Weight: ${pig.weight}'),
-                //     ]));
+                return DetailInfo(pigDetail: pig);
               }
             },
           );

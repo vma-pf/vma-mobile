@@ -1,13 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:vma/app/screens/custom_appbar.dart';
-import 'package:vma/app/screens/management/alert.dart';
 import 'package:vma/app/screens/management/camera.dart';
 import 'package:vma/app/screens/management/home.dart';
 import 'package:vma/app/screens/management/treatment_plan.dart';
 import 'package:vma/app/screens/management/vaccination.dart';
 import 'package:vma/app/screens/pig_detail/pig_detail.dart';
-import 'package:vma/app/screens/pig_list/pig_list.dart';
 
 class LayoutPage extends StatefulWidget {
   const LayoutPage({super.key});

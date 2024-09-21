@@ -1,5 +1,4 @@
 import 'package:scoped_model/scoped_model.dart';
-import 'package:vma/core/models/pig.dart';
 import 'package:vma/core/models/pig_detail.dart';
 import 'package:vma/core/repositories/pig_repository.dart';
 
