@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:sheet/route.dart';
 import 'package:vma/app/screens/pig_list/filter_sheet.dart';
+import 'package:vma/app/screens/success-screens/change-password-success.dart';
 import 'package:vma/core/constants/routes.dart';
 import 'package:vma/core/network/app_storage.dart';
 import 'package:vma/app/screens/auth/login.dart';
@@ -50,6 +51,10 @@ class AppRouter {
                 key: state.pageKey,
                 child: const FilterSheet(),
               )),
+      GoRoute(
+        path: Routes.changePasswordSuccess,
+        builder: (context, state) => const ChangePasswordSuccess(),
+      ),
     ],
     redirect: (context, state) async {
       String token = await AppStorage().read("token");
