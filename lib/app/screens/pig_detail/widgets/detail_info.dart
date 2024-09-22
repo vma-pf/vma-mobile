@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vma/app/screens/pig_detail/widgets/growth_metrics.dart';
+import 'package:vma/app/screens/pig_detail/widgets/vaccination_stages_timeline.dart';
 import 'package:vma/core/models/enums/pig_status.dart';
 import 'package:vma/core/models/monitoring_development_log.dart';
 import 'package:vma/core/models/pig_detail.dart';
@@ -75,7 +76,8 @@ class DetailInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
+    return SingleChildScrollView(
+        child: Column(children: [
       Text('Chi tiết heo',
           style: TextStyle(
               fontSize: 32,
@@ -122,7 +124,10 @@ class DetailInfo extends StatelessWidget {
                 weightPoints: _getAttributesOverTime('weight'),
                 heightPoints: _getAttributesOverTime('height'),
                 widthPoints: _getAttributesOverTime('width')),
+            SizedBox(
+                child: VaccinationStagesTimeline(
+                    vaccinationStages: pigDetail.pigVaccinationStages))
           ]))
-    ]);
+    ]));
   }
 }

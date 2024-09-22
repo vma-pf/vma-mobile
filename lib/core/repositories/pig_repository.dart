@@ -3,6 +3,7 @@ import 'package:vma/core/models/monitoring_development_log.dart';
 import 'package:vma/core/models/pig.dart';
 import 'package:vma/core/models/enums/pig_health_status.dart';
 import 'package:vma/core/models/pig_detail.dart';
+import 'package:vma/core/models/pig_vaccination_stage.dart';
 
 class PigRepository {
   Future<List<Pig>> getAllPigs() async {
@@ -285,7 +286,23 @@ class PigRepository {
           checkupAt: DateTime.parse('2021-07-04'),
         ),
       ],
-      pigVaccinationStages: [],
+      pigVaccinationStages: [
+        PigVaccinationStage(
+          isDone: true,
+          applyStageTime: DateTime.parse('2021-01-01'),
+          vaccinationStageId: '1',
+        ),
+        PigVaccinationStage(
+          isDone: false,
+          applyStageTime: DateTime.parse('2021-02-02'),
+          vaccinationStageId: '2',
+        ),
+        PigVaccinationStage(
+          isDone: false,
+          applyStageTime: DateTime.parse('2025-03-03'),
+          vaccinationStageId: '3',
+        ),
+      ],
     );
     return Future.value(pig);
   }
