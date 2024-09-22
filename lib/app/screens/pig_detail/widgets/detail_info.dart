@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:vma/app/screens/pig_detail/widgets/growth_metrics.dart';
 import 'package:vma/core/models/enums/pig_status.dart';
+import 'package:vma/core/models/monitoring_development_log.dart';
 import 'package:vma/core/models/pig_detail.dart';
 import 'package:vma/core/utils/string_helper.dart';
 
@@ -24,6 +26,53 @@ class DetailInfo extends StatelessWidget {
     }
   }
 
+  List<(double, double)> _getAttributesOverTime(String attribute) {
+    int compareByCheckupAt(
+        MonitoringDevelopmentLog prevLog, MonitoringDevelopmentLog nextLog) {
+      return prevLog.checkupAt.millisecondsSinceEpoch -
+          nextLog.checkupAt.millisecondsSinceEpoch;
+    }
+
+    double getAttributeValue(MonitoringDevelopmentLog log) {
+      switch (attribute) {
+        case 'weight':
+          return log.weight;
+        case 'height':
+          return log.height;
+        case 'width':
+          return log.width;
+        default:
+          return 0;
+      }
+    }
+
+    final copiedLogs = List<MonitoringDevelopmentLog>.from(
+        pigDetail.monitoringDevelopmentLogs);
+    copiedLogs.sort(compareByCheckupAt);
+    final points = copiedLogs
+        .map((log) => (log.checkupAt.month.toDouble(), getAttributeValue(log)))
+        .toList();
+
+    return points;
+  }
+
+  List<int> _getCheckUpMonths() {
+    final earliestCheckup = pigDetail.monitoringDevelopmentLogs
+        .reduce((a, b) => a.checkupAt.isBefore(b.checkupAt) ? a : b);
+    final latestCheckup = pigDetail.monitoringDevelopmentLogs
+        .reduce((a, b) => a.checkupAt.isAfter(b.checkupAt) ? a : b);
+    DateTime start = earliestCheckup.checkupAt;
+    DateTime end = latestCheckup.checkupAt;
+
+    List<int> months = [];
+    while (start.isBefore(end) || start.isAtSameMomentAs(end)) {
+      months.add(start.month);
+      start = DateTime(start.year, start.month + 1); // Move to the next month
+    }
+
+    return months;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(children: [
@@ -39,18 +88,18 @@ class DetailInfo extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 36),
           child: Column(children: [
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              const Text('Breed:'),
+              const Text('Giống:'),
               Text(pigDetail.breed),
             ]),
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              const Text('Gender:'),
+              const Text('Giới tính:'),
               Row(children: [
                 Text(pigDetail.gender),
                 _getIconByGender(),
               ])
             ]),
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              const Text('Status:'),
+              const Text('Trạng thái:'),
               DecoratedBox(
                   decoration: BoxDecoration(
                       color: _getColorByStatus(),
@@ -62,6 +111,17 @@ class DetailInfo extends StatelessWidget {
                           StringHelper.capitalize(pigDetail.status.name),
                           style: const TextStyle(color: Colors.white))))
             ]),
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              const Text('Chuồng:'),
+              Text(pigDetail.monitoringDevelopmentLogs.first
+                  .cageCode), // FIXME: Should show cageCode from the pigDetail
+            ]),
+            GrowthMetrics(
+                months: _getCheckUpMonths(),
+                maxWeight: 150,
+                weightPoints: _getAttributesOverTime('weight'),
+                heightPoints: _getAttributesOverTime('height'),
+                widthPoints: _getAttributesOverTime('width')),
           ]))
     ]);
   }
