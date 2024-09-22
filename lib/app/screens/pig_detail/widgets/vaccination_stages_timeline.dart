@@ -8,7 +8,8 @@ class VaccinationStagesTimeline extends StatelessWidget {
   const VaccinationStagesTimeline({super.key, required this.vaccinationStages});
 
   Color _getLineColorByDateTime(DateTime dateTime) {
-    if (dateTime.isBefore(DateTime.now())) {
+    bool isTimeInThePast = dateTime.isBefore(DateTime.now());
+    if (isTimeInThePast) {
       return Colors.green;
     } else {
       return Colors.grey;
@@ -16,7 +17,8 @@ class VaccinationStagesTimeline extends StatelessWidget {
   }
 
   Color _getIndicatorColorByDateTimeAndStatus(DateTime dateTime, bool isDone) {
-    if (dateTime.isBefore(DateTime.now())) {
+    bool isTimeInThePast = dateTime.isBefore(DateTime.now());
+    if (isTimeInThePast) {
       if (isDone) {
         return Colors.green;
       }

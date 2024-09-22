@@ -29,8 +29,8 @@ class DetailInfo extends StatelessWidget {
 
   List<(double, double)> _getAttributesOverTime(String attribute) {
     int compareByCheckupAt(
-        MonitoringDevelopmentLog prevLog, MonitoringDevelopmentLog nextLog) {
-      return prevLog.checkupAt.millisecondsSinceEpoch -
+        MonitoringDevelopmentLog currentLog, MonitoringDevelopmentLog nextLog) {
+      return currentLog.checkupAt.millisecondsSinceEpoch -
           nextLog.checkupAt.millisecondsSinceEpoch;
     }
 
@@ -57,7 +57,7 @@ class DetailInfo extends StatelessWidget {
     return points;
   }
 
-  List<int> _getCheckUpMonths() {
+  List<int> _getCheckupMonths() {
     final earliestCheckup = pigDetail.monitoringDevelopmentLogs
         .reduce((a, b) => a.checkupAt.isBefore(b.checkupAt) ? a : b);
     final latestCheckup = pigDetail.monitoringDevelopmentLogs
@@ -119,7 +119,7 @@ class DetailInfo extends StatelessWidget {
                   .cageCode), // FIXME: Should show cageCode from the pigDetail
             ]),
             GrowthMetrics(
-                months: _getCheckUpMonths(),
+                months: _getCheckupMonths(),
                 maxWeight: 150,
                 weightPoints: _getAttributesOverTime('weight'),
                 heightPoints: _getAttributesOverTime('height'),

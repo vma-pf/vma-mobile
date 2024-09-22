@@ -136,6 +136,7 @@ class _FilterSheetState extends VMAState<FilterSheet> {
                   alignment: WrapAlignment.start,
                   spacing: 10,
                   runSpacing: 10,
+                  // FIXME: Load breeds from API
                   children: [
                     SelectableLabel(text: 'Vietnamese', onTap: () => {}),
                     SelectableLabel(text: 'Yorkshire', onTap: () => {}),
