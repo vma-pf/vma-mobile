@@ -6,6 +6,7 @@ import 'package:vma/app/screens/management/home.dart';
 import 'package:vma/app/screens/management/treatment_plan.dart';
 import 'package:vma/app/screens/management/vaccination.dart';
 import 'package:vma/app/screens/pig_detail/screen.dart';
+import 'package:vma/app/screens/vaccination_plans/screen.dart';
 
 class LayoutPage extends StatefulWidget {
   const LayoutPage({super.key});
@@ -38,7 +39,8 @@ class _LayoutPageState extends State<LayoutPage> {
     Vaccination(),
     TreatmentPlan(),
     Camera(),
-    PigDetail(pigId: 'something'),
+    VaccinationPlans(),
+    // PigDetail(pigId: 'something'),
     // PigList(),
     // Alert(),
   ];
