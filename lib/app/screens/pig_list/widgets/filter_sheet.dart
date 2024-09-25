@@ -2,8 +2,8 @@ import 'package:accordion/accordion.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vma/app/common/vma_state.dart';
-import 'package:vma/app/screens/pig_list/selectable_label.dart';
-import 'package:vma/core/models/pig_health_status.dart';
+import 'package:vma/app/screens/pig_list/widgets/selectable_label.dart';
+import 'package:vma/core/models/enums/pig_health_status.dart';
 
 class FilterSheet extends StatefulWidget {
   const FilterSheet({super.key});
@@ -136,6 +136,7 @@ class _FilterSheetState extends VMAState<FilterSheet> {
                   alignment: WrapAlignment.start,
                   spacing: 10,
                   runSpacing: 10,
+                  // FIXME: Load breeds from API
                   children: [
                     SelectableLabel(text: 'Vietnamese', onTap: () => {}),
                     SelectableLabel(text: 'Yorkshire', onTap: () => {}),

@@ -1,4 +1,4 @@
-import 'package:vma/core/models/pig_health_status.dart';
+import 'package:vma/core/models/enums/pig_health_status.dart';
 
 class Pig {
   String id;

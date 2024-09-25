@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:vma/app/common/vma_state.dart';
-import 'package:vma/app/screens/pig_list/filter_sheet.dart';
-import 'package:vma/core/constants/routes.dart';
+import 'package:vma/app/screens/pig_list/widgets/filter_sheet.dart';
 
 class SearchBar extends StatefulWidget {
   const SearchBar({super.key});
