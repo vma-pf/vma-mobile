@@ -7,8 +7,8 @@ class VaccinationPlanRepository {
       VaccinationPlan(
         title: 'Vaccination Plan 1',
         description: 'Description 1',
-        startDate: DateTime.now(),
-        endDate: DateTime.now(),
+        startDate: DateTime(2024, 1, 1),
+        endDate: DateTime(2024, 12, 1),
         status: VaccinationPlanStatus.onGoing,
         note: 'Note 1',
         pigCount: 10,
