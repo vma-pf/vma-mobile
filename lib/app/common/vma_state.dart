@@ -12,4 +12,14 @@ class VMAState<T extends StatefulWidget> extends State<T> {
   Widget build(BuildContext context) {
     throw UnimplementedError();
   }
+
+  Widget handleAsyncSnapshot(AsyncSnapshot snapshot, Widget finalWidget) {
+    if (snapshot.connectionState == ConnectionState.waiting) {
+      return const Center(child: CircularProgressIndicator());
+    }
+    if (snapshot.hasError) {
+      return Center(child: Text('Đã có lỗi xảy ra: ${snapshot.error}'));
+    }
+    return finalWidget;
+  }
 }
