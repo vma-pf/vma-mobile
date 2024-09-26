@@ -39,8 +39,8 @@ class VaccinationPlanRepository {
     return plans;
   }
 
-  VaccinationPlanDetails getPlanById(String id) {
-    return VaccinationPlanDetails(
+  Future<VaccinationPlanDetails> getPlanById(String id) {
+    final plan = VaccinationPlanDetails(
       title: 'Vaccination Plan 1',
       description: 'Description 1',
       startDate: DateTime(2024, 1, 1),
@@ -99,5 +99,7 @@ class VaccinationPlanRepository {
         ),
       ],
     );
+
+    return Future.value(plan);
   }
 }

@@ -5,7 +5,6 @@ import 'package:vma/app/screens/management/camera.dart';
 import 'package:vma/app/screens/management/home.dart';
 import 'package:vma/app/screens/management/treatment_plan.dart';
 import 'package:vma/app/screens/management/vaccination.dart';
-import 'package:vma/app/screens/pig_detail/screen.dart';
 import 'package:vma/app/screens/vaccination_plans/screen.dart';
 
 class LayoutPage extends StatefulWidget {
