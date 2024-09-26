@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vma/app/screens/vaccination_plans/widgets/plan_progress.dart';
+import 'package:vma/app/screens/vaccination_plans/widgets/plan_status_label.dart';
 import 'package:vma/core/models/vaccination_plan.dart';
 
 class VaccinationPlanItem extends StatelessWidget {
@@ -27,48 +28,73 @@ class VaccinationPlanItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(12),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  plan.title,
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w900,
-                    color: Theme.of(context).primaryColor,
-                  ),
-                ),
-                Text(
-                  plan.description,
-                ),
-                const SizedBox(height: 15),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+      padding: const EdgeInsets.all(8),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.inversePrimary.withOpacity(0.5),
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+              blurRadius: 2,
+              offset: const Offset(2, 2),
+              spreadRadius: 2,
+            ),
+          ],
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Icon(Icons.date_range, size: 24),
-                    const SizedBox(width: 10),
-                    PlanProgress(
-                      text: 'Progress',
-                      percentage: _calculateProgress(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          plan.title,
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w900,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                        ),
+                        PlanStatusLabel(status: plan.status),
+                      ],
+                    ),
+                    Text(
+                      plan.description,
+                    ),
+                    const SizedBox(height: 15),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Icon(Icons.date_range, size: 24),
+                        const SizedBox(width: 10),
+                        PlanProgress(
+                          text: 'Tiến trình',
+                          percentage: _calculateProgress(),
+                          startDate: plan.startDate,
+                          endDate: plan.endDate,
+                        ),
+                      ],
                     ),
                   ],
                 ),
-              ],
-            ),
+              ),
+              IconButton(
+                onPressed: () => {},
+                icon: Icon(
+                  Icons.chevron_right_rounded,
+                  color: Theme.of(context).primaryColor,
+                ),
+                color: Theme.of(context).primaryColor.withOpacity(0.2),
+              ),
+            ],
           ),
-          IconButton(
-            onPressed: () => {},
-            icon: Icon(
-              Icons.chevron_right_rounded,
-              color: Theme.of(context).primaryColor,
-            ),
-            color: Theme.of(context).primaryColor.withOpacity(0.2),
-          ),
-        ],
+        ),
       ),
     );
   }
