@@ -311,7 +311,7 @@ class _DemoChartState extends VMAState<DemoChart> {
                 isShowingMainData = !isShowingMainData;
               });
             },
-          )
+          ),
         ],
       ),
     );

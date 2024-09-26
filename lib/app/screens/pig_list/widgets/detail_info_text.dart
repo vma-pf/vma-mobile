@@ -8,11 +8,16 @@ class DetailInfoText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text.rich(TextSpan(children: [
-      TextSpan(text: '$label: ', style: const TextStyle(fontSize: 12)),
+    return Text.rich(
       TextSpan(
-          text: data.toString(),
-          style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
-    ]));
+        children: [
+          TextSpan(text: '$label: ', style: const TextStyle(fontSize: 12)),
+          TextSpan(
+            text: data.toString(),
+            style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+          ),
+        ],
+      ),
+    );
   }
 }

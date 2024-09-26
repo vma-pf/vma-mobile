@@ -15,9 +15,17 @@ class WavePainter extends CustomPainter {
 
     path.lineTo(0, size.height / 2);
     path.quadraticBezierTo(
-        size.width / 4, size.height / 4, size.width / 2, size.height / 2);
+      size.width / 4,
+      size.height / 4,
+      size.width / 2,
+      size.height / 2,
+    );
     path.quadraticBezierTo(
-        size.width * 3 / 4, size.height * 3 / 4, size.width, size.height / 2);
+      size.width * 3 / 4,
+      size.height * 3 / 4,
+      size.width,
+      size.height / 2,
+    );
     path.lineTo(size.width, 0);
     path.close();
 

@@ -16,18 +16,20 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          ElevatedButton(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            ElevatedButton(
               onPressed: () {
                 AppStorage().delete("token");
                 context.go(Routes.login);
               },
-              child: const Text('Logout')),
-        ],
+              child: const Text('Logout'),
+            ),
+          ],
+        ),
       ),
-    ));
+    );
   }
 }

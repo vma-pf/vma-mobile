@@ -29,7 +29,9 @@ class DetailInfo extends StatelessWidget {
 
   List<(double, double)> _getAttributesOverTime(String attribute) {
     int compareByCheckupAt(
-        MonitoringDevelopmentLog currentLog, MonitoringDevelopmentLog nextLog) {
+      MonitoringDevelopmentLog currentLog,
+      MonitoringDevelopmentLog nextLog,
+    ) {
       return currentLog.checkupAt.millisecondsSinceEpoch -
           nextLog.checkupAt.millisecondsSinceEpoch;
     }
@@ -48,7 +50,8 @@ class DetailInfo extends StatelessWidget {
     }
 
     final copiedLogs = List<MonitoringDevelopmentLog>.from(
-        pigDetail.monitoringDevelopmentLogs);
+      pigDetail.monitoringDevelopmentLogs,
+    );
     copiedLogs.sort(compareByCheckupAt);
     final points = copiedLogs
         .map((log) => (log.checkupAt.month.toDouble(), getAttributeValue(log)))
@@ -77,57 +80,95 @@ class DetailInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-        child: Column(children: [
-      Text('Chi tiết heo',
-          style: TextStyle(
+      child: Column(
+        children: [
+          Text(
+            'Chi tiết heo',
+            style: TextStyle(
               fontSize: 32,
               fontWeight: FontWeight.bold,
-              color: Theme.of(context).primaryColor)),
-      Text(pigDetail.code,
-          style: const TextStyle(
-              fontSize: 28, fontWeight: FontWeight.w900, color: Colors.grey)),
-      Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 36),
-          child: Column(children: [
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              const Text('Giống:'),
-              Text(pigDetail.breed),
-            ]),
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              const Text('Giới tính:'),
-              Row(children: [
-                Text(pigDetail.gender),
-                _getIconByGender(),
-              ])
-            ]),
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              const Text('Trạng thái:'),
-              DecoratedBox(
-                  decoration: BoxDecoration(
-                      color: _getColorByStatus(),
-                      borderRadius: BorderRadius.circular(5)),
-                  child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 6, vertical: 3),
-                      child: Text(
+              color: Theme.of(context).primaryColor,
+            ),
+          ),
+          Text(
+            pigDetail.code,
+            style: const TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.w900,
+              color: Colors.grey,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 36),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text('Giống:'),
+                    Text(pigDetail.breed),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text('Giới tính:'),
+                    Row(
+                      children: [
+                        Text(pigDetail.gender),
+                        _getIconByGender(),
+                      ],
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text('Trạng thái:'),
+                    DecoratedBox(
+                      decoration: BoxDecoration(
+                        color: _getColorByStatus(),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 6,
+                          vertical: 3,
+                        ),
+                        child: Text(
                           StringHelper.capitalize(pigDetail.status.name),
-                          style: const TextStyle(color: Colors.white))))
-            ]),
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              const Text('Chuồng:'),
-              Text(pigDetail.monitoringDevelopmentLogs.first
-                  .cageCode), // FIXME: Should show cageCode from the pigDetail
-            ]),
-            GrowthMetrics(
-                months: _getCheckupMonths(),
-                maxWeight: 150,
-                weightPoints: _getAttributesOverTime('weight'),
-                heightPoints: _getAttributesOverTime('height'),
-                widthPoints: _getAttributesOverTime('width')),
-            SizedBox(
-                child: VaccinationStagesTimeline(
-                    vaccinationStages: pigDetail.pigVaccinationStages))
-          ]))
-    ]));
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text('Chuồng:'),
+                    Text(
+                      pigDetail.monitoringDevelopmentLogs.first.cageCode,
+                    ), // FIXME: Should show cageCode from the pigDetail
+                  ],
+                ),
+                GrowthMetrics(
+                  months: _getCheckupMonths(),
+                  maxWeight: 150,
+                  weightPoints: _getAttributesOverTime('weight'),
+                  heightPoints: _getAttributesOverTime('height'),
+                  widthPoints: _getAttributesOverTime('width'),
+                ),
+                SizedBox(
+                  child: VaccinationStagesTimeline(
+                    vaccinationStages: pigDetail.pigVaccinationStages,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

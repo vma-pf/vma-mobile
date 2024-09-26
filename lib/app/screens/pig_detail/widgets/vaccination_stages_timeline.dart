@@ -30,50 +30,53 @@ class VaccinationStagesTimeline extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      const SizedBox(height: 25),
-      Text(
-        'Giai đoạn tiêm chủng',
-        style: TextStyle(
-          color: Theme.of(context).colorScheme.onPrimaryContainer,
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
+    return Column(
+      children: [
+        const SizedBox(height: 25),
+        Text(
+          'Giai đoạn tiêm chủng',
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onPrimaryContainer,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+          textAlign: TextAlign.center,
         ),
-        textAlign: TextAlign.center,
-      ),
-      const SizedBox(height: 10),
-      ListView.builder(
-        physics: const NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        itemCount: vaccinationStages.length,
-        itemBuilder: (context, index) {
-          PigVaccinationStage stage = vaccinationStages[index];
-          return TimelineTile(
-            alignment: TimelineAlign.start,
-            lineXY: 0.3,
-            isFirst: index == 0,
-            isLast: index == vaccinationStages.length - 1,
-            indicatorStyle: IndicatorStyle(
-              width: 20,
-              height: 20,
-              indicator: Container(
-                // TODO: show icon instead of colored circle
-                decoration: BoxDecoration(
-                  color: _getIndicatorColorByDateTimeAndStatus(
-                      stage.applyStageTime, stage.isDone),
-                  shape: BoxShape.circle,
+        const SizedBox(height: 10),
+        ListView.builder(
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: vaccinationStages.length,
+          itemBuilder: (context, index) {
+            PigVaccinationStage stage = vaccinationStages[index];
+            return TimelineTile(
+              alignment: TimelineAlign.start,
+              lineXY: 0.3,
+              isFirst: index == 0,
+              isLast: index == vaccinationStages.length - 1,
+              indicatorStyle: IndicatorStyle(
+                width: 20,
+                height: 20,
+                indicator: Container(
+                  // TODO: show icon instead of colored circle
+                  decoration: BoxDecoration(
+                    color: _getIndicatorColorByDateTimeAndStatus(
+                      stage.applyStageTime,
+                      stage.isDone,
+                    ),
+                    shape: BoxShape.circle,
+                  ),
                 ),
               ),
-            ),
-            afterLineStyle: LineStyle(
-              color: _getLineColorByDateTime(stage.applyStageTime),
-            ),
-            beforeLineStyle: LineStyle(
-              color: _getLineColorByDateTime(stage.applyStageTime),
-            ),
-            endChild: Container(
-              constraints: const BoxConstraints(minHeight: 100),
-              child: Container(
+              afterLineStyle: LineStyle(
+                color: _getLineColorByDateTime(stage.applyStageTime),
+              ),
+              beforeLineStyle: LineStyle(
+                color: _getLineColorByDateTime(stage.applyStageTime),
+              ),
+              endChild: Container(
+                constraints: const BoxConstraints(minHeight: 100),
+                child: Container(
                   margin: const EdgeInsets.only(left: 10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,11 +97,13 @@ class VaccinationStagesTimeline extends StatelessWidget {
                         ),
                       ),
                     ],
-                  )),
-            ),
-          );
-        },
-      )
-    ]);
+                  ),
+                ),
+              ),
+            );
+          },
+        ),
+      ],
+    );
   }
 }

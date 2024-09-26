@@ -150,11 +150,13 @@ class _LoginState extends State<Login> {
                             backgroundColor: Colors.transparent,
                             shadowColor: Colors.transparent,
                             shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10)),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
                           ),
-                          child: const Text('Đăng nhập',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 15)),
+                          child: const Text(
+                            'Đăng nhập',
+                            style: TextStyle(color: Colors.white, fontSize: 15),
+                          ),
                         ),
                       ),
                     ],

@@ -25,9 +25,9 @@ class _PigDetailState extends VMAState<PigDetail> {
   @override
   Widget build(BuildContext context) {
     return ScopedModel<PigDetailModel>(
-        model: _model,
-        child: ScopedModelDescendant<PigDetailModel>(builder:
-            (BuildContext context, Widget? child, PigDetailModel model) {
+      model: _model,
+      child: ScopedModelDescendant<PigDetailModel>(
+        builder: (BuildContext context, Widget? child, PigDetailModel model) {
           return FutureBuilder(
             future: model.pig,
             builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -41,6 +41,8 @@ class _PigDetailState extends VMAState<PigDetail> {
               }
             },
           );
-        }));
+        },
+      ),
+    );
   }
 }

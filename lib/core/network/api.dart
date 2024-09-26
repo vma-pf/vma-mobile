@@ -16,24 +16,27 @@ class ApiCaller {
   );
 
   ApiCaller._() {
-    _dio.interceptors.add(InterceptorsWrapper(
-      onRequest: (RequestOptions options, RequestInterceptorHandler handler) {
-        // AppStorage.instance
-        //     .read(AppStorageKeys.token)
-        //     .then((value) => {
-        //           if (value != null)
-        //             {options.headers['Authorization'] = 'Bearer $value'}
-        //         })
-        //     .whenComplete(() => handler.next(options));
-      },
-    ));
+    _dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (RequestOptions options, RequestInterceptorHandler handler) {
+          // AppStorage.instance
+          //     .read(AppStorageKeys.token)
+          //     .then((value) => {
+          //           if (value != null)
+          //             {options.headers['Authorization'] = 'Bearer $value'}
+          //         })
+          //     .whenComplete(() => handler.next(options));
+        },
+      ),
+    );
   }
 
-  Future<Response> _callDio(
-      {required ApiMethod method,
-      required String path,
-      Map<String, dynamic>? queryParams,
-      dynamic data}) async {
+  Future<Response> _callDio({
+    required ApiMethod method,
+    required String path,
+    Map<String, dynamic>? queryParams,
+    dynamic data,
+  }) async {
     switch (method) {
       case ApiMethod.get:
         return _dio.get(path, queryParameters: queryParams);
@@ -63,7 +66,11 @@ class ApiCaller {
       }
 
       final response = await _callDio(
-          method: method, path: path, queryParams: queryParams, data: data);
+        method: method,
+        path: path,
+        queryParams: queryParams,
+        data: data,
+      );
       final successResponse = ApiSuccessResponse(
         statusCode: response.statusCode,
         data: response.data,
