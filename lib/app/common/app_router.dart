@@ -27,10 +27,11 @@ class AppRouter {
         builder: (context, state) => const MyHomePage(title: 'Home Screen'),
       ),
       GoRoute(
-          path: Routes.vaccination,
-          builder: (context, state) {
-            return const Vaccination();
-          }),
+        path: Routes.vaccination,
+        builder: (context, state) {
+          return const Vaccination();
+        },
+      ),
       GoRoute(
         path: Routes.treatment,
         builder: (context, state) => const TreatmentPlan(),
@@ -44,11 +45,12 @@ class AppRouter {
         builder: (context, state) => const Alert(),
       ),
       GoRoute(
-          path: Routes.pigDetail,
-          builder: (context, state) {
-            final id = state.extra as String;
-            return PigDetail(pigId: id);
-          }),
+        path: Routes.pigDetail,
+        builder: (context, state) {
+          final id = state.extra as String;
+          return PigDetail(pigId: id);
+        },
+      ),
     ],
     redirect: (context, state) async {
       String token = await AppStorage().read("token");

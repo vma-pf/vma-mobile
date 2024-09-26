@@ -39,7 +39,9 @@ class _DemoSignalr extends State<DemoSignalr> {
     return Scaffold(
       body: Center(
         child: TextButton(
-            onPressed: _invokeServerMethod, child: const Text('Send message')),
+          onPressed: _invokeServerMethod,
+          child: const Text('Send message'),
+        ),
       ),
     );
   }

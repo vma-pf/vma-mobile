@@ -19,17 +19,20 @@ class PlanProgress extends StatelessWidget {
           children: [
             DecoratedBox(
               decoration: BoxDecoration(
-                  color: Colors.grey, borderRadius: BorderRadius.circular(5)),
+                color: Colors.grey,
+                borderRadius: BorderRadius.circular(5),
+              ),
               child: SizedBox(width: _maxLength.toDouble(), height: 10),
             ),
             DecoratedBox(
               decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
-                  borderRadius: BorderRadius.circular(5)),
+                color: Theme.of(context).primaryColor,
+                borderRadius: BorderRadius.circular(5),
+              ),
               child: SizedBox(width: _maxLength * percentage, height: 10),
             ),
           ],
-        )
+        ),
       ],
     );
   }

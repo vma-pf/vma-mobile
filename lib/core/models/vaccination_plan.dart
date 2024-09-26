@@ -9,14 +9,15 @@ class VaccinationPlan {
   final VaccinationPlanStatus status;
   final int pigCount;
 
-  VaccinationPlan(
-      {required this.title,
-      required this.description,
-      required this.note,
-      required this.startDate,
-      required this.endDate,
-      required this.status,
-      required this.pigCount});
+  VaccinationPlan({
+    required this.title,
+    required this.description,
+    required this.note,
+    required this.startDate,
+    required this.endDate,
+    required this.status,
+    required this.pigCount,
+  });
 
   factory VaccinationPlan.fromJson(Map<String, dynamic> json) {
     return VaccinationPlan(

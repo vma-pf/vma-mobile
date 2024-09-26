@@ -24,20 +24,21 @@ class _SearchBarState extends VMAState<SearchBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-        child: TextField(
-          controller: _controller,
-          decoration: InputDecoration(
-            hintText: 'Tìm kiếm',
-            prefixIcon: const Icon(Icons.search),
-            border: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-            ),
-            suffixIcon: IconButton(
-              icon: const Icon(Icons.filter_list_alt),
-              onPressed: _showFilterSheet,
-            ),
+      padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+      child: TextField(
+        controller: _controller,
+        decoration: InputDecoration(
+          hintText: 'Tìm kiếm',
+          prefixIcon: const Icon(Icons.search),
+          border: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
-        ));
+          suffixIcon: IconButton(
+            icon: const Icon(Icons.filter_list_alt),
+            onPressed: _showFilterSheet,
+          ),
+        ),
+      ),
+    );
   }
 }

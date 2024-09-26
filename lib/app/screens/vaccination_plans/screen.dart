@@ -23,16 +23,16 @@ class _VaccinationPlanState extends VMAState<VaccinationPlans> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            'Kế hoạch tiêm phòng',
-            style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-          ),
+      appBar: AppBar(
+        title: const Text(
+          'Kế hoạch tiêm phòng',
+          style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
         ),
-        body: ScopedModel<VaccinationPlanListModel>(
-          model: _model,
-          child: ScopedModelDescendant<VaccinationPlanListModel>(
-              builder: (context, child, model) {
+      ),
+      body: ScopedModel<VaccinationPlanListModel>(
+        model: _model,
+        child: ScopedModelDescendant<VaccinationPlanListModel>(
+          builder: (context, child, model) {
             return FutureBuilder(
               future: model.vaccinationPlans,
               builder: (context, snapshot) {
@@ -52,7 +52,9 @@ class _VaccinationPlanState extends VMAState<VaccinationPlans> {
                 }
               },
             );
-          }),
-        ));
+          },
+        ),
+      ),
+    );
   }
 }

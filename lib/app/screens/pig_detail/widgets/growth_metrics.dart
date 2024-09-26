@@ -7,13 +7,14 @@ class GrowthMetrics extends StatelessWidget {
   final List<(double, double)> weightPoints;
   final List<(double, double)> heightPoints;
   final List<(double, double)> widthPoints;
-  const GrowthMetrics(
-      {super.key,
-      required this.maxWeight,
-      required this.months,
-      required this.weightPoints,
-      required this.heightPoints,
-      required this.widthPoints});
+  const GrowthMetrics({
+    super.key,
+    required this.maxWeight,
+    required this.months,
+    required this.weightPoints,
+    required this.heightPoints,
+    required this.widthPoints,
+  });
 
   Widget _buildLineChart() {
     return LineChart(
@@ -60,7 +61,9 @@ class GrowthMetrics extends StatelessWidget {
       ];
 
   LineChartBarData _createLineChartBarData(
-      List<(double, double)> points, Color color) {
+    List<(double, double)> points,
+    Color color,
+  ) {
     return LineChartBarData(
       isCurved: true,
       color: color,
@@ -199,12 +202,15 @@ class GrowthMetrics extends StatelessWidget {
                 height: 10,
               ),
               Padding(
-                  padding: const EdgeInsets.only(left: 50),
-                  child: Column(children: [
+                padding: const EdgeInsets.only(left: 50),
+                child: Column(
+                  children: [
                     _buildDescriptionItem(Colors.red, 'Cân nặng'),
                     _buildDescriptionItem(Colors.green, 'Chiều cao'),
                     _buildDescriptionItem(Colors.blue, 'Chiều rộng'),
-                  ]))
+                  ],
+                ),
+              ),
             ],
           ),
         ],

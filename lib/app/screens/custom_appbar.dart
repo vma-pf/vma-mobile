@@ -8,10 +8,11 @@ AppBar customAppBar(BuildContext context) {
     title: const Text(
       'Dashboard',
       style: TextStyle(
-          fontSize: 22,
-          // color: Colors.black,
-          fontWeight: FontWeight.w500,
-          letterSpacing: 0.53),
+        fontSize: 22,
+        // color: Colors.black,
+        fontWeight: FontWeight.w500,
+        letterSpacing: 0.53,
+      ),
     ),
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.only(
@@ -45,35 +46,39 @@ AppBar customAppBar(BuildContext context) {
       ),
     ],
     bottom: PreferredSize(
-        preferredSize: const Size.fromHeight(80.0),
-        child: Container(
-          padding: const EdgeInsets.only(left: 20, bottom: 20),
-          child: Row(
-            children: [
-              const Stack(
+      preferredSize: const Size.fromHeight(80.0),
+      child: Container(
+        padding: const EdgeInsets.only(left: 20, bottom: 20),
+        child: Row(
+          children: [
+            const Stack(
+              children: [
+                CircleAvatar(
+                  radius: 20,
+                  backgroundColor: Colors.white,
+                  child: Icon(
+                    CupertinoIcons.person,
+                    size: 25,
+                    color: Colors.black,
+                  ),
+                ),
+              ],
+            ),
+            Container(
+              margin: const EdgeInsets.only(left: 15),
+              child: const Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CircleAvatar(
-                    radius: 20,
-                    backgroundColor: Colors.white,
-                    child: Icon(CupertinoIcons.person,
-                        size: 25, color: Colors.black),
+                  Text(
+                    'Chào, John Doe',
+                    style: TextStyle(fontSize: 17, color: Colors.black),
                   ),
                 ],
               ),
-              Container(
-                margin: const EdgeInsets.only(left: 15),
-                child: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Chào, John Doe',
-                      style: TextStyle(fontSize: 17, color: Colors.black),
-                    ),
-                  ],
-                ),
-              )
-            ],
-          ),
-        )),
+            ),
+          ],
+        ),
+      ),
+    ),
   );
 }

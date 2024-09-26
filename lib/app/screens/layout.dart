@@ -114,66 +114,71 @@ class _LayoutPageState extends State<LayoutPage> {
 
   Widget _navBar() {
     return Container(
-        height: 60,
-        margin: const EdgeInsets.only(right: 20, left: 20, bottom: 20),
-        padding: const EdgeInsets.only(top: 5, left: 5, right: 5, bottom: 5),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 1,
-              blurRadius: 7,
-              offset: const Offset(0, 3),
-            ),
-          ],
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          verticalDirection: VerticalDirection.down,
-          textDirection: TextDirection.ltr,
-          children: _icons.map(
-            (icon) {
-              int index = _icons.indexOf(icon);
-              bool isSelected = _icons.indexOf(icon) == _isSelectedIndex;
-              return Material(
-                color: Colors.transparent,
-                child: GestureDetector(
-                  onTap: () => setState(() {
-                    _isSelectedIndex = index;
-                  }),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        Container(
-                          alignment: Alignment.center,
-                          margin: const EdgeInsets.only(
-                              top: 5, bottom: 0, left: 20, right: 20),
-                          child: Icon(icon,
-                              color: isSelected
-                                  ? Theme.of(context)
-                                      .colorScheme
-                                      .primaryFixedDim
-                                  : Colors.grey[600]),
+      height: 60,
+      margin: const EdgeInsets.only(right: 20, left: 20, bottom: 20),
+      padding: const EdgeInsets.only(top: 5, left: 5, right: 5, bottom: 5),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 1,
+            blurRadius: 7,
+            offset: const Offset(0, 3),
+          ),
+        ],
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        verticalDirection: VerticalDirection.down,
+        textDirection: TextDirection.ltr,
+        children: _icons.map(
+          (icon) {
+            int index = _icons.indexOf(icon);
+            bool isSelected = _icons.indexOf(icon) == _isSelectedIndex;
+            return Material(
+              color: Colors.transparent,
+              child: GestureDetector(
+                onTap: () => setState(() {
+                  _isSelectedIndex = index;
+                }),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Container(
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.only(
+                          top: 5,
+                          bottom: 0,
+                          left: 20,
+                          right: 20,
                         ),
-                        Text(
-                          _titles[index],
-                          style: TextStyle(
-                            color: isSelected
-                                ? Theme.of(context).colorScheme.primaryFixedDim
-                                : Colors.grey[600],
-                            fontSize: 12,
-                            height: 2,
-                          ),
-                        )
-                      ],
-                    ),
+                        child: Icon(
+                          icon,
+                          color: isSelected
+                              ? Theme.of(context).colorScheme.primaryFixedDim
+                              : Colors.grey[600],
+                        ),
+                      ),
+                      Text(
+                        _titles[index],
+                        style: TextStyle(
+                          color: isSelected
+                              ? Theme.of(context).colorScheme.primaryFixedDim
+                              : Colors.grey[600],
+                          fontSize: 12,
+                          height: 2,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              );
-            },
-          ).toList(),
-        ));
+              ),
+            );
+          },
+        ).toList(),
+      ),
+    );
   }
 }
