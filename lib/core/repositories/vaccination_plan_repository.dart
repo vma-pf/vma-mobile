@@ -8,6 +8,7 @@ class VaccinationPlanRepository {
   Future<List<VaccinationPlan>> getAllVaccinationPlans() async {
     final plans = [
       VaccinationPlan(
+        id: '1',
         title: 'Vaccination Plan 1',
         description: 'Description 1',
         startDate: DateTime(2024, 1, 1),
@@ -17,6 +18,7 @@ class VaccinationPlanRepository {
         pigCount: 10,
       ),
       VaccinationPlan(
+        id: '2',
         title: 'Vaccination Plan 2',
         description: 'Description 2',
         startDate: DateTime.now(),
@@ -26,6 +28,7 @@ class VaccinationPlanRepository {
         pigCount: 20,
       ),
       VaccinationPlan(
+        id: '3',
         title: 'Vaccination Plan 3',
         description: 'Description 3',
         startDate: DateTime.now(),
@@ -41,6 +44,7 @@ class VaccinationPlanRepository {
 
   Future<VaccinationPlanDetails> getPlanById(String id) {
     final plan = VaccinationPlanDetails(
+      id: '1',
       title: 'Vaccination Plan 1',
       description: 'Description 1',
       startDate: DateTime(2024, 1, 1),

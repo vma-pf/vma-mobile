@@ -5,6 +5,7 @@ class VaccinationPlanDetails extends VaccinationPlan {
   final List<VaccinationStage> vaccinationStages;
 
   VaccinationPlanDetails({
+    required super.id,
     required super.title,
     required super.description,
     required super.note,
@@ -17,6 +18,7 @@ class VaccinationPlanDetails extends VaccinationPlan {
 
   factory VaccinationPlanDetails.fromJson(Map<String, dynamic> json) {
     return VaccinationPlanDetails(
+      id: json['id'],
       title: json['title'],
       description: json['description'],
       note: json['note'],

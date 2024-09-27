@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:vma/app/common/vma_state.dart';
 import 'package:vma/app/screens/vaccination_plans/widgets/vaccination_plan_item.dart';
+import 'package:vma/core/constants/routes.dart';
 import 'package:vma/core/view_models/vaccination_plan_list_model.dart';
 
 class VaccinationPlans extends StatefulWidget {
@@ -32,15 +34,15 @@ class _VaccinationPlanState extends VMAState<VaccinationPlans> {
       body: ScopedModel<VaccinationPlanListModel>(
         model: _model,
         child: ScopedModelDescendant<VaccinationPlanListModel>(
-          builder: (context, child, model) {
+          builder: (BuildContext scopeContext, child, model) {
             return FutureBuilder(
               future: model.vaccinationPlans,
-              builder: (context, snapshot) {
+              builder: (BuildContext futureBuildContext, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
                   final plans = snapshot.data ?? [];
                   return ListView.builder(
                     itemCount: plans.length,
-                    itemBuilder: (context, index) {
+                    itemBuilder: (BuildContext listViewContext, index) {
                       final plan = plans[index];
                       return VaccinationPlanItem(plan: plan);
                     },

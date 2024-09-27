@@ -26,25 +26,33 @@ class _VaccinationPlanDetailsState
 
   @override
   Widget build(BuildContext context) {
-    return ScopedModel<VaccinationPlanDetailsModel>(
-      model: _model,
-      child: ScopedModelDescendant<VaccinationPlanDetailsModel>(
-        builder: (
-          BuildContext context,
-          Widget? child,
-          VaccinationPlanDetailsModel model,
-        ) {
-          return FutureBuilder<VaccinationPlan?>(
-            future: model.plan,
-            builder: (
-              BuildContext context,
-              AsyncSnapshot<VaccinationPlan?> snapshot,
-            ) {
-              final finalWidget = const Text('');
-              return handleAsyncSnapshot(snapshot, finalWidget);
-            },
-          );
-        },
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'Chi tiết kế hoạch tiêm phòng',
+          style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+        ),
+      ),
+      body: ScopedModel<VaccinationPlanDetailsModel>(
+        model: _model,
+        child: ScopedModelDescendant<VaccinationPlanDetailsModel>(
+          builder: (
+            BuildContext context,
+            Widget? child,
+            VaccinationPlanDetailsModel model,
+          ) {
+            return FutureBuilder<VaccinationPlan?>(
+              future: model.plan,
+              builder: (
+                BuildContext context,
+                AsyncSnapshot<VaccinationPlan?> snapshot,
+              ) {
+                final finalWidget = const Text('');
+                return handleAsyncSnapshot(snapshot, finalWidget);
+              },
+            );
+          },
+        ),
       ),
     );
   }

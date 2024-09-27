@@ -1,6 +1,7 @@
 import 'package:vma/core/models/enums/vaccination_plan_status.dart';
 
 class VaccinationPlan {
+  final String id;
   final String title;
   final String description;
   final String note;
@@ -10,6 +11,7 @@ class VaccinationPlan {
   final int pigCount;
 
   VaccinationPlan({
+    required this.id,
     required this.title,
     required this.description,
     required this.note,
@@ -21,6 +23,7 @@ class VaccinationPlan {
 
   factory VaccinationPlan.fromJson(Map<String, dynamic> json) {
     return VaccinationPlan(
+      id: json['id'],
       title: json['title'],
       description: json['description'],
       note: json['note'],
