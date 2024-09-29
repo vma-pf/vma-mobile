@@ -38,13 +38,11 @@ class PigDetail {
       currentCageCode: json['currentCageCode'],
       gender: json['gender'],
       breed: json['breed'],
-      // monitoringDevelopmentLogs: [],
-      pigVaccinationStages: [],
       monitoringDevelopmentLogs:
           (json['monitoringDevelopmentLogs'] as List<dynamic>)
               .fromJsonToList(MonitoringDevelopmentLog.fromJson),
-      // pigVaccinationStages: (json['pigVaccinationStages'] as List<dynamic>)
-      //     .fromJsonToList(PigVaccinationStage.fromJson),
+      pigVaccinationStages: (json['pigVaccinationStages'] as List<dynamic>)
+          .fromJsonToList(PigVaccinationStage.fromJson),
     );
   }
 }
