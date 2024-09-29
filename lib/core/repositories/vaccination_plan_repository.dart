@@ -1,9 +1,6 @@
 import 'package:vma/core/extensions/json_to_list_extension.dart';
-import 'package:vma/core/models/enums/vaccination_plan_status.dart';
 import 'package:vma/core/models/vaccination_plan.dart';
 import 'package:vma/core/models/vaccination_plan_details.dart';
-import 'package:vma/core/models/vaccination_stage.dart';
-import 'package:vma/core/models/vaccination_todo.dart';
 import 'package:vma/core/network/api.dart';
 
 class VaccinationPlanRepository {
@@ -26,67 +23,20 @@ class VaccinationPlanRepository {
     return Future.value(plans);
   }
 
-  Future<VaccinationPlanDetails> getPlanById(String id) {
-    final plan = VaccinationPlanDetails(
-      id: '1',
-      title: 'Vaccination Plan 1',
-      description: 'Description 1',
-      startDate: DateTime(2024, 1, 1),
-      expectedEndDate: DateTime(2024, 12, 1),
-      status: VaccinationPlanStatus.onGoing,
-      note: 'Note 1',
-      pigCount: 10,
-      vaccinationStages: [
-        VaccinationStage(
-          vaccinationPlanId: id,
-          title: 'Vaccination Stage 1',
-          applyStageTime: DateTime.now(),
-          isDone: false,
-          timeSpan: 'Time Span 1',
-          vaccinationTodos: [
-            VaccinationTodo(
-              id: 'Vaccination Todo 1',
-              description: 'Description 1',
-              vaccinationStageId: 'foo',
-            ),
-            VaccinationTodo(
-              id: 'Vaccination Todo 2',
-              description: 'Description 2',
-              vaccinationStageId: 'foo',
-            ),
-            VaccinationTodo(
-              id: 'Vaccination Todo 3',
-              description: 'Description 3',
-              vaccinationStageId: 'foo',
-            ),
-          ],
-        ),
-        VaccinationStage(
-          vaccinationPlanId: id,
-          title: 'Vaccination Stage 1',
-          applyStageTime: DateTime.now(),
-          isDone: false,
-          timeSpan: 'Time Span 1',
-          vaccinationTodos: [
-            VaccinationTodo(
-              id: 'Vaccination Todo 1',
-              description: 'Description 1',
-              vaccinationStageId: 'foo',
-            ),
-            VaccinationTodo(
-              id: 'Vaccination Todo 2',
-              description: 'Description 2',
-              vaccinationStageId: 'foo',
-            ),
-            VaccinationTodo(
-              id: 'Vaccination Todo 3',
-              description: 'Description 3',
-              vaccinationStageId: 'foo',
-            ),
-          ],
-        ),
-      ],
+  Future<VaccinationPlanDetails> getPlanById(String id) async {
+    final result = await ApiCaller.instance.request(
+      path: '/get-vaccination-plan/$id',
+      method: ApiMethod.get,
     );
+
+    VaccinationPlanDetails? plan;
+
+    result.either((success) {
+      final data = success.data as Map<String, dynamic>;
+      plan = VaccinationPlanDetails.fromJson(data);
+    }, (error) {
+      // TODO: handle error
+    });
 
     return Future.value(plan);
   }

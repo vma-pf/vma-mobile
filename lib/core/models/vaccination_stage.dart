@@ -1,3 +1,4 @@
+import 'package:vma/core/extensions/json_to_list_extension.dart';
 import 'package:vma/core/models/vaccination_todo.dart';
 
 class VaccinationStage {
@@ -24,7 +25,8 @@ class VaccinationStage {
       timeSpan: json['timeSpan'],
       applyStageTime: DateTime.parse(json['applyStageTime']),
       isDone: json['isDone'],
-      vaccinationTodos: json['vaccinationTodos'],
+      vaccinationTodos: ((json['vaccinationTodos'] ?? []) as List<dynamic>)
+          .fromJsonToList(VaccinationTodo.fromJson),
     );
   }
 }

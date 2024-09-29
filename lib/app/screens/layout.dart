@@ -5,7 +5,7 @@ import 'package:vma/app/screens/management/camera.dart';
 import 'package:vma/app/screens/management/home.dart';
 import 'package:vma/app/screens/management/treatment_plan.dart';
 import 'package:vma/app/screens/management/vaccination.dart';
-import 'package:vma/app/screens/pig_detail/screen.dart';
+import 'package:vma/app/screens/vaccination_plans/screen.dart';
 
 class LayoutPage extends StatefulWidget {
   const LayoutPage({super.key});
@@ -38,8 +38,8 @@ class _LayoutPageState extends State<LayoutPage> {
     Vaccination(),
     TreatmentPlan(),
     Camera(),
-    // VaccinationPlans(herdId: '31c334fc-308a-40a9-a058-21bc4c4a3da0'),
-    PigDetail(pigId: '1cb82ddc-21d6-4253-9a61-5cec43d024cf'),
+    VaccinationPlans(herdId: '31c334fc-308a-40a9-a058-21bc4c4a3da0'),
+    // PigDetail(pigId: '1cb82ddc-21d6-4253-9a61-5cec43d024cf'),
     // PigList(),
     // Alert(),
   ];
