@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:vma/app/common/vma_state.dart';
-import 'package:vma/core/models/vaccination_plan.dart';
+import 'package:vma/app/screens/vaccination_plan_details/widgets/plan_details.dart';
+import 'package:vma/core/models/vaccination_plan_details.dart';
 import 'package:vma/core/view_models/vaccination_plan_details_model.dart';
 
 class VaccinationPlanDetailsScreen extends StatefulWidget {
@@ -41,11 +42,11 @@ class _VaccinationPlanDetailsState
             Widget? child,
             VaccinationPlanDetailsModel model,
           ) {
-            return FutureBuilder<VaccinationPlan?>(
+            return FutureBuilder<VaccinationPlanDetails?>(
               future: model.plan,
               builder: (
                 BuildContext context,
-                AsyncSnapshot<VaccinationPlan?> snapshot,
+                AsyncSnapshot<VaccinationPlanDetails?> snapshot,
               ) {
                 final plan = snapshot.data;
                 if (plan == null) {
@@ -53,13 +54,7 @@ class _VaccinationPlanDetailsState
                     child: Text('Không tìm thấy kế hoạch tiêm phòng'),
                   );
                 }
-                final finalWidget = Column(
-                  children: [
-                    const SizedBox(height: 20),
-                    Text('Plan id: ${plan.id}'),
-                    Text('Title: ${plan.title}'),
-                  ],
-                );
+                final finalWidget = PlanDetails(plan: plan);
                 return handleAsyncSnapshot(snapshot, finalWidget);
               },
             );
