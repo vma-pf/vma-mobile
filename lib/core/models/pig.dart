@@ -1,32 +1,32 @@
 import 'package:vma/core/models/enums/pig_health_status.dart';
 
 class Pig {
-  String id;
-  String breed;
-  String herdId;
-  String cageId;
-  String code;
-  String cageCode;
-  double weight;
-  double height;
-  double width;
-  DateTime lastUpdated;
-  PigHealthStatus healthStatus;
-  DateTime nextVaccinationDate;
+  final String id;
+  final String breed;
+  final String herdId;
+  final String cageId;
+  final String pigCode;
+  final String? cageCode;
+  final double weight;
+  final double height;
+  final double width;
+  final DateTime lastUpdatedAt;
+  final PigHealthStatus healthStatus;
+  final DateTime vaccinationDate;
 
   Pig({
     required this.id,
     required this.breed,
     required this.herdId,
     required this.cageId,
-    required this.code,
+    required this.pigCode,
     required this.cageCode,
     required this.weight,
     required this.height,
     required this.width,
-    required this.lastUpdated,
+    required this.lastUpdatedAt,
     required this.healthStatus,
-    required this.nextVaccinationDate,
+    required this.vaccinationDate,
   });
 
   factory Pig.fromJson(Map<String, dynamic> json) {
@@ -35,14 +35,18 @@ class Pig {
       breed: json['breed'],
       herdId: json['herdId'],
       cageId: json['cageId'],
-      code: json['code'],
+      pigCode: json['pigCode'],
       cageCode: json['cageCode'],
       weight: json['weight'],
       height: json['height'],
       width: json['width'],
-      lastUpdated: DateTime.parse(json['lastUpdated']),
-      healthStatus: json['healthStatus'],
-      nextVaccinationDate: DateTime.parse(json['nextVaccinationDate']),
+      lastUpdatedAt: DateTime.parse(json['lastUpdatedAt']),
+      healthStatus: PigHealthStatus.normal,
+      // TODO: Uncomment this line to use the health status from the API when API is ready
+      // healthStatus:
+      //     EnumHelper.jsonToEnum(PigHealthStatus.values, json['healthStatus']) ??
+      //         PigHealthStatus.unknown,
+      vaccinationDate: DateTime.parse(json['vaccinationDate']),
     );
   }
 }

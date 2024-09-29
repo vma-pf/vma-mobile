@@ -27,14 +27,14 @@ class PigItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                pig.code,
+                pig.pigCode,
                 style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               Text(
-                pig.cageCode,
+                pig.cageCode ?? 'Chưa xác định',
                 style: const TextStyle(color: Colors.grey, fontSize: 14),
               ),
             ],

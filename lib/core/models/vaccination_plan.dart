@@ -31,7 +31,8 @@ class VaccinationPlan {
       startDate: DateTime.parse(json['startDate']),
       expectedEndDate: DateTime.parse(json['expectedEndDate']),
       status:
-          EnumHelper.jsonToEnum(VaccinationPlanStatus.values, json['status']),
+          EnumHelper.jsonToEnum(VaccinationPlanStatus.values, json['status']) ??
+              VaccinationPlanStatus.unknown,
       pigCount: json['pigCount'],
     );
   }
