@@ -17,7 +17,7 @@ class VaccinationPlanItem extends StatelessWidget {
 
   double _calculateProgress() {
     final startDate = plan.startDate;
-    final endDate = plan.endDate;
+    final endDate = plan.expectedEndDate;
     final now = DateTime.now();
     if (startDate.isAfter(endDate)) return 0;
     if (now.isBefore(startDate)) return 0;
@@ -81,7 +81,7 @@ class VaccinationPlanItem extends StatelessWidget {
                           text: 'Tiến trình',
                           percentage: _calculateProgress(),
                           startDate: plan.startDate,
-                          endDate: plan.endDate,
+                          endDate: plan.expectedEndDate,
                         ),
                       ],
                     ),

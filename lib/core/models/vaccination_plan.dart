@@ -1,4 +1,5 @@
 import 'package:vma/core/models/enums/vaccination_plan_status.dart';
+import 'package:vma/core/utils/enum_helper.dart';
 
 class VaccinationPlan {
   final String id;
@@ -6,7 +7,7 @@ class VaccinationPlan {
   final String description;
   final String note;
   final DateTime startDate;
-  final DateTime endDate;
+  final DateTime expectedEndDate;
   final VaccinationPlanStatus status;
   final int pigCount;
 
@@ -16,7 +17,7 @@ class VaccinationPlan {
     required this.description,
     required this.note,
     required this.startDate,
-    required this.endDate,
+    required this.expectedEndDate,
     required this.status,
     required this.pigCount,
   });
@@ -28,9 +29,9 @@ class VaccinationPlan {
       description: json['description'],
       note: json['note'],
       startDate: DateTime.parse(json['startDate']),
-      endDate: DateTime.parse(json['endDate']),
-      status: VaccinationPlanStatus.values
-          .firstWhere((e) => e.toString() == json['status']),
+      expectedEndDate: DateTime.parse(json['expectedEndDate']),
+      status:
+          EnumHelper.jsonToEnum(VaccinationPlanStatus.values, json['status']),
       pigCount: json['pigCount'],
     );
   }

@@ -19,6 +19,7 @@ class ApiCaller {
     _dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (RequestOptions options, RequestInterceptorHandler handler) {
+          handler.next(options);
           // AppStorage.instance
           //     .read(AppStorageKeys.token)
           //     .then((value) => {
@@ -39,7 +40,7 @@ class ApiCaller {
   }) async {
     switch (method) {
       case ApiMethod.get:
-        return _dio.get(path, queryParameters: queryParams);
+        return await _dio.get(path, queryParameters: queryParams);
       case ApiMethod.post:
         return _dio.post(path, queryParameters: queryParams, data: data);
       case ApiMethod.put:
@@ -71,13 +72,12 @@ class ApiCaller {
         queryParams: queryParams,
         data: data,
       );
-      final successResponse = ApiSuccessResponse(
-        statusCode: response.statusCode,
-        data: response.data,
-      );
+
+      final successResponse = ApiSuccessResponse.fromJson(response.data);
 
       return Left(successResponse);
     } catch (error) {
+      print(error);
       final errorResponse = ApiErrorResponse();
 
       if (error is DioException) {
