@@ -148,8 +148,8 @@ class DetailInfo extends StatelessWidget {
                   children: [
                     const Text('Chuồng:'),
                     Text(
-                      pigDetail.monitoringDevelopmentLogs.first.cageCode,
-                    ), // FIXME: Should show cageCode from the pigDetail
+                      pigDetail.currentCageCode,
+                    ),
                   ],
                 ),
                 GrowthMetrics(

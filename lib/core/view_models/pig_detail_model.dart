@@ -7,7 +7,7 @@ class PigDetailModel extends Model {
 
   Future<PigDetail?> _pig = Future.value(null);
   Future<PigDetail?> get pig => _pig;
-  void setPig(Future<PigDetail?> value) {
+  set pig(Future<PigDetail?> value) {
     _pig = value;
     notifyListeners();
   }
@@ -17,7 +17,6 @@ class PigDetailModel extends Model {
   }
 
   Future<void> loadPig(String id) async {
-    PigDetail? pig = await _repository.getPigById(id);
-    setPig(Future.value(pig));
+    pig = _repository.getPigById(id);
   }
 }
