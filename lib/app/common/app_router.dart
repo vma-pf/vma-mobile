@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:vma/app/screens/pig_detail/screen.dart';
+import 'package:vma/app/screens/vaccination_plan_details/screen.dart';
 import 'package:vma/core/constants/routes.dart';
 import 'package:vma/core/network/app_storage.dart';
 import 'package:vma/app/screens/auth/login.dart';
@@ -49,6 +50,13 @@ class AppRouter {
         builder: (context, state) {
           final id = state.extra as String;
           return PigDetail(pigId: id);
+        },
+      ),
+      GoRoute(
+        path: Routes.vaccinationPlanDetails,
+        builder: (context, state) {
+          final id = state.extra as String;
+          return VaccinationPlanDetailsScreen(planId: id);
         },
       ),
     ],

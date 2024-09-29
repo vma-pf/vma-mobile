@@ -5,7 +5,8 @@ import 'package:vma/app/screens/vaccination_plans/widgets/vaccination_plan_item.
 import 'package:vma/core/view_models/vaccination_plan_list_model.dart';
 
 class VaccinationPlans extends StatefulWidget {
-  const VaccinationPlans({super.key});
+  final String herdId;
+  const VaccinationPlans({super.key, required this.herdId});
 
   @override
   State<VaccinationPlans> createState() => _VaccinationPlanState();
@@ -17,7 +18,7 @@ class _VaccinationPlanState extends VMAState<VaccinationPlans> {
   @override
   void initState() {
     super.initState();
-    _model.loadVaccinationPlans();
+    _model.loadVaccinationPlans(widget.herdId);
   }
 
   @override
@@ -32,15 +33,15 @@ class _VaccinationPlanState extends VMAState<VaccinationPlans> {
       body: ScopedModel<VaccinationPlanListModel>(
         model: _model,
         child: ScopedModelDescendant<VaccinationPlanListModel>(
-          builder: (context, child, model) {
+          builder: (BuildContext scopeContext, child, model) {
             return FutureBuilder(
               future: model.vaccinationPlans,
-              builder: (context, snapshot) {
+              builder: (BuildContext futureBuildContext, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
                   final plans = snapshot.data ?? [];
                   return ListView.builder(
                     itemCount: plans.length,
-                    itemBuilder: (context, index) {
+                    itemBuilder: (BuildContext listViewContext, index) {
                       final plan = plans[index];
                       return VaccinationPlanItem(plan: plan);
                     },

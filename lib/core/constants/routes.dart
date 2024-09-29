@@ -10,4 +10,5 @@ class Routes {
   static const String notFound = '/not-found';
   static const String pigListFilter = '/pig-list-filter';
   static const String pigDetail = '/pig-detail';
+  static const String vaccinationPlanDetails = '/vaccination-plan-details';
 }

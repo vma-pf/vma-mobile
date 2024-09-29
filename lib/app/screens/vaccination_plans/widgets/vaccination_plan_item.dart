@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vma/app/screens/vaccination_plan_details/screen.dart';
 import 'package:vma/app/screens/vaccination_plans/widgets/plan_progress.dart';
 import 'package:vma/app/screens/vaccination_plans/widgets/plan_status_label.dart';
 import 'package:vma/core/models/vaccination_plan.dart';
@@ -13,7 +14,7 @@ class VaccinationPlanItem extends StatelessWidget {
 
   double _calculateProgress() {
     final startDate = plan.startDate;
-    final endDate = plan.endDate;
+    final endDate = plan.expectedEndDate;
     final now = DateTime.now();
     if (startDate.isAfter(endDate)) return 0;
     if (now.isBefore(startDate)) return 0;
@@ -77,7 +78,7 @@ class VaccinationPlanItem extends StatelessWidget {
                           text: 'Tiến trình',
                           percentage: _calculateProgress(),
                           startDate: plan.startDate,
-                          endDate: plan.endDate,
+                          endDate: plan.expectedEndDate,
                         ),
                       ],
                     ),
@@ -85,7 +86,14 @@ class VaccinationPlanItem extends StatelessWidget {
                 ),
               ),
               IconButton(
-                onPressed: () => {},
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) =>
+                          VaccinationPlanDetailsScreen(planId: plan.id),
+                    ),
+                  );
+                },
                 icon: Icon(
                   Icons.chevron_right_rounded,
                   color: Theme.of(context).primaryColor,

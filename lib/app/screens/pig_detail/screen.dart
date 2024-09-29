@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:vma/app/common/vma_state.dart';
 import 'package:vma/app/screens/pig_detail/widgets/detail_info.dart';
-import 'package:vma/core/models/pig_detail.dart' as models;
 import 'package:vma/core/view_models/pig_detail_model.dart';
 
 class PigDetail extends StatefulWidget {
@@ -36,7 +35,10 @@ class _PigDetailState extends VMAState<PigDetail> {
               } else if (snapshot.hasError) {
                 return Center(child: Text('Error: ${snapshot.error}'));
               } else {
-                var pig = snapshot.data as models.PigDetail;
+                final pig = snapshot.data;
+                if (pig == null) {
+                  return const Center(child: Text('Không tìm thấy thông tin'));
+                }
                 return DetailInfo(pigDetail: pig);
               }
             },

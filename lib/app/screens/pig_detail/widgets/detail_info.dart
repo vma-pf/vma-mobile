@@ -54,7 +54,9 @@ class DetailInfo extends StatelessWidget {
     );
     copiedLogs.sort(compareByCheckupAt);
     final points = copiedLogs
-        .map((log) => (log.checkupAt.month.toDouble(), getAttributeValue(log)))
+        .asMap()
+        .entries
+        .map((log) => (log.key.toDouble() + 1, getAttributeValue(log.value)))
         .toList();
 
     return points;
@@ -148,8 +150,8 @@ class DetailInfo extends StatelessWidget {
                   children: [
                     const Text('Chuồng:'),
                     Text(
-                      pigDetail.monitoringDevelopmentLogs.first.cageCode,
-                    ), // FIXME: Should show cageCode from the pigDetail
+                      pigDetail.currentCageCode,
+                    ),
                   ],
                 ),
                 GrowthMetrics(

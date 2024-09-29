@@ -9,6 +9,20 @@ class PigListModel extends Model {
     _repository = PigRepository();
   }
 
+  int _pageIndex = 1;
+  int get pageIndex => _pageIndex;
+  set pageIndex(int value) {
+    _pageIndex = value;
+    notifyListeners();
+  }
+
+  int _pageSize = 10;
+  int get pageSize => _pageSize;
+  set pageSize(int value) {
+    _pageSize = value;
+    notifyListeners();
+  }
+
   Future<List<Pig>> _pigs = Future.value([]);
   Future<List<Pig>> get pigs => _pigs;
   set pigs(Future<List<Pig>> value) {
@@ -17,6 +31,9 @@ class PigListModel extends Model {
   }
 
   Future<void> loadPigs() async {
-    pigs = _repository.getAllPigs();
+    final response = await _repository.getAllPigs(pageSize, pageIndex);
+    pageSize = response.pageSize;
+    pageIndex = response.pageIndex;
+    pigs = Future.value(response.data);
   }
 }
