@@ -54,7 +54,9 @@ class DetailInfo extends StatelessWidget {
     );
     copiedLogs.sort(compareByCheckupAt);
     final points = copiedLogs
-        .map((log) => (log.checkupAt.month.toDouble(), getAttributeValue(log)))
+        .asMap()
+        .entries
+        .map((log) => (log.key.toDouble() + 1, getAttributeValue(log.value)))
         .toList();
 
     return points;
