@@ -77,7 +77,6 @@ class ApiCaller {
 
       return Left(successResponse);
     } catch (error) {
-      print(error);
       final errorResponse = ApiErrorResponse();
 
       if (error is DioException) {

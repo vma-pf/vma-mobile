@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:vma/app/screens/auth/login.dart';
 import 'package:vma/app/screens/vaccination_plan_details/screen.dart';
 import 'package:vma/app/screens/vaccination_plans/widgets/plan_progress.dart';
 import 'package:vma/app/screens/vaccination_plans/widgets/plan_status_label.dart';
-import 'package:vma/core/constants/routes.dart';
 import 'package:vma/core/models/vaccination_plan.dart';
 
 class VaccinationPlanItem extends StatelessWidget {
