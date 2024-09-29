@@ -30,7 +30,7 @@ class _VaccinationPlanDetailsState
       appBar: AppBar(
         title: const Text(
           'Chi tiết kế hoạch tiêm phòng',
-          style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
       ),
       body: ScopedModel<VaccinationPlanDetailsModel>(
@@ -47,7 +47,19 @@ class _VaccinationPlanDetailsState
                 BuildContext context,
                 AsyncSnapshot<VaccinationPlan?> snapshot,
               ) {
-                final finalWidget = const Text('');
+                final plan = snapshot.data;
+                if (plan == null) {
+                  return const Center(
+                    child: Text('Không tìm thấy kế hoạch tiêm phòng'),
+                  );
+                }
+                final finalWidget = Column(
+                  children: [
+                    const SizedBox(height: 20),
+                    Text('Plan id: ${plan.id}'),
+                    Text('Title: ${plan.title}'),
+                  ],
+                );
                 return handleAsyncSnapshot(snapshot, finalWidget);
               },
             );
