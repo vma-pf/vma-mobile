@@ -12,8 +12,8 @@ class VaccinationPlanListModel extends Model {
     notifyListeners();
   }
 
-  Future<void> loadVaccinationPlans() async {
-    final plans = _repository.getAllVaccinationPlans();
+  Future<void> loadVaccinationPlans(String herdId) async {
+    final plans = _repository.getVaccinationPlansByHerd(herdId);
     vaccinationPlans = plans;
   }
 }

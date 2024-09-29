@@ -38,7 +38,7 @@ class _LayoutPageState extends State<LayoutPage> {
     Vaccination(),
     TreatmentPlan(),
     Camera(),
-    VaccinationPlans(),
+    VaccinationPlans(herdId: '31c334fc-308a-40a9-a058-21bc4c4a3da0'),
     // PigDetail(pigId: 'something'),
     // PigList(),
     // Alert(),

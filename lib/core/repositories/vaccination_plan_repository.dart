@@ -7,9 +7,9 @@ import 'package:vma/core/models/vaccination_todo.dart';
 import 'package:vma/core/network/api.dart';
 
 class VaccinationPlanRepository {
-  Future<List<VaccinationPlan>> getAllVaccinationPlans() async {
+  Future<List<VaccinationPlan>> getVaccinationPlansByHerd(String herdId) async {
     final result = await ApiCaller.instance.request(
-      path: '/api/Herds/31c334fc-308a-40a9-a058-21bc4c4a3da0/vaccination-plans',
+      path: '/api/Herds/$herdId/vaccination-plans',
       method: ApiMethod.get,
     );
 

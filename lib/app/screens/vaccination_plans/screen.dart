@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:vma/app/common/vma_state.dart';
 import 'package:vma/app/screens/vaccination_plans/widgets/vaccination_plan_item.dart';
-import 'package:vma/core/constants/routes.dart';
 import 'package:vma/core/view_models/vaccination_plan_list_model.dart';
 
 class VaccinationPlans extends StatefulWidget {
-  const VaccinationPlans({super.key});
+  final String herdId;
+  const VaccinationPlans({super.key, required this.herdId});
 
   @override
   State<VaccinationPlans> createState() => _VaccinationPlanState();
@@ -19,7 +18,7 @@ class _VaccinationPlanState extends VMAState<VaccinationPlans> {
   @override
   void initState() {
     super.initState();
-    _model.loadVaccinationPlans();
+    _model.loadVaccinationPlans(widget.herdId);
   }
 
   @override
