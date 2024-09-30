@@ -20,6 +20,9 @@ class VMAState<T extends StatefulWidget> extends State<T> {
     if (snapshot.hasError) {
       return Center(child: Text('Đã có lỗi xảy ra: ${snapshot.error}'));
     }
+    if (snapshot.data == null) {
+      return const Center(child: Text('Không có dữ liệu'));
+    }
     return finalWidget;
   }
 }

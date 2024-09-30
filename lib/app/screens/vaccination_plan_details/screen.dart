@@ -50,11 +50,23 @@ class _VaccinationPlanDetailsState
               ) {
                 final plan = snapshot.data;
                 if (plan == null) {
+                  if (snapshot.hasError) {
+                    return Center(
+                      child: Text(
+                        'Đã xảy ra lỗi: ${snapshot.error}',
+                        style: const TextStyle(
+                          color: Colors.red,
+                          fontSize: 24,
+                        ),
+                      ),
+                    );
+                  }
                   return const Center(
-                    child: Text('Không tìm thấy kế hoạch tiêm phòng'),
+                    child: CircularProgressIndicator(),
                   );
                 }
                 final finalWidget = PlanDetails(plan: plan);
+
                 return handleAsyncSnapshot(snapshot, finalWidget);
               },
             );
