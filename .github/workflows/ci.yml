@@ -1,0 +1,53 @@
+name: Build and release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    permissions: write-all
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up flutter SDK
+        uses: flutter-actions/setup-flutter@v3
+        with:
+          channel: stabel
+          version: 3.24.1
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build
+        run: flutter build appbundle --release
+
+      - name: Extract version
+        id: extract_version
+        uses: battila7/get-version-action@v2
+
+      - name: Create release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: "v${{ steps.extract_version.outputs.version }}"
+          release_name: "v${{ steps.extract_version.outputs.version }}"
+          body: "Release of version ${{ steps.extract_version.outputs.version }}"
+          draft: false
+          prerelease: false
+
+      - name: Upload release asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: build/app/outputs/bundle/release/app-release.aab
+          asset_name: vma-${{ steps.extract_version.outputs.version }}.aab
+          asset_content_type: application/vnd.android.package.archive
