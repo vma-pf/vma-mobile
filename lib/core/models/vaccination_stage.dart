@@ -2,6 +2,7 @@ import 'package:vma/core/extensions/json_to_list_extension.dart';
 import 'package:vma/core/models/vaccination_todo.dart';
 
 class VaccinationStage {
+  final String id;
   final String vaccinationPlanId;
   final String title;
   final String timeSpan;
@@ -10,6 +11,7 @@ class VaccinationStage {
   final List<VaccinationTodo> vaccinationTodos;
 
   VaccinationStage({
+    required this.id,
     required this.vaccinationPlanId,
     required this.title,
     required this.timeSpan,
@@ -20,6 +22,7 @@ class VaccinationStage {
 
   factory VaccinationStage.fromJson(Map<String, dynamic> json) {
     return VaccinationStage(
+      id: json['id'],
       vaccinationPlanId: json['vaccinationPlanId'],
       title: json['title'],
       timeSpan: json['timeSpan'],

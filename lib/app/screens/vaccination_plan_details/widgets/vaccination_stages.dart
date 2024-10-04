@@ -1,5 +1,6 @@
 import 'package:accordion/accordion.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:vma/app/screens/vaccination_plan_details/widgets/vaccination_stage_detail.dart';
 import 'package:vma/core/models/vaccination_stage.dart';
 import 'package:vma/core/utils/date_time_helper.dart';
 
@@ -30,12 +31,17 @@ class VaccinationStages extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        stage.title,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          color: CupertinoColors.white,
-                          fontWeight: FontWeight.w900,
+                      // TODO: refactor this to display title on multiple lines
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.55,
+                        child: Text(
+                          stage.title,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            color: CupertinoColors.white,
+                            fontWeight: FontWeight.w900,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
                       ),
                       Text(
@@ -49,7 +55,7 @@ class VaccinationStages extends StatelessWidget {
                     ],
                   ),
                 ),
-                content: Text(stage.applyStageTime.timeZoneName),
+                content: VaccinationStageDetail(vaccinationStage: stage),
               ),
             ],
           );

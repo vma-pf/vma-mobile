@@ -1,4 +1,6 @@
 import 'package:vma/core/extensions/json_to_list_extension.dart';
+import 'package:vma/core/models/enums/medicine_status.dart';
+import 'package:vma/core/models/medicine.dart';
 import 'package:vma/core/models/vaccination_plan.dart';
 import 'package:vma/core/models/vaccination_plan_details.dart';
 import 'package:vma/core/network/api.dart';
@@ -39,5 +41,24 @@ class VaccinationPlanRepository {
     });
 
     return Future.value(plan);
+  }
+
+  // TODO: implement this method
+  Future<List<Medicine>> getMedicinesByStageId(String stageId) {
+    final medicines = [
+      Medicine(
+        id: '1',
+        medicineName: 'Vitamin C',
+        quantity: 10,
+        status: MedicineStatus.unknown,
+      ),
+      Medicine(
+        id: '2',
+        medicineName: 'Vitamin D',
+        quantity: 5,
+        status: MedicineStatus.unknown,
+      ),
+    ];
+    return Future.value(medicines);
   }
 }
