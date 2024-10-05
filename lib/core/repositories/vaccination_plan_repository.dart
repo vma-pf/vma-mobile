@@ -1,5 +1,4 @@
 import 'package:vma/core/extensions/json_to_list_extension.dart';
-import 'package:vma/core/models/enums/medicine_status.dart';
 import 'package:vma/core/models/medicine.dart';
 import 'package:vma/core/models/vaccination_plan.dart';
 import 'package:vma/core/models/vaccination_plan_details.dart';
