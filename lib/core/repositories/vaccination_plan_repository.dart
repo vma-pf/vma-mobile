@@ -44,21 +44,22 @@ class VaccinationPlanRepository {
   }
 
   // TODO: implement this method
-  Future<List<Medicine>> getMedicinesByStageId(String stageId) {
-    final medicines = [
-      Medicine(
-        id: '1',
-        medicineName: 'Vitamin C',
-        quantity: 10,
-        status: MedicineStatus.unknown,
-      ),
-      Medicine(
-        id: '2',
-        medicineName: 'Vitamin D',
-        quantity: 5,
-        status: MedicineStatus.unknown,
-      ),
-    ];
+  Future<List<Medicine>> getMedicinesByStageId(String stageId) async {
+    final result = await ApiCaller.instance.request(
+      path: '/vaccination-stages/$stageId/medicines',
+      method: ApiMethod.get,
+    );
+
+    List<Medicine> medicines = [];
+
+    result.either((success) {
+      final data = success.data as Map<String, dynamic>;
+      final medData = data['medicine'] as List<dynamic>;
+      medicines = medData.fromJsonToList(Medicine.fromJson);
+    }, (error) {
+      // TODO: handle error
+    });
+
     return Future.value(medicines);
   }
 }
