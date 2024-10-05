@@ -1,4 +1,5 @@
 import 'package:vma/core/extensions/json_to_list_extension.dart';
+import 'package:vma/core/models/medicine.dart';
 import 'package:vma/core/models/vaccination_plan.dart';
 import 'package:vma/core/models/vaccination_plan_details.dart';
 import 'package:vma/core/network/api.dart';
@@ -39,5 +40,25 @@ class VaccinationPlanRepository {
     });
 
     return Future.value(plan);
+  }
+
+  // TODO: implement this method
+  Future<List<Medicine>> getMedicinesByStageId(String stageId) async {
+    final result = await ApiCaller.instance.request(
+      path: '/vaccination-stages/$stageId/medicines',
+      method: ApiMethod.get,
+    );
+
+    List<Medicine> medicines = [];
+
+    result.either((success) {
+      final data = success.data as Map<String, dynamic>;
+      final medData = data['medicine'] as List<dynamic>;
+      medicines = medData.fromJsonToList(Medicine.fromJson);
+    }, (error) {
+      // TODO: handle error
+    });
+
+    return Future.value(medicines);
   }
 }
