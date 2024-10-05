@@ -1,1 +1,1 @@
-enum MedicineStatus { pending, taken, missed, unknown }
+enum MedicineStatus { pending, requested, approved, rejected, unknown }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vma/app/common/vma_state.dart';
+import 'package:vma/app/screens/vaccination_plan_details/widgets/medicine_item.dart';
 import 'package:vma/core/models/medicine.dart';
 import 'package:vma/core/models/vaccination_stage.dart';
 import 'package:vma/core/view_models/vaccination_stage_details_model.dart';
@@ -59,10 +60,16 @@ class VaccinationStageDetailState extends VMAState<VaccinationStageDetail> {
             itemCount: medicines.length,
             itemBuilder: (BuildContext context, int index) {
               final medicine = medicines[index];
-              return ListTile(
-                title: Text(medicine.id),
-                subtitle: Text(medicine.medicineName),
+
+              return MedicineItem(
+                name: medicine.medicineName,
+                quantity: medicine.quantity,
+                status: medicine.status,
               );
+              // return ListTile(
+              //   title: Text(medicine.id),
+              //   subtitle: Text(medicine.medicineName),
+              // );
             },
           ),
         );
