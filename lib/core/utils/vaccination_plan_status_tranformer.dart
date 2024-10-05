@@ -4,13 +4,13 @@ class VaccinationPlanStatusTranformer {
   static String transformToText(VaccinationPlanStatus status) {
     switch (status) {
       case VaccinationPlanStatus.onGoing:
-        return 'On Going';
+        return 'Đang diễn ra';
       case VaccinationPlanStatus.completed:
-        return 'Completed';
+        return 'Đã hoàn thành';
       case VaccinationPlanStatus.cancelled:
-        return 'Cancelled';
+        return 'Đã hủy';
       default:
-        return 'Unknown';
+        return 'Không rõ';
     }
   }
 }

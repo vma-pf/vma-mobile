@@ -3,6 +3,7 @@ import 'package:vma/app/screens/vaccination_plan_details/widgets/key_value_info.
 import 'package:vma/app/screens/vaccination_plan_details/widgets/vaccination_stages.dart';
 import 'package:vma/core/models/vaccination_plan_details.dart';
 import 'package:vma/core/utils/date_time_helper.dart';
+import 'package:vma/core/utils/vaccination_plan_status_tranformer.dart';
 
 class PlanDetails extends StatelessWidget {
   final VaccinationPlanDetails plan;
@@ -65,7 +66,9 @@ class PlanDetails extends StatelessWidget {
               ),
               KeyValueInfo(
                 label: 'Trạng thái',
-                content: plan.status.name,
+                content: VaccinationPlanStatusTranformer.transformToText(
+                  plan.status,
+                ),
               ),
               const SizedBox(height: 20),
               Text(
