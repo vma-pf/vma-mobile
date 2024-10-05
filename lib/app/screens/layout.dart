@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:vma/app/screens/custom_appbar.dart';
-import 'package:vma/app/screens/management/camera.dart';
+// import 'package:vma/app/screens/management/camera.dart';
 import 'package:vma/app/screens/management/home.dart';
-import 'package:vma/app/screens/management/treatment_plan.dart';
+// import 'package:vma/app/screens/management/treatment_plan.dart';
 import 'package:vma/app/screens/management/vaccination.dart';
 import 'package:vma/app/screens/pig_detail/screen.dart';
 import 'package:vma/app/screens/pig_list/screen.dart';
@@ -48,8 +48,8 @@ class _LayoutPageState extends State<LayoutPage> {
 
   @override
   Widget build(BuildContext context) {
-    String currentRoute = ModalRoute.of(context)!.settings.name!;
-    print(currentRoute);
+    // String currentRoute = ModalRoute.of(context)!.settings.name!;
+    // print(currentRoute);
     return Scaffold(
       appBar: customAppBar(context),
       body: Stack(

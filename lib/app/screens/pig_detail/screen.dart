@@ -40,7 +40,8 @@ class _PigDetailState extends VMAState<PigDetail> {
                   final pig = snapshot.data;
                   if (pig == null) {
                     return const Center(
-                        child: Text('Không tìm thấy thông tin'));
+                      child: Text('Không tìm thấy thông tin'),
+                    );
                   }
                   return DetailInfo(pigDetail: pig);
                 }
