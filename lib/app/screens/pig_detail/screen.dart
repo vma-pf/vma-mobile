@@ -23,27 +23,31 @@ class _PigDetailState extends VMAState<PigDetail> {
 
   @override
   Widget build(BuildContext context) {
-    return ScopedModel<PigDetailModel>(
-      model: _model,
-      child: ScopedModelDescendant<PigDetailModel>(
-        builder: (BuildContext context, Widget? child, PigDetailModel model) {
-          return FutureBuilder(
-            future: model.pig,
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
-              } else if (snapshot.hasError) {
-                return Center(child: Text('Error: ${snapshot.error}'));
-              } else {
-                final pig = snapshot.data;
-                if (pig == null) {
-                  return const Center(child: Text('Không tìm thấy thông tin'));
+    return Scaffold(
+      appBar: AppBar(title: const Text('Chi tiết')),
+      body: ScopedModel<PigDetailModel>(
+        model: _model,
+        child: ScopedModelDescendant<PigDetailModel>(
+          builder: (BuildContext context, Widget? child, PigDetailModel model) {
+            return FutureBuilder(
+              future: model.pig,
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  return Center(child: Text('Error: ${snapshot.error}'));
+                } else {
+                  final pig = snapshot.data;
+                  if (pig == null) {
+                    return const Center(
+                        child: Text('Không tìm thấy thông tin'));
+                  }
+                  return DetailInfo(pigDetail: pig);
                 }
-                return DetailInfo(pigDetail: pig);
-              }
-            },
-          );
-        },
+              },
+            );
+          },
+        ),
       ),
     );
   }
