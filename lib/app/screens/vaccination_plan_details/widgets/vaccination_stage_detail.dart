@@ -52,6 +52,7 @@ class VaccinationStageDetailState extends VMAState<VaccinationStageDetail> {
         if (snapshot.data?.isEmpty ?? false) {
           return const Text('Không có thông tin về giai đoạn tiêm phòng này');
         }
+
         return SizedBox(
           height: 75 * medicines.length.toDouble(),
           child: ListView.builder(
