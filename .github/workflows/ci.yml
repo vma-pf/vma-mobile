@@ -41,7 +41,7 @@ jobs:
           echo "storeFile=${{ secrets.VMA_KEYSTORE_PATH }}/${{ secrets.VMA_KEYSTORE_NAME }}" > android/key.properties
 
       - name: Build
-        run: flutter build appbundle --release --build-name=${{ steps.extract_version.outputs.version }} --build-number=${{ steps.extract_version.outputs.version-without-v }}
+        run: flutter build appbundle --release --build-name=${{ steps.extract_version.outputs.version-without-v }}
 
       - name: Clean keystore file
         run: rm -rf ${{ secrets.VMA_KEYSTORE_PATH }}
