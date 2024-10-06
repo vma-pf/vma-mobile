@@ -32,10 +32,10 @@ jobs:
 
       - name: Copy keystore properties
         run: |
-          echo "storePassword=${{ secrets.VMA_STORE_PASSWORD }}" > android/key.properties &&
-          echo "keyPassword=${{ secrets.VMA_STORE_PASSWORD }}" > android/key.properties &&
-          echo "keyAlias=${{ secrets.VMA_KEY_ALIAS }}" > android/key.properties &&
-          echo "storeFile=$GITHUB_WORKSPACE/android/vma2024.keystore" > android/key.properties
+          echo "storePassword=${{ secrets.VMA_STORE_PASSWORD }}" >> android/key.properties &&
+          echo "keyPassword=${{ secrets.VMA_STORE_PASSWORD }}" >> android/key.properties &&
+          echo "keyAlias=${{ secrets.VMA_KEY_ALIAS }}" >> android/key.properties &&
+          echo "storeFile=$GITHUB_WORKSPACE/android/vma2024.keystore" >> android/key.properties
 
       - name: Build
         run: flutter build appbundle --release --build-name=${{ steps.extract_version.outputs.version-without-v }}
