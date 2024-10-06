@@ -27,24 +27,18 @@ jobs:
         id: extract_version
         uses: battila7/get-version-action@v2
 
-      - name: Prepare keystore location
-        run: mkdir -p ${{ secrets.VMA_KEYSTORE_PATH }}
-
-      - name: Decode keystore content
-        run: echo "${{ secrets.VMA_KEYSTORE }}" | base64 --decode > ${{ secrets.VMA_KEYSTORE_PATH }}/${{ secrets.VMA_KEYSTORE_NAME }}
+      - name: Decrypt keystore
+        run: gpg --quiet --batch --yes --decrypt --passphrase="${{ secrets.VMA_KEYSTORE_PASSPHRASE }}" --output android/vma2024.keystore android/vma2024.keystore.gpg
 
       - name: Copy keystore properties
         run: |
           echo "storePassword=${{ secrets.VMA_STORE_PASSWORD }}" > android/key.properties &&
           echo "keyPassword=${{ secrets.VMA_STORE_PASSWORD }}" > android/key.properties &&
           echo "keyAlias=${{ secrets.VMA_KEY_ALIAS }}" > android/key.properties &&
-          echo "storeFile=${{ secrets.VMA_KEYSTORE_PATH }}/${{ secrets.VMA_KEYSTORE_NAME }}" > android/key.properties
+          echo "storeFile=$GITHUB_WORKSPACE/android/vma2024.keystore" > android/key.properties
 
       - name: Build
         run: flutter build appbundle --release --build-name=${{ steps.extract_version.outputs.version-without-v }}
-
-      - name: Clean keystore file
-        run: rm -rf ${{ secrets.VMA_KEYSTORE_PATH }}
 
       - name: Create release
         id: create_release
