@@ -23,8 +23,24 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
+      - name: Prepare keystore location
+        run: mkdir -p ${{ secrets.VMA_KEYSTORE_PATH }}
+
+      - name: Decode keystore content
+        run: echo "${{ secrets.VMA_KEYSTORE }}" | base64 --decode > ${{ secrets.VMA_KEYSTORE_PATH }}/${{ secrets.VMA_KEYSTORE_NAME }}
+
+      - name: Copy keystore properties
+        run: |
+          echo "storePassword=${{ secrets.VMA_STORE_PASSWORD }}" > android/key.properties &&
+          echo "keyPassword=${{ secrets.VMA_STORE_PASSWORD }}" > android/key.properties &&
+          echo "keyAlias=${{ secrets.VMA_KEY_ALIAS }}" > android/key.properties &&
+          echo "storeFile=${{ secrets.VMA_KEYSTORE_PATH }}/${{ secrets.VMA_KEYSTORE_NAME }}" > android/key.properties
+
       - name: Build
         run: flutter build appbundle --release
+
+      - name: Clean keystore file
+        run: rm -rf ${{ secrets.VMA_KEYSTORE_PATH }}
 
       - name: Extract version
         id: extract_version
