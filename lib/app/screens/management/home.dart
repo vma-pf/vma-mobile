@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vma/app/screens/custom_appbar.dart';
 import 'package:vma/core/constants/routes.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vma/core/network/app_storage.dart';
@@ -16,6 +17,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: customAppBar(context),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

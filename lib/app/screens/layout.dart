@@ -1,13 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:vma/app/screens/custom_appbar.dart';
-// import 'package:vma/app/screens/management/camera.dart';
 import 'package:vma/app/screens/management/home.dart';
-// import 'package:vma/app/screens/management/treatment_plan.dart';
 import 'package:vma/app/screens/management/vaccination.dart';
 import 'package:vma/app/screens/pig_detail/screen.dart';
 import 'package:vma/app/screens/pig_list/screen.dart';
 import 'package:vma/app/screens/vaccination_plans/screen.dart';
+import 'package:vma/app/widgets/vma_navigation_bar.dart';
 
 class LayoutPage extends StatefulWidget {
   const LayoutPage({super.key});
@@ -16,170 +14,71 @@ class LayoutPage extends StatefulWidget {
   State<LayoutPage> createState() => _LayoutPageState();
 }
 
-List<IconData> _icons = [
-  CupertinoIcons.chart_bar_fill,
-  Icons.medical_services,
-  CupertinoIcons.calendar,
-  CupertinoIcons.video_camera_solid,
-  CupertinoIcons.bell_fill,
-];
-
-List<String> _titles = [
-  'Tổng quan',
-  'Tiêm phòng',
-  'Điều trị',
-  'Camera',
-  "Cảnh báo",
-];
-
 int _isSelectedIndex = 0;
 
 class _LayoutPageState extends State<LayoutPage> {
-  static const List<Widget> _widgetOptions = <Widget>[
-    MyHomePage(title: "Hello, World!"),
-    Vaccination(),
-    // TreatmentPlan(),
-    // Camera(),
-    PigDetail(pigId: '1cb82ddc-21d6-4253-9a61-5cec43d024cf'),
-    PigList(),
-    VaccinationPlans(herdId: '31c334fc-308a-40a9-a058-21bc4c4a3da0'),
-    // Alert(),
+  static final List<NavigationItem> _navigationItems = <NavigationItem>[
+    NavigationItem(
+      icon: CupertinoIcons.chart_bar_fill,
+      title: 'Tổng quan',
+      screen: const MyHomePage(title: "Hello, World!"),
+    ),
+    NavigationItem(
+      icon: Icons.medical_services,
+      title: 'Tiêm phòng',
+      screen: const Vaccination(),
+    ),
+    NavigationItem(
+      icon: CupertinoIcons.calendar,
+      title: 'Điều trị',
+      screen: const PigDetail(pigId: '1cb82ddc-21d6-4253-9a61-5cec43d024cf'),
+    ),
+    NavigationItem(
+      icon: CupertinoIcons.video_camera_solid,
+      title: 'Camera',
+      screen: const PigList(),
+    ),
+    NavigationItem(
+      icon: CupertinoIcons.bell_fill,
+      title: 'Cảnh báo',
+      screen: const VaccinationPlans(
+        herdId: '31c334fc-308a-40a9-a058-21bc4c4a3da0',
+      ),
+    ),
   ];
+
+  void _onTabSelected(int index) {
+    setState(() {
+      _isSelectedIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    // String currentRoute = ModalRoute.of(context)!.settings.name!;
-    // print(currentRoute);
     return Scaffold(
-      appBar: customAppBar(context),
-      body: Stack(
-        children: [
-          _widgetOptions.elementAt(_isSelectedIndex),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: _navBar(),
-          ),
-        ],
+      body: _navigationItems[_isSelectedIndex].screen,
+      bottomNavigationBar: Theme(
+        data: ThemeData(
+          colorScheme: Theme.of(context).colorScheme,
+          highlightColor: Colors.transparent,
+        ),
+        child: VMANavigationBar(
+          items: _navigationItems,
+          onTabSelected: _onTabSelected,
+        ),
       ),
-      // bottomNavigationBar: Container(
-      //   margin: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
-      //   padding:
-      //       const EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 10),
-      //   decoration: BoxDecoration(
-      //     color: Colors.white,
-      //     borderRadius: BorderRadius.circular(20),
-      //   ),
-      //   child: BottomNavigationBar(
-      //     backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-      //     elevation: 0,
-      //     items: const <BottomNavigationBarItem>[
-      //       BottomNavigationBarItem(
-      //         icon: Icon(CupertinoIcons.chart_bar_fill),
-      //         label: 'Tổng quan',
-      //         backgroundColor: Colors.transparent,
-      //       ),
-      //       BottomNavigationBarItem(
-      //         icon: Icon(Icons.medical_services),
-      //         label: 'Tiêm phòng',
-      //         // backgroundColor: Colors.white,
-      //       ),
-      //       BottomNavigationBarItem(
-      //         icon: Icon(CupertinoIcons.calendar),
-      //         label: 'Điều trị',
-      //         // backgroundColor: Colors.white,
-      //       ),
-      //       BottomNavigationBarItem(
-      //         icon: Icon(CupertinoIcons.video_camera_solid),
-      //         label: 'Camera',
-      //         // backgroundColor: Colors.white,
-      //       ),
-      //       BottomNavigationBarItem(
-      //         icon: Icon(CupertinoIcons.bell),
-      //         label: 'Cảnh báo',
-      //         // backgroundColor: Colors.white,
-      //       ),
-      //     ],
-      //     currentIndex: _isSelectedIndex,
-      //     type: BottomNavigationBarType.shifting,
-      //     selectedItemColor: Theme.of(context).colorScheme.inversePrimary,
-      //     onTap: (index) {
-      //       setState(() {
-      //         _isSelectedIndex = index;
-      //       });
-      //     },
-      //     unselectedItemColor: Colors.grey[400],
-      //   ),
-      // ),
     );
   }
+}
 
-  Widget _navBar() {
-    return Container(
-      height: 60,
-      margin: const EdgeInsets.only(right: 20, left: 20, bottom: 20),
-      padding: const EdgeInsets.only(top: 5, left: 5, right: 5, bottom: 5),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 1,
-            blurRadius: 7,
-            offset: const Offset(0, 3),
-          ),
-        ],
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        verticalDirection: VerticalDirection.down,
-        textDirection: TextDirection.ltr,
-        children: _icons.map(
-          (icon) {
-            int index = _icons.indexOf(icon);
-            bool isSelected = _icons.indexOf(icon) == _isSelectedIndex;
-            return Material(
-              color: Colors.transparent,
-              child: GestureDetector(
-                onTap: () => setState(() {
-                  _isSelectedIndex = index;
-                }),
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Container(
-                        alignment: Alignment.center,
-                        margin: const EdgeInsets.only(
-                          top: 5,
-                          bottom: 0,
-                          left: 20,
-                          right: 20,
-                        ),
-                        child: Icon(
-                          icon,
-                          color: isSelected
-                              ? Theme.of(context).colorScheme.primaryFixedDim
-                              : Colors.grey[600],
-                        ),
-                      ),
-                      Text(
-                        _titles[index],
-                        style: TextStyle(
-                          color: isSelected
-                              ? Theme.of(context).colorScheme.primaryFixedDim
-                              : Colors.grey[600],
-                          fontSize: 12,
-                          height: 2,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            );
-          },
-        ).toList(),
-      ),
-    );
-  }
+class NavigationItem {
+  final IconData icon;
+  final String title;
+  final Widget screen;
+
+  NavigationItem({
+    required this.icon,
+    required this.title,
+    required this.screen,
+  });
 }
