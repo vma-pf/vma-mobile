@@ -37,8 +37,11 @@ jobs:
           echo "keyAlias=${{ secrets.VMA_KEY_ALIAS }}" >> android/key.properties &&
           echo "storeFile=$GITHUB_WORKSPACE/android/vma2024.keystore" >> android/key.properties
 
-      - name: Build
+      - name: Build appbundle
         run: flutter build appbundle --release --build-name=${{ steps.extract_version.outputs.version-without-v }}
+
+      - name: Build apk
+        run: flutter build apk --release --build-name=${{ steps.extract_version.outputs.version-without-v }}
 
       - name: Create release
         id: create_release
@@ -52,7 +55,7 @@ jobs:
           draft: false
           prerelease: false
 
-      - name: Upload release asset
+      - name: Upload aab asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -60,4 +63,14 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: build/app/outputs/bundle/release/app-release.aab
           asset_name: vma-${{ steps.extract_version.outputs.version }}.aab
+          asset_content_type: application/vnd.android.package.archive
+
+      - name: Upload apk asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: build/app/outputs/bundle/release/app-release.apk
+          asset_name: vma-${{ steps.extract_version.outputs.version }}.apk
           asset_content_type: application/vnd.android.package.archive
