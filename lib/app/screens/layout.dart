@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:vma/app/screens/management/home.dart';
 import 'package:vma/app/screens/management/vaccination.dart';
+import 'package:vma/app/screens/medicine_requests/screen.dart';
 import 'package:vma/app/screens/pig_detail/screen.dart';
 import 'package:vma/app/screens/pig_list/screen.dart';
 import 'package:vma/app/screens/vaccination_plans/screen.dart';
@@ -23,10 +24,15 @@ class _LayoutPageState extends State<LayoutPage> {
       title: 'Tổng quan',
       screen: const MyHomePage(title: "Hello, World!"),
     ),
+    // NavigationItem(
+    //   icon: Icons.medical_services,
+    //   title: 'Tiêm phòng',
+    //   screen: const Vaccination(),
+    // ),
     NavigationItem(
       icon: Icons.medical_services,
       title: 'Tiêm phòng',
-      screen: const Vaccination(),
+      screen: const MedicineRequestsScreen(),
     ),
     NavigationItem(
       icon: CupertinoIcons.calendar,
