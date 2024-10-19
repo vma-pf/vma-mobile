@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:vma/app/screens/auth/widgets/wave_background.dart';
 import 'package:vma/core/constants/routes.dart';
 import 'package:vma/core/network/app_storage.dart';
+import 'package:vma/core/view_models/authentication_model.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -14,6 +15,11 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   // final _formkey = GlobalKey<FormState>();
+  final AuthenticationModel _model = AuthenticationModel();
+
+  final _usernameController = TextEditingController();
+  final _passwordController = TextEditingController();
+
   final gradient = const LinearGradient(
     colors: [Colors.indigoAccent, Colors.tealAccent],
   );
@@ -23,13 +29,29 @@ class _LoginState extends State<Login> {
   void _login() async {
     try {
       isLoading = true;
-      AppStorage().write("token", "123");
-      context.go(Routes.home);
-      isLoading = false;
+      await _model.login(
+        _usernameController.text,
+        _passwordController.text,
+      );
+      print('login success');
+      // context.go(Routes.home);
     } catch (e) {
       // print(e);
+    } finally {
+      isLoading = false;
     }
   }
+
+  // void _login() async {
+  //   try {
+  //     isLoading = true;
+  //     AppStorage().write("token", "123");
+  //     context.go(Routes.home);
+  //     isLoading = false;
+  //   } catch (e) {
+  //     // print(e);
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -91,6 +113,7 @@ class _LoginState extends State<Login> {
                   child: Column(
                     children: <Widget>[
                       TextFormField(
+                        controller: _usernameController,
                         decoration: InputDecoration(
                           hintText: 'johndoe123',
                           label: const Text('Nhập tên đăng nhập'),
@@ -107,6 +130,7 @@ class _LoginState extends State<Login> {
                       ),
                       const SizedBox(height: 20),
                       TextFormField(
+                        controller: _passwordController,
                         obscureText: !isVisible,
                         decoration: InputDecoration(
                           hintText: 'johndoe@123',
@@ -141,11 +165,7 @@ class _LoginState extends State<Login> {
                           borderRadius: BorderRadius.circular(30),
                         ),
                         child: ElevatedButton(
-                          onPressed: () {
-                            // if (_formkey.currentState!.validate()) {
-                            _login();
-                            // }
-                          },
+                          onPressed: _login,
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.transparent,
                             shadowColor: Colors.transparent,
