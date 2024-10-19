@@ -1,9 +1,12 @@
 import 'dart:math';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:vma/app/common/vma_state.dart';
 import 'package:vma/app/screens/auth/widgets/wave_background.dart';
 import 'package:vma/core/constants/routes.dart';
-import 'package:vma/core/network/app_storage.dart';
+import 'package:vma/core/events/event_manager.dart';
+import 'package:vma/core/events/log_in_event.dart';
 import 'package:vma/core/view_models/authentication_model.dart';
 
 class Login extends StatefulWidget {
@@ -13,18 +16,40 @@ class Login extends StatefulWidget {
   State<Login> createState() => _LoginState();
 }
 
-class _LoginState extends State<Login> {
-  // final _formkey = GlobalKey<FormState>();
+class _LoginState extends VMAState<Login> {
   final AuthenticationModel _model = AuthenticationModel();
+
+  @override
+  initState() {
+    super.initState();
+    EventManager.register<LoginEvent>(_navigateAfterLoginSuccess);
+  }
+
+  @override
+  void dispose() {
+    EventManager.unregister(LoginEvent);
+    super.dispose();
+  }
 
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
-
-  final gradient = const LinearGradient(
-    colors: [Colors.indigoAccent, Colors.tealAccent],
-  );
-  bool isVisible = false;
+  bool isPasswordVisible = false;
   bool isLoading = false;
+
+  final gradient =
+      const LinearGradient(colors: [Colors.indigoAccent, Colors.tealAccent]);
+
+  void _navigateAfterLoginSuccess(LoginEvent event) {
+    if (event.loginSuccess) {
+      context.go(Routes.home);
+      showSnackBar('Đăng nhập thành công', ContentType.success);
+    } else {
+      showSnackBar(
+        'Đăng nhập thất bại, vui lòng kiểm tra lại thông tin',
+        ContentType.failure,
+      );
+    }
+  }
 
   void _login() async {
     try {
@@ -33,37 +58,22 @@ class _LoginState extends State<Login> {
         _usernameController.text,
         _passwordController.text,
       );
-      print('login success');
-      // context.go(Routes.home);
     } catch (e) {
-      // print(e);
+      // TODO: log error
+      showSnackBar(
+        'Đã có lỗi xảy ra, vui lòng thử lại sau',
+        ContentType.failure,
+      );
     } finally {
       isLoading = false;
     }
   }
-
-  // void _login() async {
-  //   try {
-  //     isLoading = true;
-  //     AppStorage().write("token", "123");
-  //     context.go(Routes.home);
-  //     isLoading = false;
-  //   } catch (e) {
-  //     // print(e);
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
-          // CustomPaint(
-          //   painter: WavePainter(),
-          //   child: Container(
-          //     height: 250,
-          //   ),
-          // ),
           Stack(
             children: [
               Align(
@@ -87,7 +97,6 @@ class _LoginState extends State<Login> {
                   ),
                 ),
               ),
-              // Other widgets...
             ],
           ),
           Form(
@@ -119,7 +128,6 @@ class _LoginState extends State<Login> {
                           label: const Text('Nhập tên đăng nhập'),
                           border: const OutlineInputBorder(),
                           hintStyle: TextStyle(color: Colors.grey[500]),
-                          // suffixIcon: Icon(Icons.remove_red_eye),
                         ),
                         validator: (String? value) {
                           if (value == null || value.isEmpty) {
@@ -131,7 +139,7 @@ class _LoginState extends State<Login> {
                       const SizedBox(height: 20),
                       TextFormField(
                         controller: _passwordController,
-                        obscureText: !isVisible,
+                        obscureText: !isPasswordVisible,
                         decoration: InputDecoration(
                           hintText: 'johndoe@123',
                           label: const Text('Nhập mật khẩu'),
@@ -140,11 +148,11 @@ class _LoginState extends State<Login> {
                           suffixIcon: GestureDetector(
                             onTap: () {
                               setState(() {
-                                isVisible = !isVisible;
+                                isPasswordVisible = !isPasswordVisible;
                               });
                             },
                             child: Icon(
-                              isVisible
+                              isPasswordVisible
                                   ? Icons.visibility_off
                                   : Icons.visibility,
                             ),
