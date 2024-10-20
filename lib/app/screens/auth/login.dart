@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vma/app/common/vma_state.dart';
@@ -22,7 +21,7 @@ class _LoginState extends VMAState<Login> {
   @override
   initState() {
     super.initState();
-    EventManager.register<LoginEvent>(_navigateAfterLoginSuccess);
+    EventManager.register<LoginEvent>(_handleLoginEvent);
   }
 
   @override
@@ -33,40 +32,56 @@ class _LoginState extends VMAState<Login> {
 
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
-  bool isPasswordVisible = false;
-  bool isLoading = false;
+  bool _isPasswordVisible = false;
 
   final gradient =
       const LinearGradient(colors: [Colors.indigoAccent, Colors.tealAccent]);
 
-  void _navigateAfterLoginSuccess(LoginEvent event) {
+  void _handleLoginEvent(LoginEvent event) {
     if (event.loginSuccess) {
       context.go(Routes.home);
-      showSnackBar('Đăng nhập thành công', ContentType.success);
+      showSuccessSnackBar('Đăng nhập thành công');
     } else {
-      showSnackBar(
+      showFailureSnackBar(
         'Đăng nhập thất bại, vui lòng kiểm tra lại thông tin',
-        ContentType.failure,
       );
     }
   }
 
   void _login() async {
     try {
-      isLoading = true;
+      startLoading();
       await _model.login(
         _usernameController.text,
         _passwordController.text,
       );
     } catch (e) {
       // TODO: log error
-      showSnackBar(
-        'Đã có lỗi xảy ra, vui lòng thử lại sau',
-        ContentType.failure,
-      );
+      showFailureSnackBar('Đã có lỗi xảy ra, vui lòng thử lại sau');
     } finally {
-      isLoading = false;
+      stopLoading();
     }
+  }
+
+  Icon _getIconBasedOnPasswordVisisbility() {
+    final visibilityIcon =
+        _isPasswordVisible ? Icons.visibility_off : Icons.visibility;
+    return Icon(visibilityIcon);
+  }
+
+  void _changePasswordVisibility() {
+    setState(() => _isPasswordVisible = !_isPasswordVisible);
+  }
+
+  String? Function(String?) _requiredValueValidator(String errorMessage) {
+    String? validator(String? value) {
+      if (value == null || value.isEmpty) {
+        return errorMessage;
+      }
+      return null;
+    }
+
+    return validator;
   }
 
   @override
@@ -129,41 +144,25 @@ class _LoginState extends VMAState<Login> {
                           border: const OutlineInputBorder(),
                           hintStyle: TextStyle(color: Colors.grey[500]),
                         ),
-                        validator: (String? value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter some text';
-                          }
-                          return null;
-                        },
+                        validator:
+                            _requiredValueValidator('Username is required'),
                       ),
                       const SizedBox(height: 20),
                       TextFormField(
                         controller: _passwordController,
-                        obscureText: !isPasswordVisible,
+                        obscureText: !_isPasswordVisible,
                         decoration: InputDecoration(
                           hintText: 'johndoe@123',
                           label: const Text('Nhập mật khẩu'),
                           border: const OutlineInputBorder(),
                           hintStyle: TextStyle(color: Colors.grey[500]),
                           suffixIcon: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                isPasswordVisible = !isPasswordVisible;
-                              });
-                            },
-                            child: Icon(
-                              isPasswordVisible
-                                  ? Icons.visibility_off
-                                  : Icons.visibility,
-                            ),
+                            onTap: _changePasswordVisibility,
+                            child: _getIconBasedOnPasswordVisisbility(),
                           ),
                         ),
-                        validator: (String? value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter some text';
-                          }
-                          return null;
-                        },
+                        validator:
+                            _requiredValueValidator('Password is required'),
                       ),
                       const SizedBox(height: 40),
                       Container(

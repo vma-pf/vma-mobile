@@ -2,6 +2,8 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 
 class VMAState<T extends StatefulWidget> extends State<T> {
+  bool isScreenLoading = false;
+
   @override
   void setState(VoidCallback fn) {
     if (mounted) {
@@ -40,6 +42,30 @@ class VMAState<T extends StatefulWidget> extends State<T> {
       ),
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+  void showSuccessSnackBar(String message) {
+    showSnackBar(message, ContentType.success);
+  }
+
+  void showFailureSnackBar(String message) {
+    showSnackBar(message, ContentType.failure);
+  }
+
+  void showWarningSnackBar(String message) {
+    showSnackBar(message, ContentType.warning);
+  }
+
+  void showHelpSnackBar(String message) {
+    showSnackBar(message, ContentType.help);
+  }
+
+  void startLoading() {
+    this.setState(() => isScreenLoading = true);
+  }
+
+  void stopLoading() {
+    this.setState(() => isScreenLoading = true);
   }
 
   String _getSnackBarTitle(ContentType contentType) {
