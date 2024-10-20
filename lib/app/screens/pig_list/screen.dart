@@ -25,6 +25,9 @@ class _PigListState extends VMAState<PigList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Danh sách heo'),
+      ),
       body: ScopedModel<PigListModel>(
         model: _model,
         child: ScopedModelDescendant<PigListModel>(
