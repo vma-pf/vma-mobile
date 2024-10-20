@@ -1,20 +1,23 @@
 class ApiErrorResponse {
-  int? statusCode;
   String? message;
+
+  ApiErrorResponse({this.message});
+
+  factory ApiErrorResponse.fromJson(Map<String, dynamic> json) {
+    return ApiErrorResponse(
+      message: json['errorMessage'],
+    );
+  }
 }
 
 class ApiSuccessResponse<T> {
-  bool isSuccess;
   T? data;
-  String? errorMessage;
 
-  ApiSuccessResponse({required this.isSuccess, this.data, this.errorMessage});
+  ApiSuccessResponse({this.data});
 
   factory ApiSuccessResponse.fromJson(Map<String, dynamic> json) {
     return ApiSuccessResponse(
-      isSuccess: json['isSuccess'],
       data: json['data'],
-      errorMessage: json['errorMessage'],
     );
   }
 }

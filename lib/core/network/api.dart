@@ -82,29 +82,25 @@ class ApiCaller {
       final errorResponse = ApiErrorResponse();
 
       if (error is DioException) {
-        errorResponse.statusCode = error.response?.statusCode;
-        if (error.response?.data != null &&
-            error.response?.data is List<dynamic>) {
+        final dynamic errorData = error.response?.data;
+        if (errorData != null && errorData is Map<String, dynamic>) {
           errorResponse.message =
-              (error.response?.data as List<dynamic>).elementAt(0)['content'] ??
-                  'Đã có lỗi xảy ra';
-        } else if (error.response?.data is Map<String, dynamic>) {
-          Map<String, dynamic> errors = error.response?.data['errors'];
-          dynamic errorMessages = errors.values.firstOrNull;
-          errorResponse.message =
-              (errorMessages as List<dynamic>).elementAtOrNull(0) as String;
-        } else {
-          errorResponse.message = error.response?.data;
+              errorData['errorMessage'] ?? 'Đã có lỗi xảy ra';
+        }
+
+        final int statusCode = error.response?.statusCode ?? -1;
+        // redirect to login page if token is invalid
+        if (statusCode == 401 || statusCode == 403) {
+          AppStorage.read(AppStorageKeys.token).then((value) {
+            if (value != null) {
+              AppStorage.delete(AppStorageKeys.token);
+              AppRouter.router.push('/login');
+            }
+          });
         }
       }
 
-      errorResponse.statusCode ??= 500;
       errorResponse.message ??= 'Hệ thống đang bận, vui lòng thử lại sau.';
-
-      if (errorResponse.statusCode == 401 || errorResponse.statusCode == 403) {
-        AppStorage.delete(AppStorageKeys.token);
-        AppRouter.router.push('/login');
-      }
 
       return Right(errorResponse);
     }
