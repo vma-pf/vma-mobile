@@ -5,6 +5,7 @@ import 'package:vma/core/events/event_base.dart';
 
 class EventManager {
   static final _eventBus = EventBus();
+  // TODO: store receivers in order to allow multiple receivers for one event
   static final List<StreamSubscription<EventBase>> subscriptions = [];
 
   static void fire(EventBase event) {

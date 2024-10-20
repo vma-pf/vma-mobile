@@ -21,7 +21,6 @@ class ApiCaller {
     _dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (RequestOptions options, RequestInterceptorHandler handler) {
-          handler.next(options);
           AppStorage.read(AppStorageKeys.token)
               .then(
                 (value) => {
