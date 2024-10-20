@@ -17,6 +17,7 @@ class Login extends StatefulWidget {
 
 class _LoginState extends VMAState<Login> {
   final AuthenticationModel _model = AuthenticationModel();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   initState() {
@@ -39,8 +40,8 @@ class _LoginState extends VMAState<Login> {
 
   void _handleLoginEvent(LoginEvent event) {
     if (event.loginSuccess) {
-      context.go(Routes.home);
       showSuccessSnackBar('Đăng nhập thành công');
+      context.go(Routes.home);
     } else {
       showFailureSnackBar(
         'Đăng nhập thất bại, vui lòng kiểm tra lại thông tin',
@@ -49,6 +50,11 @@ class _LoginState extends VMAState<Login> {
   }
 
   void _login() async {
+    final isFormValid = _formKey.currentState?.validate() ?? false;
+    if (!isFormValid) {
+      return;
+    }
+
     try {
       startLoading();
       await _model.login(
@@ -115,6 +121,7 @@ class _LoginState extends VMAState<Login> {
             ],
           ),
           Form(
+            key: _formKey,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
