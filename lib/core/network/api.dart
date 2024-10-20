@@ -1,8 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:either_dart/either.dart';
 import 'package:vma/core/constants/api.dart';
+import 'package:vma/core/enums/app_storage_keys.dart';
 import 'package:vma/core/network/api_response.dart';
 import 'package:vma/app/common/app_router.dart';
+import 'package:vma/core/network/app_storage.dart';
 
 class ApiCaller {
   final Dio _dio = Dio(_baseOptions);
@@ -19,14 +21,14 @@ class ApiCaller {
     _dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (RequestOptions options, RequestInterceptorHandler handler) {
-          handler.next(options);
-          // AppStorage.instance
-          //     .read(AppStorageKeys.token)
-          //     .then((value) => {
-          //           if (value != null)
-          //             {options.headers['Authorization'] = 'Bearer $value'}
-          //         })
-          //     .whenComplete(() => handler.next(options));
+          AppStorage.read(AppStorageKeys.token)
+              .then(
+                (value) => {
+                  if (value != null)
+                    {options.headers['Authorization'] = 'Bearer $value'},
+                },
+              )
+              .whenComplete(() => handler.next(options));
         },
       ),
     );
@@ -100,7 +102,7 @@ class ApiCaller {
       errorResponse.message ??= 'Hệ thống đang bận, vui lòng thử lại sau.';
 
       if (errorResponse.statusCode == 401 || errorResponse.statusCode == 403) {
-        // AppStorage.instance.delete(AppStorageKeys.token);
+        AppStorage.delete(AppStorageKeys.token);
         AppRouter.router.push('/login');
       }
 
