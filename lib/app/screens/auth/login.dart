@@ -144,8 +144,9 @@ class _LoginState extends VMAState<Login> {
                           border: const OutlineInputBorder(),
                           hintStyle: TextStyle(color: Colors.grey[500]),
                         ),
-                        validator:
-                            _requiredValueValidator('Username is required'),
+                        validator: _requiredValueValidator(
+                          'Vui lòng nhập tên đăng nhập',
+                        ),
                       ),
                       const SizedBox(height: 20),
                       TextFormField(
@@ -162,7 +163,7 @@ class _LoginState extends VMAState<Login> {
                           ),
                         ),
                         validator:
-                            _requiredValueValidator('Password is required'),
+                            _requiredValueValidator('Vui lòng nhập mật khẩu'),
                       ),
                       const SizedBox(height: 40),
                       Container(

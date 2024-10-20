@@ -71,15 +71,15 @@ class VMAState<T extends StatefulWidget> extends State<T> {
   String _getSnackBarTitle(ContentType contentType) {
     switch (contentType) {
       case ContentType.failure:
-        return 'Error';
+        return 'Lỗi';
       case ContentType.help:
-        return 'Info';
+        return 'Thông tin';
       case ContentType.success:
-        return 'Success';
+        return 'Thành công';
       case ContentType.warning:
-        return 'Warning';
+        return 'Cảnh báo';
       default:
-        return 'On Snap!';
+        return 'Opss!';
     }
   }
 }

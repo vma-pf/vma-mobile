@@ -42,7 +42,7 @@ class _LayoutPageState extends State<LayoutPage> {
       icon: CupertinoIcons.bell_fill,
       title: 'Cảnh báo',
       screen: const VaccinationPlans(
-        herdId: '31c334fc-308a-40a9-a058-21bc4c4a3da0',
+        herdId: 'd869bc09-7e82-4b2a-acaa-cb3b5c9332e7',
       ),
     ),
   ];

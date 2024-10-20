@@ -1,4 +1,5 @@
 import 'package:scoped_model/scoped_model.dart';
+import 'package:vma/core/enums/app_storage_keys.dart';
 import 'package:vma/core/events/event_manager.dart';
 import 'package:vma/core/events/log_in_event.dart';
 import 'package:vma/core/network/app_storage.dart';
@@ -15,7 +16,8 @@ class AuthenticationModel extends Model {
     if (authResponse == null) {
       loginEvent.loginSuccess = false;
     } else {
-      AppStorage().write("token", authResponse.accessToken);
+      // FIXME: appstorage should be static
+      await AppStorage.write(AppStorageKeys.token, authResponse.accessToken);
       loginEvent.loginSuccess = true;
     }
 

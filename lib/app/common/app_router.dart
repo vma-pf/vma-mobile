@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:vma/app/screens/pig_detail/screen.dart';
 import 'package:vma/app/screens/vaccination_plan_details/screen.dart';
 import 'package:vma/core/constants/routes.dart';
+import 'package:vma/core/enums/app_storage_keys.dart';
 import 'package:vma/core/network/app_storage.dart';
 import 'package:vma/app/screens/auth/login.dart';
 import 'package:vma/app/screens/management/alert.dart';
@@ -61,8 +62,8 @@ class AppRouter {
       ),
     ],
     redirect: (context, state) async {
-      String token = await AppStorage().read("token");
-      if (token.isEmpty) {
+      String? token = await AppStorage.read(AppStorageKeys.token);
+      if (token == null || token.isEmpty) {
         return Routes.login;
       } else {
         return Routes.home;
