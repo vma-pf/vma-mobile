@@ -1,9 +1,11 @@
 import 'package:scoped_model/scoped_model.dart';
+import 'package:vma/core/constants/vma_roles.dart';
 import 'package:vma/core/enums/app_storage_keys.dart';
 import 'package:vma/core/events/event_manager.dart';
 import 'package:vma/core/events/log_in_event.dart';
 import 'package:vma/core/network/app_storage.dart';
 import 'package:vma/core/repositories/authentication_repository.dart';
+import 'package:vma/core/utils/token_helper.dart';
 
 class AuthenticationModel extends Model {
   final AuthenticationRepository _repository = AuthenticationRepository();
@@ -16,7 +18,12 @@ class AuthenticationModel extends Model {
     if (authResponse == null) {
       loginEvent.loginSuccess = false;
     } else {
-      // FIXME: appstorage should be static
+      final String role = TokenHelper.getRole(authResponse.accessToken);
+      if (role != VMARoles.veterinarian) {
+        loginEvent.loginSuccess = false;
+        return;
+      }
+
       await AppStorage.write(AppStorageKeys.token, authResponse.accessToken);
       loginEvent.loginSuccess = true;
     }
