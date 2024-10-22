@@ -12,7 +12,7 @@ class MedicineRequestRepository {
       'pageIndex': pageIndex.toString(),
     };
     final result = await ApiCaller.instance.request(
-      path: '/api/MedicineRequests',
+      path: '/api/MedicineRequests/my-medicine-requests',
       method: ApiMethod.get,
       queryParams: query,
     );
