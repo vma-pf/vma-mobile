@@ -3,7 +3,7 @@ import 'package:vma/core/models/medicine_request.dart';
 import 'package:vma/core/repositories/medicine_request_repository.dart';
 
 class MedicineRequestListModel extends Model {
-  late MedicineRequestRepository _repository = MedicineRequestRepository();
+  final MedicineRequestRepository _repository = MedicineRequestRepository();
 
   int _pageIndex = 1;
   int get pageIndex => _pageIndex;

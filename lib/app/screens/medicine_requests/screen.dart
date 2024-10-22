@@ -24,7 +24,7 @@ class _MedicineRequestsScreenState extends VMAState<MedicineRequestsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Yêu cầu thuốc'),
+        title: const Text('Yêu cầu xuất thuốc'),
       ),
       body: ScopedModel<MedicineRequestListModel>(
         model: _model,
@@ -52,7 +52,7 @@ class _MedicineRequestsScreenState extends VMAState<MedicineRequestsScreen> {
                           medicineRequests[index];
                       return ListTile(
                         title: Text(medicineRequest.id),
-                        subtitle: Text(medicineRequest.newMedicineName),
+                        subtitle: Text(medicineRequest.status),
                       );
                     },
                   );
