@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:vma/app/common/vma_state.dart';
+import 'package:vma/app/screens/medicine_requests/widgets/request_item.dart';
 import 'package:vma/core/models/medicine_request.dart';
 import 'package:vma/core/view_models/medicine_request_list_model.dart';
 
@@ -24,13 +25,16 @@ class _MedicineRequestsScreenState extends VMAState<MedicineRequestsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Yêu cầu thuốc'),
+        title: const Text('Yêu cầu xuất thuốc'),
       ),
       body: ScopedModel<MedicineRequestListModel>(
         model: _model,
         child: ScopedModelDescendant<MedicineRequestListModel>(
-          builder: (BuildContext context, Widget? child,
-              MedicineRequestListModel model) {
+          builder: (
+            BuildContext context,
+            Widget? child,
+            MedicineRequestListModel model,
+          ) {
             return FutureBuilder(
               future: model.medicineRequests,
               builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -50,10 +54,7 @@ class _MedicineRequestsScreenState extends VMAState<MedicineRequestsScreen> {
                     itemBuilder: (BuildContext context, int index) {
                       final MedicineRequest medicineRequest =
                           medicineRequests[index];
-                      return ListTile(
-                        title: Text(medicineRequest.id),
-                        subtitle: Text(medicineRequest.newMedicineName),
-                      );
+                      return RequestItem(request: medicineRequest);
                     },
                   );
                 }

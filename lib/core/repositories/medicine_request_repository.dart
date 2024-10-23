@@ -12,12 +12,10 @@ class MedicineRequestRepository {
       'pageIndex': pageIndex.toString(),
     };
     final result = await ApiCaller.instance.request(
-      path: '/api/Pigs',
+      path: '/api/MedicineRequests/my-medicine-requests',
       method: ApiMethod.get,
       queryParams: query,
     );
-
-    assert(result.isRight);
 
     PaginatedResponse<MedicineRequest> response = PaginatedResponse(
       pageIndex: 1,
@@ -26,6 +24,15 @@ class MedicineRequestRepository {
       totalPages: 0,
       data: [],
     );
+    
+    result.either((success) {
+      response = PaginatedResponse.fromJson(
+        success.data,
+        (e) => MedicineRequest.fromJson(e),
+      );
+    }, (error) {
+      // TODO: handle error
+    });
 
     return response;
   }

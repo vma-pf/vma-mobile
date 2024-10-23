@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:vma/app/common/vma_state.dart';
 import 'package:vma/app/screens/custom_appbar.dart';
 import 'package:vma/core/constants/routes.dart';
 import 'package:go_router/go_router.dart';
+import 'package:vma/core/enums/app_storage_keys.dart';
 import 'package:vma/core/network/app_storage.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -13,7 +15,7 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends VMAState<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +26,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             ElevatedButton(
               onPressed: () {
-                AppStorage().delete("token");
+                AppStorage.delete(AppStorageKeys.token);
                 context.go(Routes.login);
               },
               child: const Text('Logout'),

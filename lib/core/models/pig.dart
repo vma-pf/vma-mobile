@@ -1,5 +1,3 @@
-import 'package:vma/core/models/enums/pig_health_status.dart';
-
 class Pig {
   final String id;
   final String breed;
@@ -11,7 +9,7 @@ class Pig {
   final double height;
   final double width;
   final DateTime lastUpdatedAt;
-  final PigHealthStatus healthStatus;
+  final String healthStatus;
   final DateTime vaccinationDate;
 
   Pig({
@@ -41,11 +39,7 @@ class Pig {
       height: json['height'],
       width: json['width'],
       lastUpdatedAt: DateTime.parse(json['lastUpdatedAt']),
-      healthStatus: PigHealthStatus.normal,
-      // TODO: Uncomment this line to use the health status from the API when API is ready
-      // healthStatus:
-      //     EnumHelper.jsonToEnum(PigHealthStatus.values, json['healthStatus']) ??
-      //         PigHealthStatus.unknown,
+      healthStatus: json['healthStatus'],
       vaccinationDate: DateTime.parse(json['vaccinationDate']),
     );
   }

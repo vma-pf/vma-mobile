@@ -1,9 +1,13 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:vma/app/common/vma_state.dart';
+import 'package:vma/app/common/vma_toast.dart';
 import 'package:vma/app/screens/auth/widgets/wave_background.dart';
 import 'package:vma/core/constants/routes.dart';
-import 'package:vma/core/network/app_storage.dart';
+import 'package:vma/core/events/event_manager.dart';
+import 'package:vma/core/events/log_in_event.dart';
+import 'package:vma/core/view_models/authentication_model.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -12,23 +16,77 @@ class Login extends StatefulWidget {
   State<Login> createState() => _LoginState();
 }
 
-class _LoginState extends State<Login> {
-  // final _formkey = GlobalKey<FormState>();
-  final gradient = const LinearGradient(
-    colors: [Colors.indigoAccent, Colors.tealAccent],
-  );
-  bool isVisible = false;
-  bool isLoading = false;
+class _LoginState extends VMAState<Login> {
+  final AuthenticationModel _model = AuthenticationModel();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  @override
+  initState() {
+    super.initState();
+    EventManager.register<LoginEvent>(_handleLoginEvent);
+  }
+
+  @override
+  void dispose() {
+    EventManager.unregister(LoginEvent);
+    super.dispose();
+  }
+
+  final _usernameController = TextEditingController();
+  final _passwordController = TextEditingController();
+  bool _isPasswordVisible = false;
+
+  final gradient =
+      const LinearGradient(colors: [Colors.indigoAccent, Colors.tealAccent]);
+
+  void _handleLoginEvent(LoginEvent event) {
+    if (event.loginSuccess) {
+      VMAToast.showSuccess('Đăng nhập thành công');
+      context.go(Routes.home);
+    } else {
+      VMAToast.showError('Đăng nhập thất bại, vui lòng kiểm tra lại thông tin');
+    }
+  }
 
   void _login() async {
-    try {
-      isLoading = true;
-      AppStorage().write("token", "123");
-      context.go(Routes.home);
-      isLoading = false;
-    } catch (e) {
-      // print(e);
+    final isFormValid = _formKey.currentState?.validate() ?? false;
+    if (!isFormValid) {
+      return;
     }
+
+    try {
+      startLoading();
+      await _model.login(
+        _usernameController.text,
+        _passwordController.text,
+      );
+    } catch (e) {
+      // TODO: log error
+      VMAToast.showError('Đã có lỗi xảy ra, vui lòng thử lại sau');
+    } finally {
+      stopLoading();
+    }
+  }
+
+  Icon _getIconBasedOnPasswordVisisbility() {
+    final visibilityIcon =
+        _isPasswordVisible ? Icons.visibility_off : Icons.visibility;
+    return Icon(visibilityIcon);
+  }
+
+  void _changePasswordVisibility() {
+    setState(() => _isPasswordVisible = !_isPasswordVisible);
+  }
+
+  String? Function(String?) _requiredValueValidator(String errorMessage) {
+    String? validator(String? value) {
+      if (value == null || value.isEmpty) {
+        return errorMessage;
+      }
+      return null;
+    }
+
+    return validator;
   }
 
   @override
@@ -36,12 +94,6 @@ class _LoginState extends State<Login> {
     return Scaffold(
       body: Stack(
         children: [
-          // CustomPaint(
-          //   painter: WavePainter(),
-          //   child: Container(
-          //     height: 250,
-          //   ),
-          // ),
           Stack(
             children: [
               Align(
@@ -65,10 +117,10 @@ class _LoginState extends State<Login> {
                   ),
                 ),
               ),
-              // Other widgets...
             ],
           ),
           Form(
+            key: _formKey,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -91,47 +143,33 @@ class _LoginState extends State<Login> {
                   child: Column(
                     children: <Widget>[
                       TextFormField(
+                        controller: _usernameController,
                         decoration: InputDecoration(
                           hintText: 'johndoe123',
                           label: const Text('Nhập tên đăng nhập'),
                           border: const OutlineInputBorder(),
                           hintStyle: TextStyle(color: Colors.grey[500]),
-                          // suffixIcon: Icon(Icons.remove_red_eye),
                         ),
-                        validator: (String? value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter some text';
-                          }
-                          return null;
-                        },
+                        validator: _requiredValueValidator(
+                          'Vui lòng nhập tên đăng nhập',
+                        ),
                       ),
                       const SizedBox(height: 20),
                       TextFormField(
-                        obscureText: !isVisible,
+                        controller: _passwordController,
+                        obscureText: !_isPasswordVisible,
                         decoration: InputDecoration(
                           hintText: 'johndoe@123',
                           label: const Text('Nhập mật khẩu'),
                           border: const OutlineInputBorder(),
                           hintStyle: TextStyle(color: Colors.grey[500]),
                           suffixIcon: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                isVisible = !isVisible;
-                              });
-                            },
-                            child: Icon(
-                              isVisible
-                                  ? Icons.visibility_off
-                                  : Icons.visibility,
-                            ),
+                            onTap: _changePasswordVisibility,
+                            child: _getIconBasedOnPasswordVisisbility(),
                           ),
                         ),
-                        validator: (String? value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter some text';
-                          }
-                          return null;
-                        },
+                        validator:
+                            _requiredValueValidator('Vui lòng nhập mật khẩu'),
                       ),
                       const SizedBox(height: 40),
                       Container(
@@ -141,11 +179,7 @@ class _LoginState extends State<Login> {
                           borderRadius: BorderRadius.circular(30),
                         ),
                         child: ElevatedButton(
-                          onPressed: () {
-                            // if (_formkey.currentState!.validate()) {
-                            _login();
-                            // }
-                          },
+                          onPressed: _login,
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.transparent,
                             shadowColor: Colors.transparent,

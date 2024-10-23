@@ -1,19 +1,19 @@
 class MedicineRequest {
   final String id;
-  final String medicineId;
+  final String? medicineId;
   final String inventoryRequestId;
   final String status;
   final int quantity;
-  final String newMedicineName;
+  final String? newMedicineName;
   final bool isPurchaseNeeded;
 
   MedicineRequest({
     required this.id,
-    required this.medicineId,
+    this.medicineId,
     required this.inventoryRequestId,
     required this.status,
     required this.quantity,
-    required this.newMedicineName,
+    this.newMedicineName,
     required this.isPurchaseNeeded,
   });
 
