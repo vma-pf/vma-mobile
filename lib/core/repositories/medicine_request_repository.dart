@@ -24,7 +24,7 @@ class MedicineRequestRepository {
       totalPages: 0,
       data: [],
     );
-
+    
     result.either((success) {
       response = PaginatedResponse.fromJson(
         success.data,
