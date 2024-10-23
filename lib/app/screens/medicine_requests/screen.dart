@@ -30,8 +30,11 @@ class _MedicineRequestsScreenState extends VMAState<MedicineRequestsScreen> {
       body: ScopedModel<MedicineRequestListModel>(
         model: _model,
         child: ScopedModelDescendant<MedicineRequestListModel>(
-          builder: (BuildContext context, Widget? child,
-              MedicineRequestListModel model) {
+          builder: (
+            BuildContext context,
+            Widget? child,
+            MedicineRequestListModel model,
+          ) {
             return FutureBuilder(
               future: model.medicineRequests,
               builder: (BuildContext context, AsyncSnapshot snapshot) {

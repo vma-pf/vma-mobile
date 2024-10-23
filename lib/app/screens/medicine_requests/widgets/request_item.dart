@@ -17,43 +17,49 @@ class RequestItem extends StatelessWidget {
         border: Border.all(color: Colors.grey),
         borderRadius: BorderRadius.circular(15),
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      width: widgetWidth * 0.5,
-                      child: Tooltip(
-                        message: request.id,
-                        child: Text(
-                          request.id,
-                          style: const TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
+      child: InkWell(
+        onTap: () {
+          // TODO: Navigate to request detail screen or show a dialog
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        width: widgetWidth * 0.5,
+                        child: Tooltip(
+                          message: request.id,
+                          child: Text(
+                            request.id,
+                            style: const TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
                           ),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
                         ),
                       ),
-                    ),
-                    Text(
-                      request.newMedicineName ?? 'Chưa xác định',
-                      style: const TextStyle(color: Colors.grey, fontSize: 14),
-                    ),
-                    RequestStatus(status: request.status),
-                  ],
-                ),
-              ],
-            ),
-          ],
+                      Text(
+                        request.newMedicineName ?? 'Chưa xác định',
+                        style:
+                            const TextStyle(color: Colors.grey, fontSize: 14),
+                      ),
+                      RequestStatus(status: request.status),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vma/app/common/vma_state.dart';
+import 'package:vma/app/common/vma_toast.dart';
 import 'package:vma/app/screens/auth/widgets/wave_background.dart';
 import 'package:vma/core/constants/routes.dart';
 import 'package:vma/core/events/event_manager.dart';
@@ -40,12 +41,10 @@ class _LoginState extends VMAState<Login> {
 
   void _handleLoginEvent(LoginEvent event) {
     if (event.loginSuccess) {
-      showSuccessSnackBar('Đăng nhập thành công');
+      VMAToast.showSuccess('Đăng nhập thành công');
       context.go(Routes.home);
     } else {
-      showFailureSnackBar(
-        'Đăng nhập thất bại, vui lòng kiểm tra lại thông tin',
-      );
+      VMAToast.showError('Đăng nhập thất bại, vui lòng kiểm tra lại thông tin');
     }
   }
 
@@ -63,7 +62,7 @@ class _LoginState extends VMAState<Login> {
       );
     } catch (e) {
       // TODO: log error
-      showFailureSnackBar('Đã có lỗi xảy ra, vui lòng thử lại sau');
+      VMAToast.showError('Đã có lỗi xảy ra, vui lòng thử lại sau');
     } finally {
       stopLoading();
     }
