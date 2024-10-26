@@ -6,7 +6,7 @@ class InventoryRequest {
   final String? title;
   final String? description;
   final String status;
-  final String createdAt;
+  final DateTime createdAt;
   final String id;
 
   InventoryRequest({
@@ -28,8 +28,7 @@ class InventoryRequest {
       title: json['title'],
       description: json['description'],
       status: json['status'],
-      createdAt: json['createdAt'],
-      // createdAt: DateTime.now().toString(),
+      createdAt: DateTime.parse(json['createdAt']),
       id: json['id'],
     );
   }

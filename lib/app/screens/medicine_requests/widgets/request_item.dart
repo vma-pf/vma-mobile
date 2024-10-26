@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:vma/app/screens/medicine_requests/widgets/request_status.dart';
 import 'package:vma/core/models/inventory_request.dart';
+import 'package:vma/core/utils/date_time_helper.dart';
+import 'package:vma/core/utils/string_helper.dart';
 
 class RequestItem extends StatelessWidget {
   final InventoryRequest request;
@@ -30,32 +32,43 @@ class RequestItem extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        width: widgetWidth * 0.5,
-                        child: Tooltip(
-                          message: request.title,
-                          child: Text(
-                            request.title ?? 'Không có tiêu đề',
-                            style: const TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: widgetWidth * 0.7,
+                          child: Tooltip(
+                            message: request.title,
+                            child: Text(
+                              StringHelper.resolveNullableString(
+                                request.title,
+                                'Không có tiêu đề',
+                              ),
+                              style: const TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
                           ),
                         ),
-                      ),
-                      Text(
-                        request.title ?? 'something',
-                        style:
-                            const TextStyle(color: Colors.grey, fontSize: 14),
-                      ),
-                      RequestStatus(status: request.status),
-                    ],
+                        Text(
+                          DateTimeHelper.getFormattedDateTime(
+                            request.createdAt,
+                          ),
+                        ),
+                        Text(
+                          StringHelper.resolveNullableString(
+                            request.title,
+                            'Không có mô tả',
+                          ),
+                          style:
+                              const TextStyle(color: Colors.grey, fontSize: 14),
+                        ),
+                      ],
+                    ),
                   ),
+                  RequestStatus(status: request.status),
                 ],
               ),
             ],
