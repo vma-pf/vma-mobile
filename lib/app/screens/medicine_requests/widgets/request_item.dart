@@ -20,6 +20,7 @@ class RequestItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
       ),
       child: InkWell(
+        borderRadius: BorderRadius.circular(15),
         onTap: () {
           // TODO: Navigate to request detail screen or show a dialog
         },
