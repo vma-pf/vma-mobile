@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vma/app/screens/medicine_requests/widgets/request_details.dart';
 import 'package:vma/app/screens/medicine_requests/widgets/request_status.dart';
 import 'package:vma/core/models/inventory_request.dart';
 import 'package:vma/core/utils/date_time_helper.dart';
@@ -6,8 +7,18 @@ import 'package:vma/core/utils/string_helper.dart';
 
 class RequestItem extends StatelessWidget {
   final InventoryRequest request;
+  final BuildContext context;
 
-  const RequestItem({super.key, required this.request});
+  const RequestItem({super.key, required this.request, required this.context});
+
+  void _showRequestDetails() {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return RequestDetails(inventoryRequestId: request.id);
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +32,7 @@ class RequestItem extends StatelessWidget {
       ),
       child: InkWell(
         borderRadius: BorderRadius.circular(15),
-        onTap: () {
-          // TODO: Navigate to request detail screen or show a dialog
-        },
+        onTap: _showRequestDetails,
         child: Padding(
           padding: const EdgeInsets.all(10),
           child: Column(

@@ -3,7 +3,7 @@ import 'package:scoped_model/scoped_model.dart';
 import 'package:vma/app/common/vma_state.dart';
 import 'package:vma/app/screens/medicine_requests/widgets/request_item.dart';
 import 'package:vma/core/models/inventory_request.dart';
-import 'package:vma/core/view_models/medicine_request_list_model.dart';
+import 'package:vma/core/view_models/inventory_request_list_model.dart';
 
 class MedicineRequestsScreen extends StatefulWidget {
   const MedicineRequestsScreen({super.key});
@@ -13,7 +13,7 @@ class MedicineRequestsScreen extends StatefulWidget {
 }
 
 class _MedicineRequestsScreenState extends VMAState<MedicineRequestsScreen> {
-  final MedicineRequestListModel _model = MedicineRequestListModel();
+  final InventoryRequestListModel _model = InventoryRequestListModel();
 
   @override
   initState() {
@@ -27,13 +27,13 @@ class _MedicineRequestsScreenState extends VMAState<MedicineRequestsScreen> {
       appBar: AppBar(
         title: const Text('Yêu cầu xuất thuốc'),
       ),
-      body: ScopedModel<MedicineRequestListModel>(
+      body: ScopedModel<InventoryRequestListModel>(
         model: _model,
-        child: ScopedModelDescendant<MedicineRequestListModel>(
+        child: ScopedModelDescendant<InventoryRequestListModel>(
           builder: (
             BuildContext context,
             Widget? child,
-            MedicineRequestListModel model,
+            InventoryRequestListModel model,
           ) {
             return FutureBuilder(
               future: model.medicineRequests,
@@ -55,7 +55,10 @@ class _MedicineRequestsScreenState extends VMAState<MedicineRequestsScreen> {
                     itemBuilder: (BuildContext context, int index) {
                       final InventoryRequest medicineRequest =
                           medicineRequests[index];
-                      return RequestItem(request: medicineRequest);
+                      return RequestItem(
+                        request: medicineRequest,
+                        context: context,
+                      );
                     },
                   );
                 }
