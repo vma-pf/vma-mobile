@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "939877227216",
+    "project_id": "vma-1111",
+    "storage_bucket": "vma-1111.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:939877227216:android:a150368cd85e867aee9cd5",
+        "android_client_info": {
+          "package_name": "app.vma"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWcHjOHhDAtyva8iQyATvdWZKHG0ydivg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:939877227216:android:4f474b81fff7980cee9cd5",
+        "android_client_info": {
+          "package_name": "com.VMA.Notification"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWcHjOHhDAtyva8iQyATvdWZKHG0ydivg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:939877227216:android:e54c4e59be842a39ee9cd5",
+        "android_client_info": {
+          "package_name": "vma.mobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWcHjOHhDAtyva8iQyATvdWZKHG0ydivg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:vma/app/screens/demo/demo_token_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:vma/app/screens/management/home.dart';
 import 'package:vma/app/screens/management/vaccination.dart';
@@ -26,7 +27,7 @@ class _LayoutPageState extends State<LayoutPage> {
     NavigationItem(
       icon: Icons.medical_services,
       title: 'Tiêm phòng',
-      screen: const Vaccination(),
+      screen: const DemoTokenScreen(),
     ),
     NavigationItem(
       icon: CupertinoIcons.calendar,
