@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:vma/app/screens/medicine_requests/widgets/request_status.dart';
-import 'package:vma/core/models/medicine_request.dart';
+import 'package:vma/core/models/inventory_request.dart';
 
 class RequestItem extends StatelessWidget {
-  final MedicineRequest request;
+  final InventoryRequest request;
 
   const RequestItem({super.key, required this.request});
 
@@ -36,9 +36,9 @@ class RequestItem extends StatelessWidget {
                       SizedBox(
                         width: widgetWidth * 0.5,
                         child: Tooltip(
-                          message: request.id,
+                          message: request.title,
                           child: Text(
-                            request.id,
+                            request.title ?? 'Không có tiêu đề',
                             style: const TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
@@ -49,7 +49,7 @@ class RequestItem extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        request.newMedicineName ?? 'Chưa xác định',
+                        request.title ?? 'something',
                         style:
                             const TextStyle(color: Colors.grey, fontSize: 14),
                       ),

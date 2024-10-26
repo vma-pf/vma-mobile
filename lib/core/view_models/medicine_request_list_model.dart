@@ -1,9 +1,9 @@
 import 'package:scoped_model/scoped_model.dart';
-import 'package:vma/core/models/medicine_request.dart';
-import 'package:vma/core/repositories/medicine_request_repository.dart';
+import 'package:vma/core/models/inventory_request.dart';
+import 'package:vma/core/repositories/inventory_request_repository.dart';
 
 class MedicineRequestListModel extends Model {
-  final MedicineRequestRepository _repository = MedicineRequestRepository();
+  final InventoryRequestRepository _repository = InventoryRequestRepository();
 
   int _pageIndex = 1;
   int get pageIndex => _pageIndex;
@@ -19,9 +19,9 @@ class MedicineRequestListModel extends Model {
     notifyListeners();
   }
 
-  Future<List<MedicineRequest>> _medicineRequests = Future.value([]);
-  Future<List<MedicineRequest>> get medicineRequests => _medicineRequests;
-  set medicineRequests(Future<List<MedicineRequest>> value) {
+  Future<List<InventoryRequest>> _medicineRequests = Future.value([]);
+  Future<List<InventoryRequest>> get medicineRequests => _medicineRequests;
+  set medicineRequests(Future<List<InventoryRequest>> value) {
     _medicineRequests = value;
     notifyListeners();
   }

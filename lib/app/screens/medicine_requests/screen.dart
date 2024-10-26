@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:vma/app/common/vma_state.dart';
 import 'package:vma/app/screens/medicine_requests/widgets/request_item.dart';
-import 'package:vma/core/models/medicine_request.dart';
+import 'package:vma/core/models/inventory_request.dart';
 import 'package:vma/core/view_models/medicine_request_list_model.dart';
 
 class MedicineRequestsScreen extends StatefulWidget {
@@ -43,7 +43,8 @@ class _MedicineRequestsScreenState extends VMAState<MedicineRequestsScreen> {
                 } else if (snapshot.hasError) {
                   return Center(child: Text('Error: ${snapshot.error}'));
                 } else {
-                  final List<MedicineRequest>? medicineRequests = snapshot.data;
+                  final List<InventoryRequest>? medicineRequests =
+                      snapshot.data;
                   if (medicineRequests == null) {
                     return const Center(
                       child: Text('Không tìm thấy thông tin'),
@@ -52,7 +53,7 @@ class _MedicineRequestsScreenState extends VMAState<MedicineRequestsScreen> {
                   return ListView.builder(
                     itemCount: medicineRequests.length,
                     itemBuilder: (BuildContext context, int index) {
-                      final MedicineRequest medicineRequest =
+                      final InventoryRequest medicineRequest =
                           medicineRequests[index];
                       return RequestItem(request: medicineRequest);
                     },
