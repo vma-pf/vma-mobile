@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:vma/app/common/vma_toast.dart';
 import 'package:vma/app/screens/management/home.dart';
-import 'package:vma/app/screens/management/vaccination.dart';
+import 'package:vma/app/screens/medicine_requests/screen.dart';
 import 'package:vma/app/screens/pig_detail/screen.dart';
 import 'package:vma/app/screens/pig_list/screen.dart';
 import 'package:vma/app/screens/vaccination_plans/screen.dart';
@@ -17,16 +18,27 @@ class LayoutPage extends StatefulWidget {
 int _isSelectedIndex = 0;
 
 class _LayoutPageState extends State<LayoutPage> {
+  @override
+  void initState() {
+    super.initState();
+    VMAToast.init(context);
+  }
+
   static final List<NavigationItem> _navigationItems = <NavigationItem>[
     NavigationItem(
       icon: CupertinoIcons.chart_bar_fill,
       title: 'Tổng quan',
       screen: const MyHomePage(title: "Hello, World!"),
     ),
+    // NavigationItem(
+    //   icon: Icons.medical_services,
+    //   title: 'Tiêm phòng',
+    //   screen: const Vaccination(),
+    // ),
     NavigationItem(
       icon: Icons.medical_services,
       title: 'Tiêm phòng',
-      screen: const Vaccination(),
+      screen: const MedicineRequestsScreen(),
     ),
     NavigationItem(
       icon: CupertinoIcons.calendar,
