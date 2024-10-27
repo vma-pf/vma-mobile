@@ -6,6 +6,7 @@ import 'package:vma/app/screens/medicine_requests/screen.dart';
 import 'package:vma/app/screens/pig_detail/screen.dart';
 import 'package:vma/app/screens/pig_list/screen.dart';
 import 'package:vma/app/screens/vaccination_plans/screen.dart';
+import 'package:vma/app/screens/vaccination_schedules/screen.dart';
 import 'package:vma/app/widgets/vma_navigation_bar.dart';
 
 class LayoutPage extends StatefulWidget {
@@ -40,10 +41,15 @@ class _LayoutPageState extends State<LayoutPage> {
       title: 'Tiêm phòng',
       screen: const MedicineRequestsScreen(),
     ),
+    // NavigationItem(
+    //   icon: CupertinoIcons.calendar,
+    //   title: 'Điều trị',
+    //   screen: const PigDetail(pigId: '1cb82ddc-21d6-4253-9a61-5cec43d024cf'),
+    // ),
     NavigationItem(
       icon: CupertinoIcons.calendar,
       title: 'Điều trị',
-      screen: const PigDetail(pigId: '1cb82ddc-21d6-4253-9a61-5cec43d024cf'),
+      screen: const VaccinationSchedule(),
     ),
     NavigationItem(
       icon: CupertinoIcons.video_camera_solid,
