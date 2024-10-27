@@ -29,6 +29,8 @@ class VaccinationPlanItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double widgetWidth = MediaQuery.of(context).size.width;
+
     return Padding(
       padding: const EdgeInsets.all(8),
       child: DecoratedBox(
@@ -55,12 +57,15 @@ class VaccinationPlanItem extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          plan.title,
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w900,
-                            color: Theme.of(context).colorScheme.primary,
+                        SizedBox(
+                          width: widgetWidth * 0.55,
+                          child: Text(
+                            plan.title,
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w900,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
                           ),
                         ),
                         PlanStatusLabel(status: plan.status),
