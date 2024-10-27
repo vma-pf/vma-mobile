@@ -28,6 +28,18 @@ class VaccinationStagesTimeline extends StatelessWidget {
     }
   }
 
+  String _getIndicatorIconByDateTimeAndStatus(DateTime dateTime, bool isDone) {
+    bool isTimeInThePast = dateTime.isBefore(DateTime.now());
+    if (isTimeInThePast) {
+      if (isDone) {
+        return '✓';
+      }
+      return '✗';
+    } else {
+      return '';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -58,13 +70,25 @@ class VaccinationStagesTimeline extends StatelessWidget {
                 width: 20,
                 height: 20,
                 indicator: Container(
-                  // TODO: show icon instead of colored circle
                   decoration: BoxDecoration(
                     color: _getIndicatorColorByDateTimeAndStatus(
                       stage.applyStageTime,
                       stage.isDone,
                     ),
                     shape: BoxShape.circle,
+                  ),
+                  child: Center(
+                    child: Text(
+                      _getIndicatorIconByDateTimeAndStatus(
+                        stage.applyStageTime,
+                        stage.isDone,
+                      ),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
                   ),
                 ),
               ),

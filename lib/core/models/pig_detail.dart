@@ -1,12 +1,10 @@
 import 'package:vma/core/extensions/json_to_list_extension.dart';
-import 'package:vma/core/models/enums/pig_status.dart';
 import 'package:vma/core/models/monitoring_development_log.dart';
 import 'package:vma/core/models/pig_vaccination_stage.dart';
-import 'package:vma/core/utils/enum_helper.dart';
 
 class PigDetail {
   final String id;
-  final PigStatus status;
+  final String status;
   final String herdId;
   final String code;
   final String currentCageCode;
@@ -30,9 +28,7 @@ class PigDetail {
   factory PigDetail.fromJson(Map<String, dynamic> json) {
     return PigDetail(
       id: json['id'],
-      // status: json['status'],
-      status: EnumHelper.jsonToEnum(PigStatus.values, json['status']) ??
-          PigStatus.alive,
+      status: json['status'],
       herdId: json['herdId'],
       code: json['code'],
       currentCageCode: json['currentCageCode'],

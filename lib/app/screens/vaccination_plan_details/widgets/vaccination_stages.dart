@@ -32,7 +32,6 @@ class VaccinationStages extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // TODO: refactor this to display title on multiple lines
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.55,
                         child: Text(
