@@ -30,6 +30,7 @@ class VaccinationStages extends StatelessWidget {
                   padding: const EdgeInsets.all(8),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       // TODO: refactor this to display title on multiple lines
                       SizedBox(
@@ -40,7 +41,6 @@ class VaccinationStages extends StatelessWidget {
                             fontSize: 16,
                             color: CupertinoColors.white,
                             fontWeight: FontWeight.w900,
-                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
                       ),

@@ -3,6 +3,7 @@ import 'package:vma/app/screens/vaccination_plan_details/widgets/key_value_info.
 import 'package:vma/app/screens/vaccination_plan_details/widgets/vaccination_stages.dart';
 import 'package:vma/core/models/vaccination_plan_details.dart';
 import 'package:vma/core/utils/date_time_helper.dart';
+import 'package:vma/core/utils/string_helper.dart';
 import 'package:vma/core/utils/vaccination_plan_status_tranformer.dart';
 
 class PlanDetails extends StatelessWidget {
@@ -50,7 +51,10 @@ class PlanDetails extends StatelessWidget {
               const SizedBox(height: 20),
               KeyValueInfo(
                 label: 'Mô tả',
-                content: plan.description,
+                content: StringHelper.resolveNullableString(
+                  plan.description,
+                  'Không có mô tả',
+                ),
               ),
               KeyValueInfo(
                 label: 'Ghi chú',

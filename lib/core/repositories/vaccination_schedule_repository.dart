@@ -14,7 +14,8 @@ class VaccinationScheduleRepository {
     result.either((success) {
       final data = success.data as List<dynamic>;
       schedules = data.fromJsonToList<VaccinationSchedule>(
-          (e) => VaccinationSchedule.fromJson(e));
+        (e) => VaccinationSchedule.fromJson(e),
+      );
     }, (error) {
       // handle error
     });

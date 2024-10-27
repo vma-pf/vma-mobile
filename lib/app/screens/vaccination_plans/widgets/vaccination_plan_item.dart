@@ -3,6 +3,7 @@ import 'package:vma/app/screens/vaccination_plan_details/screen.dart';
 import 'package:vma/app/screens/vaccination_plans/widgets/plan_progress.dart';
 import 'package:vma/app/screens/vaccination_plans/widgets/plan_status_label.dart';
 import 'package:vma/core/models/vaccination_plan.dart';
+import 'package:vma/core/utils/string_helper.dart';
 
 class VaccinationPlanItem extends StatelessWidget {
   final VaccinationPlan plan;
@@ -28,6 +29,8 @@ class VaccinationPlanItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double widgetWidth = MediaQuery.of(context).size.width;
+
     return Padding(
       padding: const EdgeInsets.all(8),
       child: DecoratedBox(
@@ -54,19 +57,25 @@ class VaccinationPlanItem extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          plan.title,
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w900,
-                            color: Theme.of(context).colorScheme.primary,
+                        SizedBox(
+                          width: widgetWidth * 0.55,
+                          child: Text(
+                            plan.title,
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w900,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
                           ),
                         ),
                         PlanStatusLabel(status: plan.status),
                       ],
                     ),
                     Text(
-                      plan.description,
+                      StringHelper.resolveNullableString(
+                        plan.description,
+                        'Không có mô tả',
+                      ),
                     ),
                     const SizedBox(height: 15),
                     Row(
