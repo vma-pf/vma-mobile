@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vma/app/screens/pig_detail/widgets/growth_metrics.dart';
 import 'package:vma/app/screens/pig_detail/widgets/vaccination_stages_timeline.dart';
-import 'package:vma/core/models/enums/pig_status.dart';
+import 'package:vma/core/constants/pig_health_statuses.dart';
 import 'package:vma/core/models/monitoring_development_log.dart';
 import 'package:vma/core/models/pig_detail.dart';
 import 'package:vma/core/utils/string_helper.dart';
@@ -20,10 +20,10 @@ class DetailInfo extends StatelessWidget {
 
   Color _getColorByStatus() {
     switch (pigDetail.status) {
-      case PigStatus.alive:
+      case PigHealthStatuses.alive:
         return Colors.green;
-      case PigStatus.dead:
-        return Colors.red;
+      default:
+        return Colors.grey;
     }
   }
 
@@ -92,12 +92,16 @@ class DetailInfo extends StatelessWidget {
               color: Theme.of(context).primaryColor,
             ),
           ),
-          Text(
-            pigDetail.code,
-            style: const TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.w900,
-              color: Colors.grey,
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+            child: Text(
+              pigDetail.code,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.w900,
+                color: Colors.grey,
+              ),
             ),
           ),
           Padding(
@@ -138,7 +142,7 @@ class DetailInfo extends StatelessWidget {
                           vertical: 3,
                         ),
                         child: Text(
-                          StringHelper.capitalize(pigDetail.status.name),
+                          StringHelper.capitalize(pigDetail.status),
                           style: const TextStyle(color: Colors.white),
                         ),
                       ),
