@@ -55,12 +55,14 @@ class VaccinationSchedulesModel extends Model {
 
   List<VaccinationSchedule> getSchedulesByDay(DateTime day) {
     final schedulesByDay = schedules
-        .where((schedule) =>
-            schedule.start.year == day.year &&
-            schedule.start.month == day.month &&
-            schedule.start.day == day.day)
+        .where(
+          (schedule) =>
+              schedule.start.year == day.year &&
+              schedule.start.month == day.month &&
+              schedule.start.day == day.day,
+        )
         .toList();
-        schedulesByDay.sort((current, next) => current.start.compareTo(next.start));
+    schedulesByDay.sort((current, next) => current.start.compareTo(next.start));
 
     return schedulesByDay;
   }

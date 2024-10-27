@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:vma/app/common/vma_toast.dart';
 import 'package:vma/app/screens/management/home.dart';
 import 'package:vma/app/screens/medicine_requests/screen.dart';
-import 'package:vma/app/screens/pig_detail/screen.dart';
 import 'package:vma/app/screens/pig_list/screen.dart';
 import 'package:vma/app/screens/vaccination_plans/screen.dart';
 import 'package:vma/app/screens/vaccination_schedules/screen.dart';

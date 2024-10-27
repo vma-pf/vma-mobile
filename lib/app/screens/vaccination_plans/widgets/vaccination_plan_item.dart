@@ -3,6 +3,7 @@ import 'package:vma/app/screens/vaccination_plan_details/screen.dart';
 import 'package:vma/app/screens/vaccination_plans/widgets/plan_progress.dart';
 import 'package:vma/app/screens/vaccination_plans/widgets/plan_status_label.dart';
 import 'package:vma/core/models/vaccination_plan.dart';
+import 'package:vma/core/utils/string_helper.dart';
 
 class VaccinationPlanItem extends StatelessWidget {
   final VaccinationPlan plan;
@@ -66,7 +67,10 @@ class VaccinationPlanItem extends StatelessWidget {
                       ],
                     ),
                     Text(
-                      plan.description,
+                      StringHelper.resolveNullableString(
+                        plan.description,
+                        'Không có mô tả',
+                      ),
                     ),
                     const SizedBox(height: 15),
                     Row(

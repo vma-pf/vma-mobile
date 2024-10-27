@@ -4,7 +4,7 @@ import 'package:vma/core/utils/enum_helper.dart';
 class VaccinationPlan {
   final String id;
   final String title;
-  final String description;
+  final String? description;
   final String note;
   final DateTime startDate;
   final DateTime expectedEndDate;
@@ -14,7 +14,7 @@ class VaccinationPlan {
   VaccinationPlan({
     required this.id,
     required this.title,
-    required this.description,
+    this.description,
     required this.note,
     required this.startDate,
     required this.expectedEndDate,
