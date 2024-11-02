@@ -27,6 +27,13 @@ class VaccinationSchedulesModel extends Model {
     notifyListeners();
   }
 
+  DateTime _focusedDate = DateTime.now();
+  DateTime get focusedDate => _focusedDate;
+  set focusedDate(DateTime value) {
+    _focusedDate = value;
+    notifyListeners();
+  }
+
   void loadVaccinationSchedules() async {
     List<VaccinationSchedule> receivedSchedules =
         await _repository.getVaccinationSchedules();
@@ -47,6 +54,10 @@ class VaccinationSchedulesModel extends Model {
           DateTime(earliestDate.year, earliestDate.month, 1);
       final lastDayOfTheMonth =
           DateTime(latestDate.year, latestDate.month + 1, 0);
+
+      focusedDate = focusedDate.isBefore(lastDayOfTheMonth)
+          ? focusedDate
+          : lastDayOfTheMonth;
 
       firstDate = firstDayOfTheMonth;
       lastDate = lastDayOfTheMonth;
