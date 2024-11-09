@@ -61,11 +61,13 @@ class VMAToast {
       ),
     );
 
-    _fToast.showToast(
-      child: toast,
-      gravity: ToastGravity.TOP_RIGHT,
-      toastDuration: const Duration(seconds: 2),
-    );
+    if (_fToast.context?.mounted ?? false) {
+      _fToast.showToast(
+        child: toast,
+        gravity: ToastGravity.TOP_RIGHT,
+        toastDuration: const Duration(seconds: 2),
+      );
+    }
   }
 
   static void showSuccess(String message) {
