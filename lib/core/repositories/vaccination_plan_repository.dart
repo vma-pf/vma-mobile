@@ -42,7 +42,6 @@ class VaccinationPlanRepository {
     return Future.value(plan);
   }
 
-  // TODO: implement this method
   Future<List<Medicine>> getMedicinesByStageId(String stageId) async {
     final result = await ApiCaller.instance.request(
       path: '/vaccination-stages/$stageId/medicines',
@@ -60,5 +59,22 @@ class VaccinationPlanRepository {
     });
 
     return Future.value(medicines);
+  }
+
+  Future<void> updateVaccinationStage(
+    String stageId,
+    List<String> pigIds,
+  ) async {
+    final result = await ApiCaller.instance.request(
+      path: '/vaccination-stages/$stageId/medicines',
+      method: ApiMethod.get,
+      data: pigIds,
+    );
+
+    result.either((success) {
+      // TODO: handle successful response
+    }, (error) {
+      // TODO: handle error
+    });
   }
 }
