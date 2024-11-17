@@ -49,9 +49,19 @@ class DetailInfo extends StatelessWidget {
       }
     }
 
-    final copiedLogs = List<MonitoringDevelopmentLog>.from(
+    var copiedLogs = List<MonitoringDevelopmentLog>.from(
       pigDetail.monitoringDevelopmentLogs,
     );
+    Map<String, MonitoringDevelopmentLog> latestPerMonth = {};
+
+    for (var log in copiedLogs) {
+      String key = "${log.checkupAt.year}-${log.checkupAt.month}";
+      if (!latestPerMonth.containsKey(key) ||
+          log.checkupAt.isAfter(latestPerMonth[key]!.checkupAt)) {
+        latestPerMonth[key] = log;
+      }
+    }
+    copiedLogs = latestPerMonth.values.toList();
     copiedLogs.sort(compareByCheckupAt);
     final points = copiedLogs
         .asMap()

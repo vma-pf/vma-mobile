@@ -28,6 +28,18 @@ class VaccinationStagesTimeline extends StatelessWidget {
     }
   }
 
+  String _getStatusStringByDateTimeAndStatus(DateTime dateTime, bool isDone) {
+    bool isTimeInThePast = dateTime.isBefore(DateTime.now());
+    if (isTimeInThePast) {
+      if (isDone) {
+        return 'Đã tiêm';
+      }
+      return 'Chưa tiêm';
+    } else {
+      return 'Sắp tới';
+    }
+  }
+
   String _getIndicatorIconByDateTimeAndStatus(DateTime dateTime, bool isDone) {
     bool isTimeInThePast = dateTime.isBefore(DateTime.now());
     if (isTimeInThePast) {
@@ -40,8 +52,15 @@ class VaccinationStagesTimeline extends StatelessWidget {
     }
   }
 
+  void _sortVaccinationStagesByApplyTime() {
+    vaccinationStages
+        .sort((a, b) => a.applyStageTime.compareTo(b.applyStageTime));
+  }
+
   @override
   Widget build(BuildContext context) {
+    _sortVaccinationStagesByApplyTime();
+
     return Column(
       children: [
         const SizedBox(height: 25),
@@ -102,22 +121,52 @@ class VaccinationStagesTimeline extends StatelessWidget {
                 constraints: const BoxConstraints(minHeight: 100),
                 child: Container(
                   margin: const EdgeInsets.only(left: 10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(
-                        'Giai đoạn ${index + 1}',
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey,
-                        ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Giai đoạn ${index + 1}',
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            'Ngày: ${DateTimeHelper.getFormattedDate(stage.applyStageTime)}',
+                            style: const TextStyle(
+                              fontSize: 14,
+                            ),
+                          ),
+                        ],
                       ),
-                      const SizedBox(height: 10),
-                      Text(
-                        'Ngày: ${DateTimeHelper.getFormattedDate(stage.applyStageTime)}',
-                        style: const TextStyle(
-                          fontSize: 14,
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 7,
+                          vertical: 3,
+                        ),
+                        decoration: BoxDecoration(
+                          color: _getIndicatorColorByDateTimeAndStatus(
+                            stage.applyStageTime,
+                            stage.isDone,
+                          ),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: Text(
+                          _getStatusStringByDateTimeAndStatus(
+                            stage.applyStageTime,
+                            stage.isDone,
+                          ),
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ],

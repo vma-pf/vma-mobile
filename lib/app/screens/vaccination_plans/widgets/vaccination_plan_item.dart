@@ -68,7 +68,12 @@ class VaccinationPlanItem extends StatelessWidget {
                             ),
                           ),
                         ),
-                        PlanStatusLabel(status: plan.status),
+                        PlanStatusLabel(
+                          status: StringHelper.resolveNullableString(
+                            plan.status,
+                            'Không rõ',
+                          ),
+                        ),
                       ],
                     ),
                     Text(

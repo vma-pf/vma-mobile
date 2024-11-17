@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:vma/app/screens/vaccination_plan_details/widgets/medicine_status_label.dart';
-import 'package:vma/core/models/enums/medicine_status.dart';
 
 class MedicineItem extends StatelessWidget {
   final String name;
   final int quantity;
-  final MedicineStatus status;
+  final String status;
 
   const MedicineItem({
     super.key,

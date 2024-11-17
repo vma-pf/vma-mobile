@@ -3,7 +3,6 @@ import 'package:vma/core/utils/enum_helper.dart';
 
 class MonitoringDevelopmentLog {
   final String id;
-  final String cageId;
   final DateTime checkupAt;
   final double weight;
   final double height;
@@ -12,7 +11,6 @@ class MonitoringDevelopmentLog {
 
   MonitoringDevelopmentLog({
     required this.id,
-    required this.cageId,
     required this.checkupAt,
     required this.weight,
     required this.height,
@@ -23,7 +21,6 @@ class MonitoringDevelopmentLog {
   factory MonitoringDevelopmentLog.fromJson(Map<String, dynamic> json) {
     return MonitoringDevelopmentLog(
       id: json['id'],
-      cageId: json['cageId'],
       checkupAt: DateTime.parse(json['checkUpAt']),
       weight: json['weight'],
       height: json['height'],

@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:vma/core/models/enums/medicine_status.dart';
-import 'package:vma/core/utils/medicine_status_transformer.dart';
 
 class MedicineStatusLabel extends StatelessWidget {
-  final MedicineStatus status;
+  final String status;
 
   const MedicineStatusLabel({super.key, required this.status});
 
   Color _getColor() {
     switch (status) {
-      case MedicineStatus.pending:
+      case "Chờ xử lý":
         return Colors.amber;
-      case MedicineStatus.requested:
+      case "Đã yêu cầu":
         return Colors.teal;
-      case MedicineStatus.approved:
+      case "Đã duyệt":
         return Colors.green;
-      case MedicineStatus.rejected:
+      case "Từ chối":
+      case "Đã hủy":
         return Colors.red;
-      case MedicineStatus.unknown:
+      default:
         return Colors.grey;
     }
   }
@@ -32,7 +31,7 @@ class MedicineStatusLabel extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
         child: Text(
-          MedicineStatusTransformer.tranformToText(status),
+          status,
           style: const TextStyle(color: Colors.black87),
         ),
       ),
