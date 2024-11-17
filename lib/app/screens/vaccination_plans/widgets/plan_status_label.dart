@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:vma/core/models/enums/vaccination_plan_status.dart';
-import 'package:vma/core/utils/vaccination_plan_status_tranformer.dart';
 
 class PlanStatusLabel extends StatelessWidget {
-  final VaccinationPlanStatus status;
+  final String status;
 
   const PlanStatusLabel({super.key, required this.status});
 
   Color _getColor() {
     switch (status) {
-      case VaccinationPlanStatus.onGoing:
+      case "Đang thực hiện":
         return Colors.blue;
-      case VaccinationPlanStatus.completed:
+      case "Đã hoàn thành":
         return Colors.green;
-      case VaccinationPlanStatus.cancelled:
+      case "Đã hủy":
         return Colors.red;
       default:
         return Colors.grey;
@@ -29,7 +27,7 @@ class PlanStatusLabel extends StatelessWidget {
         borderRadius: BorderRadius.circular(5),
       ),
       child: Text(
-        VaccinationPlanStatusTranformer.transformToText(status),
+        status,
         style: const TextStyle(
           color: Colors.white,
           fontSize: 12,
