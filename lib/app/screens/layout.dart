@@ -73,7 +73,16 @@ class _LayoutPageState extends State<LayoutPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _navigationItems[_isSelectedIndex].screen,
+      extendBody: true,
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/vma-background.png'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: _navigationItems[_isSelectedIndex].screen,
+      ),
       bottomNavigationBar: Theme(
         data: ThemeData(
           colorScheme: Theme.of(context).colorScheme,
@@ -84,6 +93,7 @@ class _LayoutPageState extends State<LayoutPage> {
           onTabSelected: _onTabSelected,
         ),
       ),
+      backgroundColor: Colors.transparent,
     );
   }
 }

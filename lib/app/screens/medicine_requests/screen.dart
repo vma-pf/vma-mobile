@@ -24,6 +24,7 @@ class _MedicineRequestsScreenState extends VMAState<MedicineRequestsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
       appBar: AppBar(
         title: const Text('Yêu cầu xuất thuốc'),
       ),
