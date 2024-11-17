@@ -4,6 +4,8 @@ import 'package:vma/app/screens/pig_detail/widgets/vaccination_stages_timeline.d
 import 'package:vma/core/constants/pig_health_statuses.dart';
 import 'package:vma/core/models/monitoring_development_log.dart';
 import 'package:vma/core/models/pig_detail.dart';
+import 'package:vma/core/models/pig_vaccination_stage.dart';
+import 'package:vma/core/models/vaccination_stage.dart';
 import 'package:vma/core/utils/string_helper.dart';
 
 class DetailInfo extends StatelessWidget {
@@ -49,9 +51,19 @@ class DetailInfo extends StatelessWidget {
       }
     }
 
-    final copiedLogs = List<MonitoringDevelopmentLog>.from(
+    var copiedLogs = List<MonitoringDevelopmentLog>.from(
       pigDetail.monitoringDevelopmentLogs,
     );
+    Map<String, MonitoringDevelopmentLog> latestPerMonth = {};
+
+    for (var log in copiedLogs) {
+      String key = "${log.checkupAt.year}-${log.checkupAt.month}";
+      if (!latestPerMonth.containsKey(key) ||
+          log.checkupAt.isAfter(latestPerMonth[key]!.checkupAt)) {
+        latestPerMonth[key] = log;
+      }
+    }
+    copiedLogs = latestPerMonth.values.toList();
     copiedLogs.sort(compareByCheckupAt);
     final points = copiedLogs
         .asMap()

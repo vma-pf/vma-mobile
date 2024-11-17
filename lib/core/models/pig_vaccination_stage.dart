@@ -15,8 +15,7 @@ class PigVaccinationStage {
     return PigVaccinationStage(
       id: json['id'],
       isDone: json['isDone'],
-      // applyStageTime: DateTime.parse(json['applyStageTime']),
-      applyStageTime: DateTime.now(),
+      applyStageTime: DateTime.parse(json['applyStageTime']),
       vaccinationStageId: json['vaccinationStageId'],
     );
   }
