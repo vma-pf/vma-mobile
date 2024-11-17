@@ -4,8 +4,6 @@ import 'package:vma/app/screens/pig_detail/widgets/vaccination_stages_timeline.d
 import 'package:vma/core/constants/pig_health_statuses.dart';
 import 'package:vma/core/models/monitoring_development_log.dart';
 import 'package:vma/core/models/pig_detail.dart';
-import 'package:vma/core/models/pig_vaccination_stage.dart';
-import 'package:vma/core/models/vaccination_stage.dart';
 import 'package:vma/core/utils/string_helper.dart';
 
 class DetailInfo extends StatelessWidget {
