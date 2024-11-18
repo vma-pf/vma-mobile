@@ -29,11 +29,15 @@ class _VMANavigationBarState extends VMAState<VMANavigationBar> {
 
   @override
   Widget build(BuildContext context) {
+    BorderRadius borderRadius = BorderRadius.only(
+      topLeft: Radius.elliptical(60, 35),
+      topRight: Radius.elliptical(60, 35),
+    );
+
     return Container(
-      margin: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: borderRadius,
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.5),
@@ -44,14 +48,17 @@ class _VMANavigationBarState extends VMAState<VMANavigationBar> {
         ],
       ),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: borderRadius,
         child: BottomNavigationBar(
           backgroundColor: const Color.fromARGB(255, 255, 255, 255),
           elevation: 0,
           items: widget.items
               .map(
                 (item) => BottomNavigationBarItem(
-                  icon: Icon(item.icon),
+                  icon: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10),
+                    child: Icon(item.icon),
+                  ),
                   label: item.title,
                   backgroundColor: Colors.transparent,
                 ),

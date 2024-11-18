@@ -1,17 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-AppBar customAppBar(BuildContext context) {
+AppBar customAppBar(
+  BuildContext context,
+  String title, {
+  Color titleColor = Colors.black,
+}) {
   return AppBar(
     backgroundColor: Theme.of(context).colorScheme.primaryFixed,
-    // centerTitle: true,
-    title: const Text(
-      'Dashboard',
+    title: Text(
+      title,
       style: TextStyle(
-        fontSize: 22,
-        // color: Colors.black,
+        color: titleColor,
+        fontSize: 24,
         fontWeight: FontWeight.w500,
-        letterSpacing: 0.53,
       ),
     ),
     shape: const RoundedRectangleBorder(
@@ -19,12 +21,6 @@ AppBar customAppBar(BuildContext context) {
         bottomRight: Radius.circular(60),
       ),
     ),
-    // leading: InkWell(
-    //   onTap: () {},
-    //   child: const Icon(
-    //     Icons.subject,
-    //   ),
-    // ),
     actions: [
       InkWell(
         onTap: () {},
