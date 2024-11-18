@@ -38,7 +38,9 @@ class _LayoutPageState extends State<LayoutPage> {
     NavigationItem(
       icon: Icons.medical_services,
       title: 'Tiêm phòng',
-      screen: const MedicineRequestsScreen(),
+      screen: const VaccinationPlans(
+        herdId: 'd869bc09-7e82-4b2a-acaa-cb3b5c9332e7',
+      ),
     ),
     // NavigationItem(
     //   icon: CupertinoIcons.calendar,
@@ -47,7 +49,7 @@ class _LayoutPageState extends State<LayoutPage> {
     // ),
     NavigationItem(
       icon: CupertinoIcons.calendar,
-      title: 'Điều trị',
+      title: 'Lịch trình',
       screen: const VaccinationSchedule(),
     ),
     NavigationItem(

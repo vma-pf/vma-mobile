@@ -3,6 +3,7 @@ import 'package:scoped_model/scoped_model.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:vma/app/common/vma_state.dart';
 import 'package:vma/app/screens/vaccination_schedules/widgets/schedule_details.dart';
+import 'package:vma/app/widgets/vma_app_bar.dart';
 import 'package:vma/core/view_models/vaccination_schedules_model.dart';
 import 'package:vma/core/models/vaccination_schedule.dart' as models;
 
@@ -95,8 +96,9 @@ class _VaccinationScheduleState extends VMAState<VaccinationSchedule> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Lịch tiêm phòng'),
+      backgroundColor: Colors.transparent,
+      appBar: VMAAppBar(
+        title: 'Lịch tiêm phòng',
       ),
       body: ScopedModel(
         model: _model,
