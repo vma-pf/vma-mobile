@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:vma/app/common/vma_state.dart';
-import 'package:vma/app/screens/custom_appbar.dart';
 import 'package:vma/app/screens/home/widgets/navigation_item.dart';
 import 'package:vma/app/screens/medicine_requests/screen.dart';
 import 'package:vma/app/screens/pig_list/screen.dart';
@@ -16,7 +15,7 @@ class _HomeScreenState extends VMAState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar(context, 'Trang chủ'),
+      extendBody: true,
       body: Center(
         child: GridView(
           padding: const EdgeInsets.all(20),

@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:vma/core/models/notification.dart' as models;
 
 AppBar customAppBar(
   BuildContext context,
   String title, {
   Color titleColor = Colors.black,
+  List<models.Notification> notifications = const [],
 }) {
   return AppBar(
     backgroundColor: Theme.of(context).colorScheme.primaryFixed,
@@ -22,14 +24,20 @@ AppBar customAppBar(
       ),
     ),
     actions: [
-      InkWell(
-        onTap: () {},
-        child: const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Icon(
-            CupertinoIcons.bell_fill,
-          ),
-        ),
+      PopupMenuButton<int>(
+        icon: Icon(CupertinoIcons.bell_fill),
+        // onSelected: (value) {
+        //   // Handle selected notification
+        //   print("Selected: $value");
+        // },
+        itemBuilder: (BuildContext context) {
+          return List.generate(notifications.length, (index) {
+            return PopupMenuItem<int>(
+              value: index,
+              child: Text(notifications[index].title),
+            );
+          });
+        },
       ),
       InkWell(
         onTap: () {},

@@ -2,7 +2,6 @@ import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import 'package:vma/app/common/vma_state.dart';
-import 'package:vma/core/view_models/camera_model.dart';
 
 class LiveVideo extends StatefulWidget {
   final String cameraId;
@@ -13,7 +12,6 @@ class LiveVideo extends StatefulWidget {
 }
 
 class _LiveVideoState extends VMAState<LiveVideo> {
-  final _model = CameraModel();
   late VideoPlayerController _videoPlayerController;
   late ChewieController _chewieController;
   bool _isPlaying = false;
