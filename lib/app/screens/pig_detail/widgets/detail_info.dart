@@ -11,7 +11,7 @@ class DetailInfo extends StatelessWidget {
   const DetailInfo({super.key, required this.pigDetail});
 
   Icon _getIconByGender() {
-    if (pigDetail.gender.toLowerCase() == 'male') {
+    if (pigDetail.gender.toLowerCase() == 'đực') {
       return const Icon(Icons.male, color: Colors.blue);
     } else {
       return const Icon(Icons.female, color: Colors.pink);

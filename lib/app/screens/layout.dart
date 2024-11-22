@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:vma/app/common/vma_toast.dart';
+import 'package:vma/app/screens/camera/screen.dart';
 import 'package:vma/app/screens/home/screen.dart';
-import 'package:vma/app/screens/pig_list/screen.dart';
 import 'package:vma/app/screens/vaccination_plans/screen.dart';
 import 'package:vma/app/screens/vaccination_schedules/screen.dart';
 import 'package:vma/app/widgets/vma_navigation_bar.dart';
@@ -44,7 +44,7 @@ class _LayoutPageState extends State<LayoutPage> {
     NavigationItem(
       icon: CupertinoIcons.video_camera_solid,
       title: 'Camera',
-      screen: const PigList(),
+      screen: const CameraScreen(),
     ),
     NavigationItem(
       icon: CupertinoIcons.bell_fill,

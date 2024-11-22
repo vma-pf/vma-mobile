@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:vma/app/screens/camera/widgets/live_video.dart';
 import 'package:vma/app/screens/medicine_requests/screen.dart';
 import 'package:vma/app/screens/pig_detail/screen.dart';
 import 'package:vma/app/screens/pig_list/screen.dart';
@@ -60,6 +61,13 @@ class AppRouter {
         builder: (context, state) {
           final id = state.extra as String;
           return VaccinationPlanDetailsScreen(planId: id);
+        },
+      ),
+      GoRoute(
+        path: Routes.liveVideo,
+        builder: (context, state) {
+          final id = state.extra as String;
+          return LiveVideo(cameraId: id);
         },
       ),
       GoRoute(
