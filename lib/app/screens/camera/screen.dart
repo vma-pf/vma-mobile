@@ -3,8 +3,6 @@ import 'package:scoped_model/scoped_model.dart';
 import 'package:vma/app/common/vma_state.dart';
 import 'package:vma/app/screens/camera/widgets/cage.dart';
 import 'package:vma/app/screens/camera/widgets/live_video.dart';
-import 'package:vma/app/screens/custom_appbar.dart';
-import 'package:vma/core/constants/routes.dart';
 import 'package:vma/core/view_models/camera_model.dart';
 import 'package:vma/core/models/cage.dart' as models;
 
@@ -28,7 +26,6 @@ class _CameraScreenState extends VMAState<CameraScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: customAppBar(context, 'Camera'),
       body: ScopedModel<CameraModel>(
         model: _model,
         child: ScopedModelDescendant<CameraModel>(

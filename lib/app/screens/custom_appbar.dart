@@ -1,11 +1,45 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:vma/core/constants/routes.dart';
+import 'package:vma/core/enums/app_storage_keys.dart';
+import 'package:vma/core/models/notification.dart' as models;
+import 'package:vma/core/network/app_storage.dart';
 
 AppBar customAppBar(
   BuildContext context,
   String title, {
   Color titleColor = Colors.black,
+  List<models.Notification> notifications = const [],
 }) {
+  void handleLogout() {
+    showDialog(
+      context: context,
+      builder: (BuildContext dialogContext) {
+        return AlertDialog(
+          title: const Text('Đăng xuất'),
+          content: const Text('Bạn có chắc chắn muốn đăng xuất?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(dialogContext).pop();
+              },
+              child: const Text('Hủy'),
+            ),
+            TextButton(
+              onPressed: () {
+                AppStorage.delete(AppStorageKeys.token);
+                context.go(Routes.login);
+                Navigator.of(dialogContext).pop();
+              },
+              child: const Text('Đăng xuất'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   return AppBar(
     backgroundColor: Theme.of(context).colorScheme.primaryFixed,
     title: Text(
@@ -22,21 +56,27 @@ AppBar customAppBar(
       ),
     ),
     actions: [
-      InkWell(
-        onTap: () {},
-        child: const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Icon(
-            CupertinoIcons.bell_fill,
-          ),
-        ),
+      PopupMenuButton<int>(
+        icon: Icon(CupertinoIcons.bell_fill),
+        // onSelected: (value) {
+        //   // Handle selected notification
+        //   print("Selected: $value");
+        // },
+        itemBuilder: (BuildContext context) {
+          return List.generate(notifications.length, (index) {
+            return PopupMenuItem<int>(
+              value: index,
+              child: Text(notifications[index].title),
+            );
+          });
+        },
       ),
       InkWell(
-        onTap: () {},
+        onTap: handleLogout,
         child: const Padding(
           padding: EdgeInsets.all(8.0),
           child: Icon(
-            CupertinoIcons.gear_alt_fill,
+            CupertinoIcons.square_arrow_right,
           ),
         ),
       ),
@@ -53,7 +93,7 @@ AppBar customAppBar(
                   radius: 20,
                   backgroundColor: Colors.white,
                   child: Icon(
-                    CupertinoIcons.person,
+                    CupertinoIcons.person_fill,
                     size: 25,
                     color: Colors.black,
                   ),
@@ -66,7 +106,7 @@ AppBar customAppBar(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Chào, John Doe',
+                    'Xin chào bác sĩ thú y',
                     style: TextStyle(fontSize: 17, color: Colors.black),
                   ),
                 ],

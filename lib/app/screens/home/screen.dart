@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:vma/app/common/vma_state.dart';
-import 'package:vma/app/screens/custom_appbar.dart';
 import 'package:vma/app/screens/home/widgets/navigation_item.dart';
 import 'package:vma/app/screens/medicine_requests/screen.dart';
 import 'package:vma/app/screens/pig_list/screen.dart';
+import 'package:vma/app/screens/vaccination_plans/screen.dart';
 import 'package:vma/app/screens/treatment_plans/common-disease-treatment-guide/screen.dart';
 import 'package:vma/core/models/common-disease.dart';
 
@@ -18,7 +18,7 @@ class _HomeScreenState extends VMAState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar(context, 'Trang chủ'),
+      extendBody: true,
       body: Center(
         child: GridView(
           padding: const EdgeInsets.all(20),
@@ -43,7 +43,9 @@ class _HomeScreenState extends VMAState<HomeScreen> {
               textColor: Colors.white,
             ),
             NavigationItem(
-              destination: const MedicineRequestsScreen(),
+              destination: const VaccinationPlans(
+                herdId: '361fe41f-4c80-45b8-b2c5-1f65021b64e7',
+              ),
               assetPath: 'assets/images/vaccination.png',
               text: 'Kế hoạch tiêm phòng',
               backgroundColor: Colors.blue.withOpacity(0.8),
