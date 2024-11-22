@@ -9,6 +9,7 @@ import 'package:vma/app/screens/custom_appbar.dart';
 import 'package:vma/app/screens/home/screen.dart';
 import 'package:vma/app/screens/vaccination_plans/screen.dart';
 import 'package:vma/app/screens/vaccination_schedules/screen.dart';
+import 'package:vma/app/screens/warnings/screen.dart';
 import 'package:vma/app/widgets/vma_navigation_bar.dart';
 import 'package:vma/core/constants/api.dart';
 import 'package:vma/core/enums/app_storage_keys.dart';
@@ -69,11 +70,9 @@ class _LayoutPageState extends State<LayoutPage> {
       screen: const CameraScreen(),
     ),
     NavigationItem(
-      icon: CupertinoIcons.bell_fill,
+      icon: CupertinoIcons.exclamationmark_triangle_fill,
       title: 'Cảnh báo',
-      screen: const VaccinationPlans(
-        herdId: '361fe41f-4c80-45b8-b2c5-1f65021b64e7',
-      ),
+      screen: const WarningScreen(),
     ),
   ];
 
