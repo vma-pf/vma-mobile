@@ -26,7 +26,6 @@ class _CameraScreenState extends VMAState<CameraScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      // appBar: customAppBar(context, 'Camera'),
       body: ScopedModel<CameraModel>(
         model: _model,
         child: ScopedModelDescendant<CameraModel>(
