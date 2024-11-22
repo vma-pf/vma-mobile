@@ -1,11 +1,8 @@
-import 'package:vma/core/models/enums/medicine_status.dart';
-import 'package:vma/core/utils/enum_helper.dart';
-
 class Medicine {
   final String id;
   final String medicineName;
   final int quantity;
-  final MedicineStatus status;
+  final String status;
 
   Medicine({
     required this.id,
@@ -19,8 +16,7 @@ class Medicine {
       id: json['id'] as String,
       medicineName: json['medicineName'] as String,
       quantity: json['quantity'] as int,
-      status: EnumHelper.jsonToEnum(MedicineStatus.values, json['status']) ??
-          MedicineStatus.unknown,
+      status: json['status'],
     );
   }
 }

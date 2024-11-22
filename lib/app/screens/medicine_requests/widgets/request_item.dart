@@ -27,8 +27,8 @@ class RequestItem extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey),
         borderRadius: BorderRadius.circular(15),
+        color: Colors.green.shade50,
       ),
       child: InkWell(
         borderRadius: BorderRadius.circular(15),
@@ -49,7 +49,10 @@ class RequestItem extends StatelessWidget {
                         SizedBox(
                           width: widgetWidth * 0.7,
                           child: Tooltip(
-                            message: request.title,
+                            message: StringHelper.resolveNullableString(
+                              request.title,
+                              'Không có tiêu đề',
+                            ),
                             child: Text(
                               StringHelper.resolveNullableString(
                                 request.title,

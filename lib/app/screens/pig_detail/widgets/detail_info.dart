@@ -11,7 +11,7 @@ class DetailInfo extends StatelessWidget {
   const DetailInfo({super.key, required this.pigDetail});
 
   Icon _getIconByGender() {
-    if (pigDetail.gender.toLowerCase() == 'male') {
+    if (pigDetail.gender.toLowerCase() == 'đực') {
       return const Icon(Icons.male, color: Colors.blue);
     } else {
       return const Icon(Icons.female, color: Colors.pink);
@@ -49,9 +49,19 @@ class DetailInfo extends StatelessWidget {
       }
     }
 
-    final copiedLogs = List<MonitoringDevelopmentLog>.from(
+    var copiedLogs = List<MonitoringDevelopmentLog>.from(
       pigDetail.monitoringDevelopmentLogs,
     );
+    Map<String, MonitoringDevelopmentLog> latestPerMonth = {};
+
+    for (var log in copiedLogs) {
+      String key = "${log.checkupAt.year}-${log.checkupAt.month}";
+      if (!latestPerMonth.containsKey(key) ||
+          log.checkupAt.isAfter(latestPerMonth[key]!.checkupAt)) {
+        latestPerMonth[key] = log;
+      }
+    }
+    copiedLogs = latestPerMonth.values.toList();
     copiedLogs.sort(compareByCheckupAt);
     final points = copiedLogs
         .asMap()

@@ -5,6 +5,8 @@ import 'package:vma/app/screens/management/home.dart';
 import 'package:vma/app/screens/medicine_requests/screen.dart';
 import 'package:vma/app/screens/pig_list/screen.dart';
 import 'package:vma/app/screens/treatment_plans/common-disease-treatment-guide/screen.dart';
+import 'package:vma/app/screens/camera/screen.dart';
+import 'package:vma/app/screens/home/screen.dart';
 import 'package:vma/app/screens/vaccination_plans/screen.dart';
 import 'package:vma/app/screens/vaccination_schedules/screen.dart';
 import 'package:vma/app/widgets/vma_navigation_bar.dart';
@@ -29,32 +31,24 @@ class _LayoutPageState extends State<LayoutPage> {
     NavigationItem(
       icon: CupertinoIcons.chart_bar_fill,
       title: 'Tổng quan',
-      screen: const MyHomePage(title: "Hello, World!"),
+      screen: const HomeScreen(),
     ),
-    // NavigationItem(
-    //   icon: Icons.medical_services,
-    //   title: 'Tiêm phòng',
-    //   screen: const Vaccination(),
-    // ),
     NavigationItem(
       icon: Icons.medical_services,
       title: 'Tiêm phòng',
-      screen: const MedicineRequestsScreen(),
+      screen: const VaccinationPlans(
+        herdId: 'd869bc09-7e82-4b2a-acaa-cb3b5c9332e7',
+      ),
     ),
-    // NavigationItem(
-    //   icon: CupertinoIcons.calendar,
-    //   title: 'Điều trị',
-    //   screen: const PigDetail(pigId: '1cb82ddc-21d6-4253-9a61-5cec43d024cf'),
-    // ),
     NavigationItem(
       icon: CupertinoIcons.calendar,
-      title: 'Điều trị',
+      title: 'Lịch trình',
       screen: const VaccinationSchedule(),
     ),
     NavigationItem(
       icon: CupertinoIcons.video_camera_solid,
       title: 'Camera',
-      screen: const PigList(),
+      screen: const CameraScreen(),
     ),
     NavigationItem(
       icon: CupertinoIcons.bell_fill,
@@ -79,7 +73,13 @@ class _LayoutPageState extends State<LayoutPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _navigationItems[_isSelectedIndex].screen,
+      extendBody: true,
+      body: Container(
+        decoration: const BoxDecoration(
+          color: Colors.white,
+        ),
+        child: _navigationItems[_isSelectedIndex].screen,
+      ),
       bottomNavigationBar: Theme(
         data: ThemeData(
           colorScheme: Theme.of(context).colorScheme,
@@ -90,6 +90,7 @@ class _LayoutPageState extends State<LayoutPage> {
           onTabSelected: _onTabSelected,
         ),
       ),
+      backgroundColor: Colors.transparent,
     );
   }
 }

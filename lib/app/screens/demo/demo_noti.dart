@@ -67,7 +67,9 @@ class _DemoNotiState extends VMAState<DemoNoti> {
     return Scaffold(
       body: Center(
         child: TextButton(
-            onPressed: _initializeListeners, child: const Text('Get token')),
+          onPressed: _initializeListeners,
+          child: const Text('Get token'),
+        ),
       ),
     );
   }

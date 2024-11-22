@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:vma/app/common/vma_state.dart';
+import 'package:vma/app/screens/custom_appbar.dart';
 import 'package:vma/app/screens/vaccination_plans/widgets/vaccination_plan_item.dart';
 import 'package:vma/core/view_models/vaccination_plan_list_model.dart';
 
@@ -24,12 +25,7 @@ class _VaccinationPlanState extends VMAState<VaccinationPlans> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Kế hoạch tiêm phòng',
-          style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-        ),
-      ),
+      appBar: customAppBar(context, 'Kế hoạch tiêm phòng'),
       body: ScopedModel<VaccinationPlanListModel>(
         model: _model,
         child: ScopedModelDescendant<VaccinationPlanListModel>(

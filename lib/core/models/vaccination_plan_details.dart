@@ -1,8 +1,6 @@
 import 'package:vma/core/extensions/json_to_list_extension.dart';
-import 'package:vma/core/models/enums/vaccination_plan_status.dart';
 import 'package:vma/core/models/vaccination_plan.dart';
 import 'package:vma/core/models/vaccination_stage.dart';
-import 'package:vma/core/utils/enum_helper.dart';
 
 class VaccinationPlanDetails extends VaccinationPlan {
   final List<VaccinationStage> vaccinationStages;
@@ -27,10 +25,7 @@ class VaccinationPlanDetails extends VaccinationPlan {
       note: json['note'],
       startDate: DateTime.parse(json['startDate']),
       expectedEndDate: DateTime.parse(json['expectedEndDate']),
-      status:
-          EnumHelper.jsonToEnum(VaccinationPlanStatus.values, json['status']) ??
-              VaccinationPlanStatus.unknown,
-      // pigCount: json['pigCount'],
+      status: json['status'],
       pigCount: 0,
       vaccinationStages: (json['vaccinationStages'] as List<dynamic>)
           .fromJsonToList(VaccinationStage.fromJson),
