@@ -8,9 +8,11 @@ class RequestStatus extends StatelessWidget {
 
   Color _getStatusColor(String status) {
     switch (status) {
-      case InventoryRequestStatuses.processed:
+      case InventoryRequestStatuses.approved:
         return Colors.green;
-      case 'Đã hủy':
+      case InventoryRequestStatuses.processed:
+        return Colors.blue;
+      case InventoryRequestStatuses.rejected:
         return Colors.red;
       case InventoryRequestStatuses.pending:
         return Colors.orange;
