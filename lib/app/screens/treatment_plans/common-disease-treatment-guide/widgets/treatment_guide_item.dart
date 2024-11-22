@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vma/app/screens/medicine_requests/widgets/request_details.dart';
+import 'package:vma/app/screens/treatment_plans/common-disease-treatment-guide/widgets/treatment_guide_detail.dart';
 import 'package:vma/core/models/treatment_guide.dart';
 import 'package:vma/core/utils/string_helper.dart';
 
@@ -14,7 +14,7 @@ class TreatmentGuideItem extends StatelessWidget {
     showModalBottomSheet(
       context: context,
       builder: (context) {
-        return RequestDetails(inventoryRequestId: request.id);
+        return TreatmentGuideDetail(id: request.id);
       },
     );
   }

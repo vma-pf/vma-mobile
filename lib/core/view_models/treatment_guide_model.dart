@@ -26,9 +26,9 @@ class TreatmentGuideModel extends Model {
     notifyListeners();
   }
 
-  Future<TreatmentGuide> _treatmentGuide = Future.value(null);
-  Future<TreatmentGuide> get treatmentGuide => _treatmentGuide;
-  set treatmentGuide(Future<TreatmentGuide> value) {
+  Future<TreatmentGuide?> _treatmentGuide = Future.value(null);
+  Future<TreatmentGuide?> get treatmentGuide => _treatmentGuide;
+  set treatmentGuide(Future<TreatmentGuide?> value) {
     _treatmentGuide = value;
     notifyListeners();
   }

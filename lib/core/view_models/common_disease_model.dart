@@ -26,10 +26,22 @@ class CommonDiseaseModel extends Model {
     notifyListeners();
   }
 
+  Future<CommonDisease?> _commonDisease = Future.value(null);
+  Future<CommonDisease?> get commonDisease => _commonDisease;
+  set commonDisease(Future<CommonDisease?> value) {
+    _commonDisease = value;
+    notifyListeners();
+  }
+
   void loadData() async {
     final response = await _repository.get(pageSize, pageIndex);
     pageSize = response.pageSize;
     pageIndex = response.pageIndex;
     commonDiseases = Future.value(response.data);
+  }
+
+  void loadDataById(id) async {
+    final response = await _repository.getCommonDiseaseById(id);
+    commonDisease = Future.value(response);
   }
 }

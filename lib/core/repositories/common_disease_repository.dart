@@ -36,4 +36,20 @@ class CommonDiseaseRepository {
 
     return response;
   }
+
+  Future<CommonDisease?> getCommonDiseaseById(String id) async {
+    final result = await ApiCaller.instance.request(
+      path: '/api/CommonDiseases/$id',
+      method: ApiMethod.get,
+    );
+
+    CommonDisease? commonDisease;
+
+    result.either((success) {
+      final data = success.data as Map<String, dynamic>;
+      commonDisease = CommonDisease.fromJson(data);
+    }, (error) {});
+
+    return Future.value(commonDisease);
+  }
 }

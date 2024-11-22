@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vma/app/screens/medicine_requests/widgets/request_details.dart';
+import 'package:vma/app/screens/treatment_plans/common-disease-treatment-guide/widgets/common_disease_detail.dart';
 import 'package:vma/core/models/common-disease.dart';
 import 'package:vma/core/utils/date_time_helper.dart';
 import 'package:vma/core/utils/string_helper.dart';
@@ -15,7 +15,7 @@ class CommonDiseaseItem extends StatelessWidget {
     showModalBottomSheet(
       context: context,
       builder: (context) {
-        return RequestDetails(inventoryRequestId: request.id);
+        return CommonDiseaseDetail(id: request.id);
       },
     );
   }
@@ -69,7 +69,7 @@ class CommonDiseaseItem extends StatelessWidget {
                         ),
                         Text(
                           StringHelper.resolveNullableString(
-                            request.title,
+                            request.symptom,
                             'Không có mô tả',
                           ),
                           style:

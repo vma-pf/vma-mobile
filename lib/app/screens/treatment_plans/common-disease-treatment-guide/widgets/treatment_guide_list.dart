@@ -3,7 +3,7 @@ import 'package:scoped_model/scoped_model.dart';
 import 'package:vma/app/common/vma_state.dart';
 import 'package:vma/app/screens/treatment_plans/common-disease-treatment-guide/widgets/treatment_guide_item.dart';
 import 'package:vma/core/models/treatment_guide.dart';
-import 'package:vma/core/view_models/treatment_guide.dart';
+import 'package:vma/core/view_models/treatment_guide_model.dart';
 
 class TreatmentGuideList extends StatefulWidget {
   const TreatmentGuideList({super.key});

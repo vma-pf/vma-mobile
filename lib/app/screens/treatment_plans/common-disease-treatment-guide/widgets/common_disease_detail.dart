@@ -1,20 +1,22 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:vma/app/common/vma_state.dart';
-import 'package:vma/core/models/treatment_guide.dart';
-import 'package:vma/core/view_models/treatment_guide_model.dart';
+import 'package:vma/core/models/common-disease.dart';
+import 'package:vma/core/view_models/common_disease_model.dart';
 
-class TreatmentGuideDetail extends StatefulWidget {
+class CommonDiseaseDetail extends StatefulWidget {
   final String id;
 
-  const TreatmentGuideDetail({super.key, required this.id});
+  const CommonDiseaseDetail({super.key, required this.id});
 
   @override
-  State<StatefulWidget> createState() => _TreatmentGuideDetailState();
+  State<StatefulWidget> createState() => _CommonDiseaseDetailState();
 }
 
-class _TreatmentGuideDetailState extends VMAState<TreatmentGuideDetail> {
-  final TreatmentGuideModel _model = TreatmentGuideModel();
+class _CommonDiseaseDetailState extends VMAState<CommonDiseaseDetail> {
+  final CommonDiseaseModel _model = CommonDiseaseModel();
 
   @override
   initState() {
@@ -30,21 +32,21 @@ class _TreatmentGuideDetailState extends VMAState<TreatmentGuideDetail> {
         width: double.infinity,
         child: ScopedModel(
           model: _model,
-          child: ScopedModelDescendant<TreatmentGuideModel>(
+          child: ScopedModelDescendant<CommonDiseaseModel>(
             builder: (
               BuildContext context,
               Widget? child,
-              TreatmentGuideModel model,
+              CommonDiseaseModel model,
             ) {
               return FutureBuilder(
-                future: model.treatmentGuide,
+                future: model.commonDisease,
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(child: CircularProgressIndicator());
                   } else if (snapshot.hasError) {
                     return Center(child: Text('Error: ${snapshot.error}'));
                   } else {
-                    final TreatmentGuide data = snapshot.data;
+                    final CommonDisease data = snapshot.data;
                     if (data == null) {
                       return const Center(
                         child: Text('Không tìm thấy thông tin'),
@@ -54,7 +56,7 @@ class _TreatmentGuideDetailState extends VMAState<TreatmentGuideDetail> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          data.diseaseTitle ?? '', // Title
+                          data.title ?? '',
                           style: TextStyle(
                             fontSize: 28, // Font size for title
                             fontWeight: FontWeight.bold, // Bold for the title
@@ -65,42 +67,18 @@ class _TreatmentGuideDetailState extends VMAState<TreatmentGuideDetail> {
                           text: TextSpan(
                             children: [
                               TextSpan(
-                                text: 'Người tạo: ',
-                                style: TextStyle(
-                                  fontSize: 16, // Font size
-                                  fontWeight:
-                                      FontWeight.bold, // Bold for "Tên tác giả"
-                                  color: Colors.black,
-                                ),
-                              ),
-                              TextSpan(
-                                text: data.authorName ?? '',
-                                style: TextStyle(
-                                  fontSize: 16, // Font size for the author name
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(height: 8), // Spacing between elements
-                        RichText(
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
                                 text: 'Mức độ: ',
                                 style: TextStyle(
                                   fontSize: 16, // Font size
                                   fontWeight:
-                                      FontWeight.bold, // Bold for "Mức độ"
+                                      FontWeight.bold, // Bold for "Điều trị"
                                   color: Colors.black,
                                 ),
                               ),
                               TextSpan(
                                 text: data.diseaseType ?? '',
                                 style: TextStyle(
-                                  fontSize:
-                                      16, // Font size for the disease type
+                                  fontSize: 16, // Font size for the treatment
                                   color: Colors.black,
                                 ),
                               ),
@@ -117,11 +95,11 @@ class _TreatmentGuideDetailState extends VMAState<TreatmentGuideDetail> {
                                   fontSize: 16, // Font size
                                   fontWeight:
                                       FontWeight.bold, // Bold for "Mô tả"
-                                  color: Colors.black,
+                                  color: Colors.black, // Ensure text is visible
                                 ),
                               ),
                               TextSpan(
-                                text: data.diseaseDescription ?? '',
+                                text: data.description ?? '',
                                 style: TextStyle(
                                   fontSize: 16, // Font size for the description
                                   color: Colors.black,
@@ -144,7 +122,7 @@ class _TreatmentGuideDetailState extends VMAState<TreatmentGuideDetail> {
                                 ),
                               ),
                               TextSpan(
-                                text: data.diseaseSymptoms ?? '',
+                                text: data.symptom ?? '',
                                 style: TextStyle(
                                   fontSize: 16, // Font size for the symptom
                                   color: Colors.black,
@@ -167,7 +145,7 @@ class _TreatmentGuideDetailState extends VMAState<TreatmentGuideDetail> {
                                 ),
                               ),
                               TextSpan(
-                                text: data.cure ?? '',
+                                text: data.treatment ?? '',
                                 style: TextStyle(
                                   fontSize: 16, // Font size for the treatment
                                   color: Colors.black,

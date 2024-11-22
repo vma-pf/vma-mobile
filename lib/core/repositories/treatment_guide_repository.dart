@@ -35,9 +35,9 @@ class TreatmentGuideRepository {
     return response;
   }
 
-  Future<TreatmentGuide> getTreatmentGuideById(String id) async {
+  Future<TreatmentGuide?> getTreatmentGuideById(String id) async {
     final result = await ApiCaller.instance.request(
-      path: '/TreatmentGuides/$id',
+      path: '/api/TreatmentGuides/$id',
       method: ApiMethod.get,
     );
 
