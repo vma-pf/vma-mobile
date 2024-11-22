@@ -4,6 +4,7 @@ import 'package:vma/app/common/vma_toast.dart';
 import 'package:vma/app/screens/management/home.dart';
 import 'package:vma/app/screens/medicine_requests/screen.dart';
 import 'package:vma/app/screens/pig_list/screen.dart';
+import 'package:vma/app/screens/treatment_plans/common-disease-treatment-guide/screen.dart';
 import 'package:vma/app/screens/vaccination_plans/screen.dart';
 import 'package:vma/app/screens/vaccination_schedules/screen.dart';
 import 'package:vma/app/widgets/vma_navigation_bar.dart';
@@ -61,6 +62,11 @@ class _LayoutPageState extends State<LayoutPage> {
       screen: const VaccinationPlans(
         herdId: 'd869bc09-7e82-4b2a-acaa-cb3b5c9332e7',
       ),
+    ),
+    NavigationItem(
+      icon: CupertinoIcons.airplane,
+      title: 'Common disease',
+      screen: const CommonDiseaseAndTreatmentGuideScreen(),
     ),
   ];
 
