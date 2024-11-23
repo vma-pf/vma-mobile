@@ -2,6 +2,7 @@ import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import 'package:vma/app/common/vma_state.dart';
+import 'package:vma/core/view_models/camera_model.dart';
 
 class LiveVideo extends StatefulWidget {
   final String cameraId;
@@ -12,6 +13,7 @@ class LiveVideo extends StatefulWidget {
 }
 
 class _LiveVideoState extends VMAState<LiveVideo> {
+  final CameraModel _model = CameraModel();
   late VideoPlayerController _videoPlayerController;
   late ChewieController _chewieController;
   bool _isPlaying = false;
@@ -37,9 +39,9 @@ class _LiveVideoState extends VMAState<LiveVideo> {
 
   Future<void> _initializePlayer() async {
     try {
-      String hlsUrl =
-          'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4';
-      // String hlsUrl = await _model.fetchHlsUrl(widget.cameraId);
+      // String hlsUrl =
+      //     'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4';
+      String hlsUrl = await _model.fetchHlsUrl(widget.cameraId);
       _videoPlayerController =
           VideoPlayerController.networkUrl(Uri.parse(hlsUrl));
       _chewieController = ChewieController(

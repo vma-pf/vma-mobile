@@ -5,7 +5,6 @@ import 'package:vma/app/screens/medicine_requests/screen.dart';
 import 'package:vma/app/screens/pig_list/screen.dart';
 import 'package:vma/app/screens/vaccination_plans/screen.dart';
 import 'package:vma/app/screens/treatment_plans/common-disease-treatment-guide/screen.dart';
-import 'package:vma/core/models/common-disease.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
