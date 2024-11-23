@@ -33,14 +33,14 @@ class TreatmentGuideModel extends Model {
     notifyListeners();
   }
 
-  void loadData() async {
+  Future loadData() async {
     final response = await _repository.get(pageSize, pageIndex);
     pageSize = response.pageSize;
     pageIndex = response.pageIndex;
     treatmentGuides = Future.value(response.data);
   }
 
-  void loadDataById(id) async {
+  Future loadDataById(id) async {
     final response = await _repository.getTreatmentGuideById(id);
     treatmentGuide = Future.value(response);
   }

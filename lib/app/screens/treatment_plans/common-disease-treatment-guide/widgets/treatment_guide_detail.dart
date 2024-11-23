@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:vma/app/common/vma_state.dart';
 import 'package:vma/core/models/treatment_guide.dart';
+import 'package:vma/core/utils/string_helper.dart';
 import 'package:vma/core/view_models/treatment_guide_model.dart';
 
 class TreatmentGuideDetail extends StatefulWidget {
@@ -38,23 +39,23 @@ class _TreatmentGuideDetailState extends VMAState<TreatmentGuideDetail> {
             ) {
               return FutureBuilder(
                 future: model.treatmentGuide,
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                builder: (BuildContext context,
+                    AsyncSnapshot<TreatmentGuide?> snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(child: CircularProgressIndicator());
                   } else if (snapshot.hasError) {
                     return Center(child: Text('Error: ${snapshot.error}'));
                   } else {
-                    final TreatmentGuide data = snapshot.data;
+                    final TreatmentGuide? data = snapshot.data;
                     if (data == null) {
-                      return const Center(
-                        child: Text('Không tìm thấy thông tin'),
-                      );
+                      return const Center(child: CircularProgressIndicator());
                     }
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          data.diseaseTitle ?? '', // Title
+                          StringHelper.resolveNullableString(
+                              data.diseaseTitle, 'Không có tiêu đề'),
                           style: TextStyle(
                             fontSize: 28, // Font size for title
                             fontWeight: FontWeight.bold, // Bold for the title
@@ -74,7 +75,10 @@ class _TreatmentGuideDetailState extends VMAState<TreatmentGuideDetail> {
                                 ),
                               ),
                               TextSpan(
-                                text: data.authorName ?? '',
+                                text: StringHelper.resolveNullableString(
+                                  data.authorName,
+                                  'Không rõ',
+                                ),
                                 style: TextStyle(
                                   fontSize: 16, // Font size for the author name
                                   color: Colors.black,

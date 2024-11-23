@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:vma/app/common/vma_state.dart';
@@ -40,17 +38,16 @@ class _CommonDiseaseDetailState extends VMAState<CommonDiseaseDetail> {
             ) {
               return FutureBuilder(
                 future: model.commonDisease,
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                builder: (BuildContext context,
+                    AsyncSnapshot<CommonDisease?> snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(child: CircularProgressIndicator());
                   } else if (snapshot.hasError) {
                     return Center(child: Text('Error: ${snapshot.error}'));
                   } else {
-                    final CommonDisease data = snapshot.data;
+                    final CommonDisease? data = snapshot.data;
                     if (data == null) {
-                      return const Center(
-                        child: Text('Không tìm thấy thông tin'),
-                      );
+                      return const Center(child: CircularProgressIndicator());
                     }
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
