@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vma/core/constants/routes.dart';
 import 'package:vma/core/enums/app_storage_keys.dart';
+import 'package:vma/core/events/event_manager.dart';
+import 'package:vma/core/events/notification_received_event.dart';
 import 'package:vma/core/models/notification.dart' as models;
 import 'package:vma/core/network/app_storage.dart';
 
@@ -62,6 +64,9 @@ AppBar customAppBar(
         //   // Handle selected notification
         //   print("Selected: $value");
         // },
+        onOpened: () {
+          EventManager.fire(NotificationReceivedEvent());
+        },
         itemBuilder: (BuildContext context) {
           return List.generate(notifications.length, (index) {
             return PopupMenuItem<int>(

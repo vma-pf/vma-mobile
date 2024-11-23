@@ -13,6 +13,8 @@ import 'package:vma/app/screens/warnings/screen.dart';
 import 'package:vma/app/widgets/vma_navigation_bar.dart';
 import 'package:vma/core/constants/api.dart';
 import 'package:vma/core/enums/app_storage_keys.dart';
+import 'package:vma/core/events/event_manager.dart';
+import 'package:vma/core/events/notification_received_event.dart';
 import 'package:vma/core/network/app_storage.dart';
 import 'package:vma/core/repositories/notification_repository.dart';
 import 'package:vma/core/models/notification.dart' as models;
@@ -41,9 +43,18 @@ class _LayoutPageState extends State<LayoutPage> {
   @override
   void initState() {
     super.initState();
+    EventManager.register((NotificationReceivedEvent event) {
+      _getNotifications();
+    });
     VMAToast.init(context);
     _connectToNotificationHub();
     _getNotifications();
+  }
+
+  @override
+  void dispose() {
+    EventManager.unregister(NotificationReceivedEvent);
+    super.dispose();
   }
 
   static final List<NavigationItem> _navigationItems = <NavigationItem>[
