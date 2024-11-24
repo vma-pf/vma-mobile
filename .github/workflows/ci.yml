@@ -5,6 +5,9 @@ on:
     tags:
       - "v[0-9]+.[0-9]+.[0-9]+"
 
+env:
+  VMA_ENV_FILE: .env.production
+
 jobs:
   build-and-release:
     runs-on: ubuntu-latest
@@ -37,11 +40,15 @@ jobs:
           echo "keyAlias=${{ secrets.VMA_KEY_ALIAS }}" >> android/key.properties &&
           echo "storeFile=$GITHUB_WORKSPACE/android/vma2024.keystore" >> android/key.properties
 
+      - name: Prepare environment file
+        run: |
+          echo {{ secrets.VMA_ENV }} > {{ env.VMA_ENV_FILE }}
+
       - name: Build appbundle
         run: flutter build appbundle --release --build-name=${{ steps.extract_version.outputs.version-without-v }}
 
       - name: Build apk
-        run: flutter build apk --release --build-name=${{ steps.extract_version.outputs.version-without-v }}
+        run: flutter build apk --dart-define-from-file={{ env.VMA_ENV_FILE }} --release --build-name=${{ steps.extract_version.outputs.version-without-v }}
 
       - name: Create release
         id: create_release
