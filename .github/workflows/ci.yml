@@ -23,6 +23,12 @@ jobs:
           channel: stabel
           version: 3.24.1
 
+      - name: Set up Java 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: "21"
+          distribution: "temurin"
+
       - name: Install dependencies
         run: flutter pub get
 
@@ -45,7 +51,7 @@ jobs:
           echo {{ secrets.VMA_ENV }} > {{ env.VMA_ENV_FILE }}
 
       - name: Build appbundle
-        run: flutter build appbundle --release --build-name=${{ steps.extract_version.outputs.version-without-v }}
+        run: flutter build appbundle --dart-define-from-file={{ env.VMA_ENV_FILE }} --release --build-name=${{ steps.extract_version.outputs.version-without-v }}
 
       - name: Build apk
         run: flutter build apk --dart-define-from-file={{ env.VMA_ENV_FILE }} --release --build-name=${{ steps.extract_version.outputs.version-without-v }}
