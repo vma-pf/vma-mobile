@@ -77,7 +77,7 @@ class _LayoutPageState extends State<LayoutPage> {
     ),
     NavigationItem(
       icon: CupertinoIcons.video_camera_solid,
-      title: 'Camera',
+      title: 'Chuồng',
       screen: const CameraScreen(),
     ),
     NavigationItem(
