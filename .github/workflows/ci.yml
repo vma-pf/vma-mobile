@@ -51,10 +51,10 @@ jobs:
           echo {{ secrets.VMA_ENV }} > {{ env.VMA_ENV_FILE }}
 
       - name: Build appbundle
-        run: flutter build appbundle --dart-define-from-file={{ env.VMA_ENV_FILE }} --release --build-name=${{ steps.extract_version.outputs.version-without-v }}
+        run: flutter build appbundle --dart-define-from-file=${{ env.VMA_ENV_FILE }} --release --build-name=${{ steps.extract_version.outputs.version-without-v }}
 
       - name: Build apk
-        run: flutter build apk --dart-define-from-file={{ env.VMA_ENV_FILE }} --release --build-name=${{ steps.extract_version.outputs.version-without-v }}
+        run: flutter build apk --dart-define-from-file=${{ env.VMA_ENV_FILE }} --release --build-name=${{ steps.extract_version.outputs.version-without-v }}
 
       - name: Create release
         id: create_release
