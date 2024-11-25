@@ -32,60 +32,69 @@ class PlanDetails extends StatelessWidget {
         ),
         child: Padding(
           padding: const EdgeInsets.all(10),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              SizedBox(
-                width: double.infinity,
-                child: Text(
-                  plan.title,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.w900,
-                    color: Theme.of(context).primaryColor,
-                  ),
+          child: LayoutBuilder(
+            builder: (context, constraint) {
+              return SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: double.infinity,
+                      child: Text(
+                        plan.title,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.w900,
+                          color: Theme.of(context).primaryColor,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    KeyValueInfo(
+                      label: 'Mô tả',
+                      content: StringHelper.resolveNullableString(
+                        plan.description,
+                        'Không có mô tả',
+                      ),
+                    ),
+                    KeyValueInfo(
+                      label: 'Ghi chú',
+                      content: plan.note,
+                    ),
+                    KeyValueInfo(
+                      label: 'Ngày bắt đầu',
+                      content: DateTimeHelper.getFormattedDate(plan.startDate),
+                    ),
+                    KeyValueInfo(
+                      label: 'Ngày kết thúc dự kiến',
+                      content:
+                          DateTimeHelper.getFormattedDate(plan.expectedEndDate),
+                    ),
+                    KeyValueInfo(
+                      label: 'Trạng thái',
+                      content: StringHelper.resolveNullableString(
+                        plan.status,
+                        'Không rõ',
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Text(
+                      'Các giai đoạn tiêm phòng',
+                      style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.w900,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    VaccinationStages(
+                      vaccinationStages: plan.vaccinationStages,
+                    ),
+                  ],
                 ),
-              ),
-              const SizedBox(height: 20),
-              KeyValueInfo(
-                label: 'Mô tả',
-                content: StringHelper.resolveNullableString(
-                  plan.description,
-                  'Không có mô tả',
-                ),
-              ),
-              KeyValueInfo(
-                label: 'Ghi chú',
-                content: plan.note,
-              ),
-              KeyValueInfo(
-                label: 'Ngày bắt đầu',
-                content: DateTimeHelper.getFormattedDate(plan.startDate),
-              ),
-              KeyValueInfo(
-                label: 'Ngày kết thúc dự kiến',
-                content: DateTimeHelper.getFormattedDate(plan.expectedEndDate),
-              ),
-              KeyValueInfo(
-                label: 'Trạng thái',
-                content: StringHelper.resolveNullableString(
-                  plan.status,
-                  'Không rõ',
-                ),
-              ),
-              const SizedBox(height: 20),
-              Text(
-                'Các giai đoạn tiêm phòng',
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.w900,
-                  color: Theme.of(context).primaryColor,
-                ),
-              ),
-              const SizedBox(height: 10),
-              VaccinationStages(vaccinationStages: plan.vaccinationStages),
-            ],
+              );
+            },
           ),
         ),
       ),

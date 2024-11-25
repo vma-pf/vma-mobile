@@ -17,49 +17,49 @@ class VaccinationStages extends StatelessWidget {
   Widget build(BuildContext context) {
     final sortedStages = sortStages();
 
-    return Expanded(
-      child: ListView.builder(
-        itemCount: vaccinationStages.length,
-        itemBuilder: (BuildContext context, int index) {
-          final stage = sortedStages[index];
+    return ListView.builder(
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      itemCount: vaccinationStages.length,
+      itemBuilder: (BuildContext context, int index) {
+        final stage = sortedStages[index];
 
-          return Accordion(
-            children: [
-              AccordionSection(
-                header: Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.55,
-                        child: Text(
-                          stage.title,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            color: CupertinoColors.white,
-                            fontWeight: FontWeight.w900,
-                          ),
-                        ),
-                      ),
-                      Text(
-                        DateTimeHelper.getFormattedDate(stage.applyStageTime),
+        return Accordion(
+          children: [
+            AccordionSection(
+              header: Padding(
+                padding: const EdgeInsets.all(8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.55,
+                      child: Text(
+                        stage.title,
                         style: const TextStyle(
-                          fontSize: 12,
+                          fontSize: 16,
                           color: CupertinoColors.white,
                           fontWeight: FontWeight.w900,
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                    Text(
+                      DateTimeHelper.getFormattedDate(stage.applyStageTime),
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: CupertinoColors.white,
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
+                  ],
                 ),
-                content: VaccinationStageDetail(vaccinationStage: stage),
               ),
-            ],
-          );
-        },
-      ),
+              content: VaccinationStageDetail(vaccinationStage: stage),
+            ),
+          ],
+        );
+      },
     );
   }
 }
