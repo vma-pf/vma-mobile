@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:vma/app/common/vma_state.dart';
-import 'package:vma/core/models/common-disease.dart';
+import 'package:vma/core/models/common_disease.dart';
 import 'package:vma/core/view_models/common_disease_model.dart';
 
 class CommonDiseaseDetail extends StatefulWidget {
@@ -38,8 +38,10 @@ class _CommonDiseaseDetailState extends VMAState<CommonDiseaseDetail> {
             ) {
               return FutureBuilder(
                 future: model.commonDisease,
-                builder: (BuildContext context,
-                    AsyncSnapshot<CommonDisease?> snapshot) {
+                builder: (
+                  BuildContext context,
+                  AsyncSnapshot<CommonDisease?> snapshot,
+                ) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(child: CircularProgressIndicator());
                   } else if (snapshot.hasError) {

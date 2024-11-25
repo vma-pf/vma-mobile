@@ -72,6 +72,7 @@ class PigItem extends StatelessWidget {
                   childAspectRatio: widgetWidth / (2 * 20),
                 ),
                 shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
                 children: [
                   DetailInfoText(label: 'Giống', data: pig.breed),
                   DetailInfoText(label: 'Cân nặng', data: '${pig.weight} kg'),

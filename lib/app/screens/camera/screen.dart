@@ -50,7 +50,8 @@ class _CameraScreenState extends VMAState<CameraScreen> {
 
   Widget _buildCages(List<models.Cage> cages) {
     if (cages.isEmpty) {
-      return const Center(child: Text('Không có camera nào'));
+      return const Center(child: CircularProgressIndicator());
+      // return const Center(child: Text('Không có camera nào'));
     }
 
     return Center(

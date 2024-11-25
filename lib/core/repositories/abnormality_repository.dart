@@ -43,7 +43,6 @@ class AbnormalityRepository {
 
     result.either((success) {
       response = Abnormality.fromJson(success.data);
-      print('response: $response');
     }, (error) {
       // TODO: handle error
     });

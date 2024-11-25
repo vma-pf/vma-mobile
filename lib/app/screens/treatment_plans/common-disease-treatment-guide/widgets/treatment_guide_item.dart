@@ -7,8 +7,11 @@ class TreatmentGuideItem extends StatelessWidget {
   final TreatmentGuide request;
   final BuildContext context;
 
-  const TreatmentGuideItem(
-      {super.key, required this.request, required this.context});
+  const TreatmentGuideItem({
+    super.key,
+    required this.request,
+    required this.context,
+  });
 
   void _showRequestDetails() {
     showModalBottomSheet(
@@ -67,7 +70,9 @@ class TreatmentGuideItem extends StatelessWidget {
                             'Không có tên',
                           ),
                           style: const TextStyle(
-                              color: Colors.green, fontSize: 14),
+                            color: Colors.green,
+                            fontSize: 14,
+                          ),
                         ),
                         Text(
                           StringHelper.resolveNullableString(

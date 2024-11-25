@@ -104,6 +104,7 @@ class _VaccinationScheduleState extends VMAState<VaccinationSchedule> {
             return Column(
               children: [
                 TableCalendar<models.VaccinationSchedule>(
+                  locale: 'vi_VN',
                   firstDay: _model.firstDate,
                   lastDay: _model.lastDate,
                   focusedDay: _model.focusedDate,
@@ -111,12 +112,30 @@ class _VaccinationScheduleState extends VMAState<VaccinationSchedule> {
                   rangeStartDay: _rangeStart,
                   rangeEndDay: _rangeEnd,
                   calendarFormat: _calendarFormat,
+                  availableCalendarFormats: const {
+                    CalendarFormat.month: 'Tháng',
+                    CalendarFormat.twoWeeks: '2 tuần',
+                    CalendarFormat.week: 'Tuần',
+                  },
                   rangeSelectionMode: _rangeSelectionMode,
                   eventLoader: _model.getSchedulesByDay,
                   startingDayOfWeek: StartingDayOfWeek.monday,
-                  calendarStyle: const CalendarStyle(
+                  calendarStyle: CalendarStyle(
                     // Use `CalendarStyle` to customize the UI
                     outsideDaysVisible: false,
+                    todayTextStyle: TextStyle(color: Colors.black),
+                    todayDecoration: BoxDecoration(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .primaryFixed
+                          .withOpacity(0.5),
+                      shape: BoxShape.circle,
+                    ),
+                    selectedTextStyle: TextStyle(color: Colors.black),
+                    selectedDecoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.primaryFixed,
+                      shape: BoxShape.circle,
+                    ),
                   ),
                   onDaySelected: _onDaySelected,
                   onRangeSelected: _onRangeSelected,

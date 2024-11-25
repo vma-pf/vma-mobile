@@ -1,6 +1,7 @@
 import 'package:scoped_model/scoped_model.dart';
 import 'package:vma/core/events/event_manager.dart';
 import 'package:vma/core/events/vaccination_stage_updated_event.dart';
+import 'package:vma/core/models/enums/medicine_status.dart';
 import 'package:vma/core/models/medicine.dart';
 import 'package:vma/core/repositories/vaccination_plan_repository.dart';
 
@@ -14,8 +15,17 @@ class VaccinationStageDetailsModel extends Model {
     notifyListeners();
   }
 
+  bool _canUpdateStage = false;
+  bool get canUpdateStage => _canUpdateStage;
+  set canUpdateStage(bool value) {
+    _canUpdateStage = value;
+    notifyListeners();
+  }
+
   void loadMedicines(String stageId) async {
-    medicines = _repository.getMedicinesByStageId(stageId);
+    final result = await _repository.getMedicinesByStageId(stageId);
+    canUpdateStage = result.every((element) => element.status == "Đã duyệt");
+    medicines = Future.value(result);
   }
 
   void updateVaccinationStage(Set<String> pigIds, String stageId) {

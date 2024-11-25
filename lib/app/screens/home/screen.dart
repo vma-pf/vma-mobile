@@ -3,7 +3,6 @@ import 'package:vma/app/common/vma_state.dart';
 import 'package:vma/app/screens/home/widgets/navigation_item.dart';
 import 'package:vma/app/screens/medicine_requests/screen.dart';
 import 'package:vma/app/screens/pig_list/screen.dart';
-import 'package:vma/app/screens/vaccination_plans/screen.dart';
 import 'package:vma/app/screens/treatment_plans/common-disease-treatment-guide/screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -42,19 +41,10 @@ class _HomeScreenState extends VMAState<HomeScreen> {
               textColor: Colors.white,
             ),
             NavigationItem(
-              destination: const VaccinationPlans(
-                herdId: '361fe41f-4c80-45b8-b2c5-1f65021b64e7',
-              ),
-              assetPath: 'assets/images/vaccination.png',
-              text: 'Kế hoạch tiêm phòng',
-              backgroundColor: Colors.blue.withOpacity(0.8),
-              textColor: Colors.white,
-            ),
-            NavigationItem(
               destination: const CommonDiseaseAndTreatmentGuideScreen(),
               assetPath: 'assets/images/vaccination.png',
               text: 'Thông tin điều trị',
-              backgroundColor: Colors.green.withOpacity(0.8),
+              backgroundColor: Colors.blue.withOpacity(0.8),
               textColor: Colors.white,
             ),
           ],
