@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
 import 'package:vma/app/common/vma_state.dart';
 import 'package:vma/app/common/vma_toast.dart';
 import 'package:vma/app/screens/vaccination_plan_details/widgets/medicine_item.dart';
@@ -82,9 +83,9 @@ class VaccinationStageDetailState extends VMAState<VaccinationStageDetail> {
 
   void _handleStageUpdated(VaccinationStageUpdatedEvent event) {
     if (event.success) {
-      VMAToast.showSuccess('updated');
+      VMAToast.showSuccess('Cập nhật giai đoạn tiêm phòng thành công');
     } else {
-      VMAToast.showError('error occurred');
+      VMAToast.showError('Đã có lỗi xảy ra');
     }
     Navigator.of(context).pop();
   }
@@ -95,6 +96,18 @@ class VaccinationStageDetailState extends VMAState<VaccinationStageDetail> {
 
   @override
   Widget build(BuildContext context) {
+    return ScopedModel<VaccinationStageDetailsModel>(
+      model: _model,
+      child: ScopedModelDescendant<VaccinationStageDetailsModel>(
+        builder: (BuildContext context, Widget? child,
+            VaccinationStageDetailsModel model) {
+          return _buildContent();
+        },
+      ),
+    );
+  }
+
+  Widget _buildContent() {
     return FutureBuilder<List<Medicine>>(
       future: _model.medicines,
       builder: (
@@ -122,37 +135,49 @@ class VaccinationStageDetailState extends VMAState<VaccinationStageDetail> {
           return const Text('Không có thông tin về giai đoạn tiêm phòng này');
         }
 
-        return SizedBox(
-          height: 75 * medicines.length.toDouble() +
-              15 /* space for UPDATE button */,
-          child: ListView.builder(
-            itemCount: medicines.length,
-            itemBuilder: (BuildContext context, int index) {
-              final Medicine medicine = medicines[index];
+        return SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+            child: Column(
+              children: [
+                ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: medicines.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final Medicine medicine = medicines[index];
 
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  MedicineItem(
-                    name: medicine.medicineName,
-                    quantity: medicine.quantity,
-                    status: medicine.status,
-                  ),
-                  TextButton(
-                    onPressed: _showUpdateMedicineDialog,
-                    style: ButtonStyle(
-                      backgroundColor: WidgetStateProperty.all(
-                        Theme.of(context).colorScheme.primary,
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        MedicineItem(
+                          name: medicine.medicineName,
+                          quantity: medicine.quantity,
+                          status: medicine.status,
+                        ),
+                        const Divider(),
+                      ],
+                    );
+                  },
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    ElevatedButton(
+                      onPressed: _model.canUpdateStage
+                          ? _showUpdateMedicineDialog
+                          : null,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Theme.of(context).primaryColor,
+                        foregroundColor: Colors.white,
                       ),
-                      foregroundColor: WidgetStateProperty.all(
-                        Colors.white,
-                      ),
+                      child: const Text('Cập nhật'),
                     ),
-                    child: const Text('Cập nhật'),
-                  ),
-                ],
-              );
-            },
+                  ],
+                ),
+              ],
+            ),
           ),
         );
       },
