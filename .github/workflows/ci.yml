@@ -6,7 +6,7 @@ on:
       - "v[0-9]+.[0-9]+.[0-9]+"
 
 env:
-  VMA_ENV_FILE: .env.production
+  VMA_ENV_FILE: $GITHUB_WORKSPACE/.env.production
 
 jobs:
   build-and-release:
@@ -48,7 +48,7 @@ jobs:
 
       - name: Prepare environment file
         run: |
-          echo {{ secrets.VMA_ENV }} > {{ env.VMA_ENV_FILE }}
+          echo ${{ secrets.VMA_ENV }} > ${{ env.VMA_ENV_FILE }}
 
       - name: Build appbundle
         run: flutter build appbundle --dart-define-from-file=${{ env.VMA_ENV_FILE }} --release --build-name=${{ steps.extract_version.outputs.version-without-v }}
