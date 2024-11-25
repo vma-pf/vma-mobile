@@ -39,8 +39,10 @@ class _TreatmentGuideDetailState extends VMAState<TreatmentGuideDetail> {
             ) {
               return FutureBuilder(
                 future: model.treatmentGuide,
-                builder: (BuildContext context,
-                    AsyncSnapshot<TreatmentGuide?> snapshot) {
+                builder: (
+                  BuildContext context,
+                  AsyncSnapshot<TreatmentGuide?> snapshot,
+                ) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(child: CircularProgressIndicator());
                   } else if (snapshot.hasError) {
@@ -55,7 +57,9 @@ class _TreatmentGuideDetailState extends VMAState<TreatmentGuideDetail> {
                       children: [
                         Text(
                           StringHelper.resolveNullableString(
-                              data.diseaseTitle, 'Không có tiêu đề'),
+                            data.diseaseTitle,
+                            'Không có tiêu đề',
+                          ),
                           style: TextStyle(
                             fontSize: 28, // Font size for title
                             fontWeight: FontWeight.bold, // Bold for the title

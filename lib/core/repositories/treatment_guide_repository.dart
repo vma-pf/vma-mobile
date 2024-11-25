@@ -25,12 +25,15 @@ class TreatmentGuideRepository {
       data: [],
     );
 
-    result.either((success) {
-      response = PaginatedResponse.fromJson(
-        success.data,
-        (e) => TreatmentGuide.fromJson(e),
-      );
-    }, (error) {});
+    result.either(
+      (success) {
+        response = PaginatedResponse.fromJson(
+          success.data,
+          (e) => TreatmentGuide.fromJson(e),
+        );
+      },
+      (error) {},
+    );
 
     return response;
   }
@@ -43,10 +46,13 @@ class TreatmentGuideRepository {
 
     TreatmentGuide? plan;
 
-    result.either((success) {
-      final data = success.data as Map<String, dynamic>;
-      plan = TreatmentGuide.fromJson(data);
-    }, (error) {});
+    result.either(
+      (success) {
+        final data = success.data as Map<String, dynamic>;
+        plan = TreatmentGuide.fromJson(data);
+      },
+      (error) {},
+    );
 
     return Future.value(plan);
   }

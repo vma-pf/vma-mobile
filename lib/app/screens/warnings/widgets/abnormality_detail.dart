@@ -64,7 +64,8 @@ class _AbnormalityDetailState extends VMAState<AbnormalityDetail> {
                       if (snapshot.connectionState == ConnectionState.done) {
                         if (abnormality == null) {
                           return const Center(
-                              child: CircularProgressIndicator());
+                            child: CircularProgressIndicator(),
+                          );
                         }
 
                         return Column(

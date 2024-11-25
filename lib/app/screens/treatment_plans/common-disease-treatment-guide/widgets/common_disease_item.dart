@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vma/app/screens/treatment_plans/common-disease-treatment-guide/widgets/common_disease_detail.dart';
-import 'package:vma/core/models/common-disease.dart';
+import 'package:vma/core/models/common_disease.dart';
 import 'package:vma/core/utils/date_time_helper.dart';
 import 'package:vma/core/utils/string_helper.dart';
 
@@ -8,8 +8,11 @@ class CommonDiseaseItem extends StatelessWidget {
   final CommonDisease request;
   final BuildContext context;
 
-  const CommonDiseaseItem(
-      {super.key, required this.request, required this.context});
+  const CommonDiseaseItem({
+    super.key,
+    required this.request,
+    required this.context,
+  });
 
   void _showRequestDetails() {
     showModalBottomSheet(

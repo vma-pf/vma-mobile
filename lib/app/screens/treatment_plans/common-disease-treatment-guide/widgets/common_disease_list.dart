@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:vma/app/common/vma_state.dart';
 import 'package:vma/app/screens/treatment_plans/common-disease-treatment-guide/widgets/common_disease_item.dart';
-import 'package:vma/core/models/common-disease.dart';
+import 'package:vma/core/models/common_disease.dart';
 import 'package:vma/core/view_models/common_disease_model.dart';
 
 class CommonDiseaseList extends StatefulWidget {

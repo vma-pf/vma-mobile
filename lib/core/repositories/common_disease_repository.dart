@@ -1,4 +1,4 @@
-import 'package:vma/core/models/common-disease.dart';
+import 'package:vma/core/models/common_disease.dart';
 import 'package:vma/core/network/api.dart';
 import 'package:vma/core/network/paginated_response.dart';
 
@@ -45,10 +45,13 @@ class CommonDiseaseRepository {
 
     CommonDisease? commonDisease;
 
-    result.either((success) {
-      final data = success.data as Map<String, dynamic>;
-      commonDisease = CommonDisease.fromJson(data);
-    }, (error) {});
+    result.either(
+      (success) {
+        final data = success.data as Map<String, dynamic>;
+        commonDisease = CommonDisease.fromJson(data);
+      },
+      (error) {},
+    );
 
     return Future.value(commonDisease);
   }

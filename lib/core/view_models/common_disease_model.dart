@@ -1,5 +1,5 @@
 import 'package:scoped_model/scoped_model.dart';
-import 'package:vma/core/models/common-disease.dart';
+import 'package:vma/core/models/common_disease.dart';
 import 'package:vma/core/repositories/common_disease_repository.dart';
 
 class CommonDiseaseModel extends Model {
