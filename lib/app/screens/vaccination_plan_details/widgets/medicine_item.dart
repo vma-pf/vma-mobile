@@ -22,7 +22,7 @@ class MedicineItem extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
-          width: widgetWidth * 0.6,
+          width: widgetWidth * 0.5,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

@@ -77,4 +77,21 @@ class VaccinationPlanRepository {
       // TODO: handle error
     });
   }
+
+  Future<void> requestMedicines(
+    List<String> medicineIds,
+  ) async {
+    final result = await ApiCaller.instance.request(
+      path: '/api/MedicineRequests/change-status-requested',
+      method: ApiMethod.put,
+      data: medicineIds,
+      headers: {'Content-Type': 'application/json-patch+json'},
+    );
+
+    result.either((success) {
+      // TODO: handle successful response
+    }, (error) {
+      // TODO: handle error
+    });
+  }
 }
