@@ -5,6 +5,7 @@ import 'package:vma/app/common/vma_toast.dart';
 import 'package:vma/app/screens/vaccination_plan_details/widgets/medicine_item.dart';
 import 'package:vma/app/screens/vaccination_plan_details/widgets/update_vaccination_stage_dialog.dart';
 import 'package:vma/core/events/event_manager.dart';
+import 'package:vma/core/events/medicines_requested_event.dart';
 import 'package:vma/core/events/vaccination_stage_updated_event.dart';
 import 'package:vma/core/models/medicine.dart';
 import 'package:vma/core/models/vaccination_stage.dart';
@@ -22,6 +23,7 @@ class VaccinationStageDetail extends StatefulWidget {
 class VaccinationStageDetailState extends VMAState<VaccinationStageDetail> {
   late final VaccinationStage _stage;
   final _model = VaccinationStageDetailsModel();
+  BuildContext? _dialogContext;
 
   Set<String> selectedPigIds = <String>{};
 
@@ -32,11 +34,13 @@ class VaccinationStageDetailState extends VMAState<VaccinationStageDetail> {
     _model.loadMedicines(_stage.id);
     VMAToast.init(context);
     EventManager.register<VaccinationStageUpdatedEvent>(_handleStageUpdated);
+    EventManager.register<MedicinesRequestedEvent>(_handleMedicinesRequested);
   }
 
   @override
   void dispose() {
     EventManager.unregister(VaccinationStageUpdatedEvent);
+    EventManager.unregister(MedicinesRequestedEvent);
     super.dispose();
   }
 
@@ -56,6 +60,7 @@ class VaccinationStageDetailState extends VMAState<VaccinationStageDetail> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
+        _dialogContext = context;
         return AlertDialog(
           title: const Text('Cập nhật giai đoạn tiêm phòng'),
           content: UpdateVaccinationStageDialog(
@@ -81,17 +86,71 @@ class VaccinationStageDetailState extends VMAState<VaccinationStageDetail> {
     );
   }
 
+  void _showRequestMedicinesDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        _dialogContext = context;
+        return AlertDialog(
+          title: const Text('Yêu cầu xuất thuốc'),
+          content: const Text(
+            'Bạn có chắc chắn muốn yêu cầu xuất thuốc cho giai đoạn tiêm phòng này không?',
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Hủy'),
+            ),
+            TextButton(
+              onPressed: _requestMedicines,
+              child: const Text('Đồng ý'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   void _handleStageUpdated(VaccinationStageUpdatedEvent event) {
+    if (_dialogContext != null) {
+      Navigator.of(_dialogContext!).pop();
+    }
     if (event.success) {
       VMAToast.showSuccess('Cập nhật giai đoạn tiêm phòng thành công');
     } else {
       VMAToast.showError('Đã có lỗi xảy ra');
     }
-    Navigator.of(context).pop();
+  }
+
+  void _handleMedicinesRequested(MedicinesRequestedEvent event) {
+    if (_dialogContext != null) {
+      Navigator.of(_dialogContext!).pop();
+    }
+    if (event.success) {
+      VMAToast.showSuccess('Đã yêu cầu xuất thuốc thành công');
+    } else {
+      VMAToast.showError('Đã có lỗi xảy ra');
+    }
   }
 
   void _updateVaccinationStage() {
     _model.updateVaccinationStage(selectedPigIds, widget.vaccinationStage.id);
+  }
+
+  void _requestMedicines() {
+    _model.requestMedicines();
+  }
+
+  String _getButtonLabel() {
+    if (_model.canUpdateStage) {
+      return 'Cập nhật';
+    }
+    if (_model.canRequestMedicines) {
+      return 'Yêu cầu';
+    }
+    return 'Cập nhật';
   }
 
   @override
@@ -99,8 +158,11 @@ class VaccinationStageDetailState extends VMAState<VaccinationStageDetail> {
     return ScopedModel<VaccinationStageDetailsModel>(
       model: _model,
       child: ScopedModelDescendant<VaccinationStageDetailsModel>(
-        builder: (BuildContext context, Widget? child,
-            VaccinationStageDetailsModel model) {
+        builder: (
+          BuildContext context,
+          Widget? child,
+          VaccinationStageDetailsModel model,
+        ) {
           return _buildContent();
         },
       ),
@@ -167,12 +229,14 @@ class VaccinationStageDetailState extends VMAState<VaccinationStageDetail> {
                     ElevatedButton(
                       onPressed: _model.canUpdateStage
                           ? _showUpdateMedicineDialog
-                          : null,
+                          : _model.canRequestMedicines
+                              ? _showRequestMedicinesDialog
+                              : null,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Theme.of(context).primaryColor,
                         foregroundColor: Colors.white,
                       ),
-                      child: const Text('Cập nhật'),
+                      child: Text(_getButtonLabel()),
                     ),
                   ],
                 ),
