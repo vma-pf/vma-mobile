@@ -1,13 +1,60 @@
 import 'package:flutter/material.dart';
+import 'package:vma/app/common/vma_state.dart';
+import 'package:vma/app/common/vma_toast.dart';
 import 'package:vma/app/screens/vaccination_plan_details/widgets/key_value_info.dart';
 import 'package:vma/app/screens/vaccination_plan_details/widgets/vaccination_stages.dart';
+import 'package:vma/core/events/event_manager.dart';
+import 'package:vma/core/events/medicines_requested_event.dart';
+import 'package:vma/core/events/vaccination_stage_updated_event.dart';
 import 'package:vma/core/models/vaccination_plan_details.dart';
 import 'package:vma/core/utils/date_time_helper.dart';
 import 'package:vma/core/utils/string_helper.dart';
 
-class PlanDetails extends StatelessWidget {
+class PlanDetails extends StatefulWidget {
   final VaccinationPlanDetails plan;
   const PlanDetails({super.key, required this.plan});
+
+  @override
+  // ignore: no_logic_in_create_state
+  State<StatefulWidget> createState() => _PlanDetailsState(plan: plan);
+}
+
+class _PlanDetailsState extends VMAState<PlanDetails> {
+  final VaccinationPlanDetails plan;
+  _PlanDetailsState({required this.plan});
+
+  @override
+  void initState() {
+    super.initState();
+    VMAToast.init(context);
+    EventManager.register<VaccinationStageUpdatedEvent>(_handleStageUpdated);
+    EventManager.register<MedicinesRequestedEvent>(_handleMedicinesRequested);
+  }
+
+  @override
+  void dispose() {
+    EventManager.unregister(VaccinationStageUpdatedEvent);
+    EventManager.unregister(MedicinesRequestedEvent);
+    super.dispose();
+  }
+
+  void _handleStageUpdated(VaccinationStageUpdatedEvent event) {
+    Navigator.of(context).pop();
+    if (event.success) {
+      VMAToast.showSuccess('Cập nhật giai đoạn tiêm phòng thành công');
+    } else {
+      VMAToast.showError('Đã có lỗi xảy ra');
+    }
+  }
+
+  void _handleMedicinesRequested(MedicinesRequestedEvent event) {
+    Navigator.of(context).pop();
+    if (event.success) {
+      VMAToast.showSuccess('Đã yêu cầu xuất thuốc thành công');
+    } else {
+      VMAToast.showError('Đã có lỗi xảy ra');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

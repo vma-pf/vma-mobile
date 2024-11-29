@@ -25,6 +25,7 @@ class VaccinationStages extends StatelessWidget {
         final stage = sortedStages[index];
 
         return Accordion(
+          disableScrolling: true,
           children: [
             AccordionSection(
               header: Padding(

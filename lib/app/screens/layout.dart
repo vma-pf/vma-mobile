@@ -67,7 +67,7 @@ class _LayoutPageState extends State<LayoutPage> {
       icon: Icons.medical_services,
       title: 'Kế hoạch tiêm phòng',
       screen: const VaccinationPlans(
-        herdId: '361fe41f-4c80-45b8-b2c5-1f65021b64e7',
+        herdId: '7f131e70-cfdb-4655-9a84-0f40f8d5f022',
       ),
     ),
     NavigationItem(
