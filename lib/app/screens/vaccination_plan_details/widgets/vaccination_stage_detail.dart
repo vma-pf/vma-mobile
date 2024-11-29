@@ -169,6 +169,7 @@ class VaccinationStageDetailState extends VMAState<VaccinationStageDetail> {
         }
 
         return SingleChildScrollView(
+          physics: const NeverScrollableScrollPhysics(),
           child: Padding(
             padding: EdgeInsets.symmetric(vertical: 12, horizontal: 8),
             child: Column(
