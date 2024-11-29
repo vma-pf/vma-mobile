@@ -37,7 +37,6 @@ class _HerdScreenState extends VMAState<HerdsScreen> {
                   (BuildContext context, AsyncSnapshot<List<Herd>> snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
                   final List<Herd> herds = snapshot.data ?? [];
-
                   return ListView.builder(
                     itemCount: herds.length,
                     itemBuilder: (context, index) {
