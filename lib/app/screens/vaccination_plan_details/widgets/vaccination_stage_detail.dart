@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:vma/app/common/vma_state.dart';
-import 'package:vma/app/common/vma_toast.dart';
 import 'package:vma/app/screens/vaccination_plan_details/widgets/medicine_item.dart';
 import 'package:vma/app/screens/vaccination_plan_details/widgets/update_vaccination_stage_dialog.dart';
+import 'package:vma/core/events/event_base.dart';
 import 'package:vma/core/events/event_manager.dart';
 import 'package:vma/core/events/medicines_requested_event.dart';
 import 'package:vma/core/events/vaccination_stage_updated_event.dart';
@@ -23,7 +23,6 @@ class VaccinationStageDetail extends StatefulWidget {
 class VaccinationStageDetailState extends VMAState<VaccinationStageDetail> {
   late final VaccinationStage _stage;
   final _model = VaccinationStageDetailsModel();
-  BuildContext? _dialogContext;
 
   Set<String> selectedPigIds = <String>{};
 
@@ -32,16 +31,8 @@ class VaccinationStageDetailState extends VMAState<VaccinationStageDetail> {
     super.initState();
     _stage = widget.vaccinationStage;
     _model.loadMedicines(_stage.id);
-    VMAToast.init(context);
     EventManager.register<VaccinationStageUpdatedEvent>(_handleStageUpdated);
-    EventManager.register<MedicinesRequestedEvent>(_handleMedicinesRequested);
-  }
-
-  @override
-  void dispose() {
-    EventManager.unregister(VaccinationStageUpdatedEvent);
-    EventManager.unregister(MedicinesRequestedEvent);
-    super.dispose();
+    EventManager.register<MedicinesRequestedEvent>(_handleStageUpdated);
   }
 
   void selectPig(String pigId) {
@@ -60,7 +51,6 @@ class VaccinationStageDetailState extends VMAState<VaccinationStageDetail> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        _dialogContext = context;
         return AlertDialog(
           title: const Text('Cập nhật giai đoạn tiêm phòng'),
           content: UpdateVaccinationStageDialog(
@@ -90,7 +80,6 @@ class VaccinationStageDetailState extends VMAState<VaccinationStageDetail> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        _dialogContext = context;
         return AlertDialog(
           title: const Text('Yêu cầu xuất thuốc'),
           content: const Text(
@@ -113,28 +102,6 @@ class VaccinationStageDetailState extends VMAState<VaccinationStageDetail> {
     );
   }
 
-  void _handleStageUpdated(VaccinationStageUpdatedEvent event) {
-    if (_dialogContext != null) {
-      Navigator.of(_dialogContext!).pop();
-    }
-    if (event.success) {
-      VMAToast.showSuccess('Cập nhật giai đoạn tiêm phòng thành công');
-    } else {
-      VMAToast.showError('Đã có lỗi xảy ra');
-    }
-  }
-
-  void _handleMedicinesRequested(MedicinesRequestedEvent event) {
-    if (_dialogContext != null) {
-      Navigator.of(_dialogContext!).pop();
-    }
-    if (event.success) {
-      VMAToast.showSuccess('Đã yêu cầu xuất thuốc thành công');
-    } else {
-      VMAToast.showError('Đã có lỗi xảy ra');
-    }
-  }
-
   void _updateVaccinationStage() {
     _model.updateVaccinationStage(selectedPigIds, widget.vaccinationStage.id);
   }
@@ -151,6 +118,10 @@ class VaccinationStageDetailState extends VMAState<VaccinationStageDetail> {
       return 'Yêu cầu';
     }
     return 'Cập nhật';
+  }
+
+  void _handleStageUpdated(EventBase event) {
+    _model.loadMedicines(_stage.id);
   }
 
   @override
