@@ -24,9 +24,6 @@ class _VaccinationPlanState extends VMAState<VaccinationPlans> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text('Kế hoạch tiêm phòng'),
-      // ),
       body: ScopedModel<VaccinationPlanListModel>(
         model: _model,
         child: ScopedModelDescendant<VaccinationPlanListModel>(
