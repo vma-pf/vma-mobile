@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:vma/app/common/vma_state.dart';
 import 'package:vma/app/screens/layout.dart';
+import 'package:vma/core/events/event_manager.dart';
+import 'package:vma/core/events/main_screen_index_changed_event.dart';
 
 class VMANavigationBar extends StatefulWidget {
   final Function(int) onTabSelected;
@@ -25,6 +27,22 @@ class _VMANavigationBarState extends VMAState<VMANavigationBar> {
       _selectedTabIndex = tabIndex;
     });
     widget.onTabSelected(tabIndex);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    EventManager.register(_handleIndexChanged);
+  }
+
+  @override
+  void dispose() {
+    EventManager.unregister(MainScreenIndexChangedEvent);
+    super.dispose();
+  }
+
+  void _handleIndexChanged(MainScreenIndexChangedEvent event) {
+    _changeTab(event.index);
   }
 
   @override

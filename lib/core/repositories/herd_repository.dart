@@ -23,14 +23,10 @@ class HerdRepository {
     );
 
     result.either((success) {
-      print('data');
-      print(success.data);
       response = PaginatedResponse.fromJson(
         success.data,
         (e) => Herd.fromJson(e),
       );
-      print('response');
-      print(response);
     }, (error) {
       // TODO: handle error
     });

@@ -11,6 +11,7 @@ class Routes {
   static const String pigListFilter = '/pig-list-filter';
   static const String pigDetail = '/pig-detail';
   static const String vaccinationPlanDetails = '/vaccination-plan-details';
+  static const String vaccinationPlans = '/vaccination-plans';
   static const String commonDiseaseAndTreatmentGuide =
       '/common-disease-and-treatment-guide';
   static const String pigList = '/pig-list';

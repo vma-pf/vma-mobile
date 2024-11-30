@@ -1,5 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:vma/app/screens/pig_list/screen.dart';
+import 'package:vma/core/constants/routes.dart';
+import 'package:vma/core/events/event_manager.dart';
+import 'package:vma/core/events/main_screen_index_changed_event.dart';
 import 'package:vma/core/models/herd.dart';
 
 class HerdItem extends StatelessWidget {
@@ -27,19 +31,32 @@ class HerdItem extends StatelessWidget {
           ),
           PopupMenuButton<String>(
             icon: Icon(CupertinoIcons.ellipsis_vertical),
-            onSelected: (String value) {
-              if (value == 'navigate to herd_detail_screen.dart') {
-                // TODO: Navigate to herd_detail_screen.dart
+            onSelected: (String route) {
+              if (route == Routes.pigList) {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return PigList();
+                    },
+                  ),
+                );
+                return;
+              } else if (route == Routes.vaccinationPlans) {
+                Navigator.of(context).pop();
+                final event = MainScreenIndexChangedEvent(index: 1);
+                EventManager.fire(event);
+                return;
               }
+              // TODO: log error
             },
             itemBuilder: (BuildContext context) {
               return <PopupMenuEntry<String>>[
                 PopupMenuItem<String>(
-                  value: 'navigate to herd_detail_screen.dart',
+                  value: Routes.pigList,
                   child: Text('Xem danh sách heo'),
                 ),
                 PopupMenuItem<String>(
-                  value: 'navigate to herd_vaccination_plan_screen.dart',
+                  value: Routes.vaccinationPlans,
                   child: Text('Xem kế hoạch tiêm phòng'),
                 ),
               ];

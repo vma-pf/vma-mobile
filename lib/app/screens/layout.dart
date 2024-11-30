@@ -14,6 +14,7 @@ import 'package:vma/app/widgets/vma_navigation_bar.dart';
 import 'package:vma/core/constants/api.dart';
 import 'package:vma/core/enums/app_storage_keys.dart';
 import 'package:vma/core/events/event_manager.dart';
+import 'package:vma/core/events/main_screen_index_changed_event.dart';
 import 'package:vma/core/events/notification_received_event.dart';
 import 'package:vma/core/network/app_storage.dart';
 import 'package:vma/core/repositories/notification_repository.dart';
@@ -46,6 +47,7 @@ class _LayoutPageState extends State<LayoutPage> {
     EventManager.register((NotificationReceivedEvent event) {
       _getNotifications();
     });
+    EventManager.register(_handleIndexChanged);
     VMAToast.init(context);
     _connectToNotificationHub();
     _getNotifications();
@@ -54,6 +56,7 @@ class _LayoutPageState extends State<LayoutPage> {
   @override
   void dispose() {
     EventManager.unregister(NotificationReceivedEvent);
+    EventManager.unregister(MainScreenIndexChangedEvent);
     super.dispose();
   }
 
@@ -115,6 +118,10 @@ class _LayoutPageState extends State<LayoutPage> {
     setState(() {
       _notifications = allNotifications;
     });
+  }
+
+  void _handleIndexChanged(MainScreenIndexChangedEvent event) {
+    _onTabSelected(event.index);
   }
 
   @override
