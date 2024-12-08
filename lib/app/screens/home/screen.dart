@@ -29,7 +29,7 @@ class _HomeScreenState extends VMAState<HomeScreen> {
             NavigationItem(
               destination: const HerdsScreen(),
               assetPath: 'assets/images/pig.png',
-              text: 'Danh sách heo',
+              text: 'Danh sách đàn heo',
               backgroundColor: Colors.green.withOpacity(0.8),
               textColor: Colors.white,
             ),
