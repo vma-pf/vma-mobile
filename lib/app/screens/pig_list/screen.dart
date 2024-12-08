@@ -7,7 +7,8 @@ import 'package:vma/core/view_models/pig_list_model.dart';
 import 'package:vma/core/models/pig.dart';
 
 class PigList extends StatefulWidget {
-  const PigList({super.key});
+  final String herdId;
+  const PigList({super.key, required this.herdId});
 
   @override
   State<PigList> createState() => _PigListState();
@@ -19,6 +20,7 @@ class _PigListState extends VMAState<PigList> {
   @override
   void initState() {
     super.initState();
+    _model.herdId = widget.herdId;
     _model.loadPigs();
   }
 
@@ -41,6 +43,10 @@ class _PigListState extends VMAState<PigList> {
                   return Center(child: Text('Error: ${snapshot.error}'));
                 } else {
                   var pigs = snapshot.data ?? [];
+
+                  if (pigs.isEmpty) {
+                    return Center(child: Text('Không có heo nào'));
+                  }
 
                   return Column(
                     children: [

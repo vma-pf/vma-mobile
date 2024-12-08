@@ -72,7 +72,7 @@ class AppRouter {
       ),
       GoRoute(
         path: Routes.pigList,
-        builder: (context, state) => const PigList(),
+        builder: (context, state) => PigList(herdId: state.extra as String),
       ),
       GoRoute(
         path: Routes.medicineRequests,

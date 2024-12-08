@@ -50,7 +50,7 @@ class HerdItem extends StatelessWidget {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) {
-                        return PigList();
+                        return PigList(herdId: herd.id);
                       },
                     ),
                   );

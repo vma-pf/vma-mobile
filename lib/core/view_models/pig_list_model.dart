@@ -5,6 +5,11 @@ import 'package:vma/core/repositories/pig_repository.dart';
 class PigListModel extends Model {
   final _repository = PigRepository();
 
+  String _herdId = '';
+  set herdId(String value) {
+    _herdId = value;
+  }
+
   // Search parameters
   String searchText = '';
   Set<String> selectedBreeds = {};
@@ -52,7 +57,14 @@ class PigListModel extends Model {
   }
 
   Future<void> loadPigs() async {
-    final response = await _repository.getAllPigs(pageSize, pageIndex);
+    // final query = {
+    //   'filter': 'herdId($_herdId)',
+    // };
+    // final response = await _repository.searchPigs(query,
+    //     pageIndex: pageIndex, pageSize: pageSize);
+    // final response = await _repository.getAllPigs(pageSize, pageIndex);
+    final response =
+        await _repository.getPigsByHerdId(_herdId, pageSize, pageIndex);
     pageSize = response.pageSize;
     pageIndex = response.pageIndex;
     pigs = Future.value(response.data);
