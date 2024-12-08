@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vma/app/common/vma_state.dart';
 
 class SelectableLabel extends StatefulWidget {
+  final bool isSelected;
   final String text;
   final void Function()? onTap;
 
@@ -9,6 +10,7 @@ class SelectableLabel extends StatefulWidget {
     super.key,
     required this.text,
     this.onTap,
+    required this.isSelected,
   });
 
   @override
@@ -30,6 +32,12 @@ class _SelectableLabelState extends VMAState<SelectableLabel> {
     if (widget.onTap != null) {
       widget.onTap!();
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _backgroundColor = widget.isSelected ? Colors.green : Colors.white;
   }
 
   @override

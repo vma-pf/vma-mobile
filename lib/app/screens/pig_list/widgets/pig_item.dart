@@ -3,6 +3,7 @@ import 'package:vma/app/screens/pig_detail/screen.dart';
 import 'package:vma/app/screens/pig_list/widgets/detail_info_text.dart';
 import 'package:vma/app/screens/pig_list/widgets/status_label.dart';
 import 'package:vma/core/models/pig.dart';
+import 'package:vma/core/utils/string_helper.dart';
 
 class PigItem extends StatelessWidget {
   final Pig pig;
@@ -42,9 +43,9 @@ class PigItem extends StatelessWidget {
                       SizedBox(
                         width: widgetWidth * 0.5,
                         child: Tooltip(
-                          message: pig.pigCode,
+                          message: StringHelper.formatPigCode(pig.pigCode),
                           child: Text(
-                            pig.pigCode,
+                            StringHelper.formatPigCode(pig.pigCode),
                             style: const TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,

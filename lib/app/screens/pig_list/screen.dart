@@ -45,7 +45,7 @@ class _PigListState extends VMAState<PigList> {
                   return Column(
                     children: [
                       const SizedBox(height: 10),
-                      const vma.SearchBar(),
+                      vma.SearchBar(model: _model),
                       const SizedBox(height: 10),
                       Expanded(
                         child: ListView.builder(

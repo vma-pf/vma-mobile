@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:vma/app/common/vma_state.dart';
 import 'package:vma/app/screens/pig_list/widgets/filter_sheet.dart';
+import 'package:vma/core/view_models/pig_list_model.dart';
 
 class SearchBar extends StatefulWidget {
-  const SearchBar({super.key});
+  final PigListModel model;
+
+  const SearchBar({super.key, required this.model});
 
   @override
   State<SearchBar> createState() => _SearchBarState();
@@ -16,9 +19,20 @@ class _SearchBarState extends VMAState<SearchBar> {
     showModalBottomSheet(
       context: context,
       builder: (context) {
-        return const FilterSheet();
+        return FilterSheet(model: widget.model);
       },
     );
+  }
+
+  void _search() {
+    widget.model.searchText = _controller.text;
+    widget.model.searchPigs();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _controller.text = widget.model.searchText;
   }
 
   @override
@@ -29,7 +43,10 @@ class _SearchBarState extends VMAState<SearchBar> {
         controller: _controller,
         decoration: InputDecoration(
           hintText: 'Tìm kiếm',
-          prefixIcon: const Icon(Icons.search),
+          prefixIcon: IconButton(
+            icon: Icon(Icons.search),
+            onPressed: _search,
+          ),
           border: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(10)),
           ),

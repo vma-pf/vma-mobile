@@ -8,14 +8,14 @@ class StatusLabel extends StatelessWidget {
 
   Color _getColorByStatus() {
     switch (status) {
-      case PigHealthStatuses.alive:
+      case PigHealthStatuses.normal:
         return Colors.green;
-      // case PigHealthStatus.sick:
-      //   return Colors.red;
+      case PigHealthStatuses.sick:
+        return Colors.red;
       // case PigHealthStatus.unknown:
       //   return Colors.black;
       default:
-        return Colors.grey;
+        return Colors.orange;
     }
   }
 

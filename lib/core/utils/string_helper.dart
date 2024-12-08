@@ -10,4 +10,10 @@ class StringHelper {
 
     return value;
   }
+
+  static String formatPigCode(String code) {
+    String? result = code.split('-').firstOrNull;
+
+    return result?.toUpperCase() ?? code.toUpperCase();
+  }
 }
