@@ -45,11 +45,18 @@ class _MedicineRequestsScreenState extends VMAState<MedicineRequestsScreen> {
                 } else {
                   final List<InventoryRequest>? medicineRequests =
                       snapshot.data;
+
                   if (medicineRequests == null) {
                     return const Center(
                       child: Text('Không tìm thấy thông tin'),
                     );
                   }
+
+                  medicineRequests.sort(
+                    (current, next) =>
+                        next.createdAt.compareTo(current.createdAt),
+                  );
+
                   return ListView.builder(
                     itemCount: medicineRequests.length,
                     itemBuilder: (BuildContext context, int index) {

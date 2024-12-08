@@ -10,7 +10,10 @@ class VaccinationStages extends StatelessWidget {
 
   List<VaccinationStage> sortStages() {
     return vaccinationStages
-      ..sort((a, b) => a.applyStageTime.compareTo(b.applyStageTime));
+      ..sort(
+        (current, next) =>
+            current.applyStageTime.compareTo(next.applyStageTime),
+      );
   }
 
   @override
