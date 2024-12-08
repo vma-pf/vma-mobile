@@ -37,13 +37,10 @@ class _HerdScreenState extends VMAState<HerdsScreen> {
                   (BuildContext context, AsyncSnapshot<List<Herd>> snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
                   final List<Herd> herds = snapshot.data ?? [];
-                  return GridView.builder(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                    ),
+
+                  return ListView.builder(
                     itemCount: herds.length,
-                    itemBuilder: (BuildContext context, int index) {
+                    itemBuilder: (context, index) {
                       final Herd herd = herds[index];
                       return HerdItem(herd: herd);
                     },

@@ -15,60 +15,104 @@ class HerdItem extends StatelessWidget {
   Widget build(BuildContext context) {
     double widgetWidth = MediaQuery.of(context).size.width;
 
-    return ListTile(
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          SizedBox(
-            width: widgetWidth * 0.25,
-            child: Text(
-              herd.code,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
-              softWrap: true,
-            ),
-          ),
-          PopupMenuButton<String>(
-            icon: Icon(CupertinoIcons.ellipsis_vertical),
-            onSelected: (String route) {
-              if (route == Routes.pigList) {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return PigList();
-                    },
-                  ),
-                );
-                return;
-              } else if (route == Routes.vaccinationPlans) {
-                Navigator.of(context).pop();
-                final event = MainScreenIndexChangedEvent(index: 1);
-                EventManager.fire(event);
-                return;
-              }
-              // TODO: log error
-            },
-            itemBuilder: (BuildContext context) {
-              return <PopupMenuEntry<String>>[
-                PopupMenuItem<String>(
-                  value: Routes.pigList,
-                  child: Text('Xem danh sách heo'),
-                ),
-                PopupMenuItem<String>(
-                  value: Routes.vaccinationPlans,
-                  child: Text('Xem kế hoạch tiêm phòng'),
-                ),
-              ];
-            },
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.primaryFixed,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 1,
+            blurRadius: 2,
+            offset: const Offset(0, 3),
           ),
         ],
+        borderRadius: BorderRadius.circular(10),
       ),
-      subtitle: Text(
-        'Mô tả: ${herd.description}',
-        maxLines: 2,
-        overflow: TextOverflow.ellipsis,
+      child: ListTile(
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            SizedBox(
+              width: widgetWidth * 0.25,
+              child: Text(
+                herd.code.toUpperCase(),
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+                softWrap: true,
+              ),
+            ),
+            PopupMenuButton<String>(
+              icon: Icon(CupertinoIcons.ellipsis_vertical),
+              onSelected: (String route) {
+                if (route == Routes.pigList) {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return PigList();
+                      },
+                    ),
+                  );
+                  return;
+                } else if (route == Routes.vaccinationPlans) {
+                  Navigator.of(context).pop();
+                  final event = MainScreenIndexChangedEvent(index: 1);
+                  EventManager.fire(event);
+                  return;
+                }
+                // TODO: log error
+              },
+              itemBuilder: (BuildContext context) {
+                return <PopupMenuEntry<String>>[
+                  PopupMenuItem<String>(
+                    value: Routes.pigList,
+                    child: Text('Xem danh sách heo'),
+                  ),
+                  PopupMenuItem<String>(
+                    value: Routes.vaccinationPlans,
+                    child: Text('Xem kế hoạch tiêm phòng'),
+                  ),
+                ];
+              },
+            ),
+          ],
+        ),
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildTextInfo('Giống heo', herd.breed),
+            _buildTextInfo('Trạng thái', herd.status),
+            _buildTextInfo('Số lượng', herd.totalNumber.toString()),
+            _buildTextInfo(
+              'Cân nặng trung bình',
+              '${herd.averageWeight.toString()} kg',
+            ),
+            Text(
+              'Mô tả: ${herd.description}',
+              softWrap: true,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ],
+        ),
       ),
     );
   }
+}
+
+Widget _buildTextInfo(String label, String value) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      Text('$label: '),
+      Text(
+        value,
+        style: const TextStyle(fontWeight: FontWeight.bold),
+        softWrap: true,
+        maxLines: 2,
+        overflow: TextOverflow.ellipsis,
+      ),
+    ],
+  );
 }
