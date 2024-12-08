@@ -14,6 +14,7 @@ import 'package:vma/app/widgets/vma_navigation_bar.dart';
 import 'package:vma/core/constants/api.dart';
 import 'package:vma/core/enums/app_storage_keys.dart';
 import 'package:vma/core/events/event_manager.dart';
+import 'package:vma/core/events/herd_id_changed_event.dart';
 import 'package:vma/core/events/main_screen_index_changed_event.dart';
 import 'package:vma/core/events/notification_received_event.dart';
 import 'package:vma/core/network/app_storage.dart';
@@ -48,6 +49,7 @@ class _LayoutPageState extends State<LayoutPage> {
       _getNotifications();
     });
     EventManager.register(_handleIndexChanged);
+    EventManager.register(_handleHerdIdChanged);
     VMAToast.init(context);
     _connectToNotificationHub();
     _getNotifications();
@@ -57,10 +59,11 @@ class _LayoutPageState extends State<LayoutPage> {
   void dispose() {
     EventManager.unregister(NotificationReceivedEvent);
     EventManager.unregister(MainScreenIndexChangedEvent);
+    EventManager.unregister(HerdIdChangedEvent);
     super.dispose();
   }
 
-  static final List<NavigationItem> _navigationItems = <NavigationItem>[
+  final List<NavigationItem> _navigationItems = <NavigationItem>[
     NavigationItem(
       icon: CupertinoIcons.chart_bar_fill,
       title: 'Trang chủ',
@@ -70,7 +73,8 @@ class _LayoutPageState extends State<LayoutPage> {
       icon: Icons.medical_services,
       title: 'Kế hoạch tiêm phòng',
       screen: const VaccinationPlans(
-        herdId: '7f131e70-cfdb-4655-9a84-0f40f8d5f022',
+        // herdId: '7f131e70-cfdb-4655-9a84-0f40f8d5f022',
+        herdId: '',
       ),
     ),
     NavigationItem(
@@ -124,6 +128,10 @@ class _LayoutPageState extends State<LayoutPage> {
     _onTabSelected(event.index);
   }
 
+  void _handleHerdIdChanged(HerdIdChangedEvent event) {
+    _navigationItems[1].screen = VaccinationPlans(herdId: event.herdId);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -157,7 +165,7 @@ class _LayoutPageState extends State<LayoutPage> {
 class NavigationItem {
   final IconData icon;
   final String title;
-  final Widget screen;
+  Widget screen;
 
   NavigationItem({
     required this.icon,

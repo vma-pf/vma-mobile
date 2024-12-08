@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:vma/app/screens/pig_list/screen.dart';
 import 'package:vma/core/constants/routes.dart';
 import 'package:vma/core/events/event_manager.dart';
+import 'package:vma/core/events/herd_id_changed_event.dart';
 import 'package:vma/core/events/main_screen_index_changed_event.dart';
 import 'package:vma/core/models/herd.dart';
 
@@ -57,8 +58,12 @@ class HerdItem extends StatelessWidget {
                   return;
                 } else if (route == Routes.vaccinationPlans) {
                   Navigator.of(context).pop();
-                  final event = MainScreenIndexChangedEvent(index: 1);
-                  EventManager.fire(event);
+                  final screenIndexChangedEvent =
+                      MainScreenIndexChangedEvent(index: 1);
+                  final herdIdChangedEvent =
+                      HerdIdChangedEvent(herdId: herd.id);
+                  EventManager.fire(screenIndexChangedEvent);
+                  EventManager.fire(herdIdChangedEvent);
                   return;
                 }
                 // TODO: log error
