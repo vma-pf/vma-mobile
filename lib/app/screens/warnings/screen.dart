@@ -39,11 +39,8 @@ class _WarningScreenState extends VMAState<WarningScreen> {
 
                   if (abnormalities.isEmpty) {
                     return const Center(
-                      child: CircularProgressIndicator(),
+                      child: Text('Không có cảnh báo'),
                     );
-                    // return const Center(
-                    //   child: Text('No data'),
-                    // );
                   }
 
                   return ListView.builder(
