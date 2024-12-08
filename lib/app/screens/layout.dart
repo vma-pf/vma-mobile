@@ -73,7 +73,6 @@ class _LayoutPageState extends State<LayoutPage> {
       icon: Icons.medical_services,
       title: 'Kế hoạch tiêm phòng',
       screen: const VaccinationPlans(
-        // herdId: '7f131e70-cfdb-4655-9a84-0f40f8d5f022',
         herdId: '',
       ),
     ),
@@ -121,6 +120,8 @@ class _LayoutPageState extends State<LayoutPage> {
         await _notificationRepository.getAllNotifications();
     setState(() {
       _notifications = allNotifications;
+      _notifications
+          .sort((current, next) => next.createdAt.compareTo(current.createdAt));
     });
   }
 
