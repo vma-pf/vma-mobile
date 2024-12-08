@@ -93,6 +93,7 @@ class PigListModel extends Model {
   }
 
   void resetSearchParameters() {
+    _herdId = '';
     minWeight = _defaultMinWeight;
     minHeight = _defaultMinHeight;
     minWidth = _defaultMinWidth;

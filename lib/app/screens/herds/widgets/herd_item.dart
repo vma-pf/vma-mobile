@@ -19,7 +19,8 @@ class HerdItem extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.primaryFixed,
+        color: Color(0xFFE0E0E0),
+        // color: Theme.of(context).colorScheme.primaryFixed,
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.5),

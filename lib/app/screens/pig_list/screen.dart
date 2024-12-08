@@ -34,26 +34,26 @@ class _PigListState extends VMAState<PigList> {
         model: _model,
         child: ScopedModelDescendant<PigListModel>(
           builder: (context, child, model) {
-            return FutureBuilder<List<Pig>>(
-              future: _model.pigs,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
-                } else if (snapshot.hasError) {
-                  return Center(child: Text('Error: ${snapshot.error}'));
-                } else {
-                  var pigs = snapshot.data ?? [];
+            return Column(
+              children: [
+                const SizedBox(height: 10),
+                vma.SearchBar(model: _model),
+                const SizedBox(height: 10),
+                FutureBuilder<List<Pig>>(
+                  future: _model.pigs,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (snapshot.hasError) {
+                      return Center(child: Text('Error: ${snapshot.error}'));
+                    } else {
+                      var pigs = snapshot.data ?? [];
 
-                  if (pigs.isEmpty) {
-                    return Center(child: Text('Không có heo nào'));
-                  }
+                      if (pigs.isEmpty) {
+                        return Center(child: Text('Không có heo nào'));
+                      }
 
-                  return Column(
-                    children: [
-                      const SizedBox(height: 10),
-                      vma.SearchBar(model: _model),
-                      const SizedBox(height: 10),
-                      Expanded(
+                      return Expanded(
                         child: ListView.builder(
                           padding: const EdgeInsets.symmetric(
                             horizontal: 10,
@@ -65,11 +65,11 @@ class _PigListState extends VMAState<PigList> {
                             return PigItem(pig: pig);
                           },
                         ),
-                      ),
-                    ],
-                  );
-                }
-              },
+                      );
+                    }
+                  },
+                ),
+              ],
             );
           },
         ),
