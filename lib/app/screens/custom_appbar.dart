@@ -73,6 +73,7 @@ AppBar customAppBar(
     ),
     actions: [
       PopupMenuButton<int>(
+        color: Colors.white,
         icon: Icon(CupertinoIcons.bell_fill),
         onOpened: () {
           EventManager.fire(NotificationReceivedEvent());
