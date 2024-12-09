@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vma/app/common/vma_state.dart';
 import 'package:vma/app/screens/treatment_plans/common-disease-treatment-guide/widgets/common_disease_list.dart';
 import 'package:vma/app/screens/treatment_plans/common-disease-treatment-guide/widgets/treatment_guide_list.dart';
+import 'package:vma/app/screens/treatment_plans/common-disease-treatment-guide/widgets/treatment_plan_list.dart';
 import 'package:vma/core/view_models/common_disease_model.dart';
 
 class CommonDiseaseAndTreatmentGuideScreen extends StatefulWidget {
@@ -42,7 +43,8 @@ class _CommonDiseaseAndTreatmentGuideScreenState
         body: const TabBarView(
           children: <Widget>[
             Center(
-              child: Text("Thong tin dieu tri (Beta)"),
+              // child: Text("Thong tin dieu tri (Beta)"),
+              child: TreatmentPlanList(),
             ),
             Center(
               child: TreatmentGuideList(),
