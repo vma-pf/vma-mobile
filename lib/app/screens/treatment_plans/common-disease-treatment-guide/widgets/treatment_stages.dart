@@ -1,15 +1,15 @@
 import 'package:accordion/accordion.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:vma/app/screens/vaccination_plan_details/widgets/vaccination_stage_detail.dart';
-import 'package:vma/core/models/vaccination_stage.dart';
+import 'package:vma/app/screens/treatment_plans/common-disease-treatment-guide/widgets/treatment_stage_detail.dart';
+import 'package:vma/core/models/treatment_stage.dart';
 import 'package:vma/core/utils/date_time_helper.dart';
 
-class VaccinationStages extends StatelessWidget {
-  final List<VaccinationStage> vaccinationStages;
-  const VaccinationStages({super.key, required this.vaccinationStages});
+class TreatmentStages extends StatelessWidget {
+  final List<TreatmentStage> treatmentStages;
+  const TreatmentStages({super.key, required this.treatmentStages});
 
-  List<VaccinationStage> sortStages() {
-    return vaccinationStages
+  List<TreatmentStage> sortStages() {
+    return treatmentStages
       ..sort(
         (current, next) =>
             current.applyStageTime.compareTo(next.applyStageTime),
@@ -23,9 +23,9 @@ class VaccinationStages extends StatelessWidget {
     return ListView.builder(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: vaccinationStages.length,
+      itemCount: treatmentStages.length,
       itemBuilder: (BuildContext context, int index) {
-        final stage = sortedStages[index];
+        final TreatmentStage stage = sortedStages[index];
 
         return Accordion(
           disableScrolling: true,
@@ -59,7 +59,7 @@ class VaccinationStages extends StatelessWidget {
                   ],
                 ),
               ),
-              content: VaccinationStageDetail(vaccinationStage: stage),
+              content: TreatmentStageDetail(treatmentStage: stage),
             ),
           ],
         );

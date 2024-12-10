@@ -1,10 +1,14 @@
 import 'package:vma/core/extensions/json_to_list_extension.dart';
+import 'package:vma/core/models/herd.dart';
 import 'package:vma/core/models/medicine.dart';
 import 'package:vma/core/models/vaccination_plan.dart';
 import 'package:vma/core/models/vaccination_plan_details.dart';
 import 'package:vma/core/network/api.dart';
+import 'package:vma/core/repositories/herd_repository.dart';
 
 class VaccinationPlanRepository {
+  final _herdRepository = HerdRepository();
+
   Future<List<VaccinationPlan>> getVaccinationPlansByHerd(String herdId) async {
     final result = await ApiCaller.instance.request(
       path: '/api/Herds/$herdId/vaccination-plans',
@@ -93,5 +97,18 @@ class VaccinationPlanRepository {
     }, (error) {
       // TODO: handle error
     });
+  }
+
+  Future<List<VaccinationPlan>> getAllVaccinationPlans() async {
+    List<VaccinationPlan> plans = [];
+
+    List<Herd> herds = await _herdRepository.getAllHerds();
+
+    for (final Herd herd in herds) {
+      final plansByHerd = await getVaccinationPlansByHerd(herd.id);
+      plans.addAll(plansByHerd);
+    }
+
+    return Future.value(plans);
   }
 }

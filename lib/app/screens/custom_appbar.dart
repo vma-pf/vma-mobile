@@ -42,6 +42,20 @@ AppBar customAppBar(
     );
   }
 
+  String getTimePassed(DateTime time) {
+    final now = DateTime.now();
+    final difference = now.difference(time);
+    if (difference.inDays > 0) {
+      return '${difference.inDays} ngày trước';
+    } else if (difference.inHours > 0) {
+      return '${difference.inHours} giờ trước';
+    } else if (difference.inMinutes > 0) {
+      return '${difference.inMinutes} phút trước';
+    } else {
+      return 'Vừa xong';
+    }
+  }
+
   return AppBar(
     backgroundColor: Theme.of(context).colorScheme.primaryFixed,
     title: Text(
@@ -59,21 +73,39 @@ AppBar customAppBar(
     ),
     actions: [
       PopupMenuButton<int>(
+        color: Colors.white,
         icon: Icon(CupertinoIcons.bell_fill),
-        // onSelected: (value) {
-        //   // Handle selected notification
-        //   print("Selected: $value");
-        // },
         onOpened: () {
           EventManager.fire(NotificationReceivedEvent());
         },
         itemBuilder: (BuildContext context) {
-          return List.generate(notifications.length, (index) {
-            return PopupMenuItem<int>(
-              value: index,
-              child: Text(notifications[index].title),
-            );
-          });
+          return List.generate(
+            notifications.length,
+            (index) {
+              final noti = notifications[index];
+              return PopupMenuItem<int>(
+                value: index,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      noti.title,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
+                    ),
+                    Text('Nội dung: ${noti.content}'),
+                    Text(
+                      getTimePassed(noti.createdAt),
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                    const Divider(),
+                  ],
+                ),
+              );
+            },
+          );
         },
       ),
       InkWell(

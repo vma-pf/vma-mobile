@@ -4,37 +4,40 @@ import 'package:go_router/go_router.dart';
 import 'package:vma/app/common/vma_state.dart';
 import 'package:vma/app/screens/pig_list/widgets/selectable_label.dart';
 import 'package:vma/core/models/enums/pig_health_status.dart';
+import 'package:vma/core/utils/pig_health_status_transformer.dart';
+import 'package:vma/core/view_models/pig_list_model.dart';
 
 class FilterSheet extends StatefulWidget {
-  const FilterSheet({super.key});
+  final PigListModel model;
+  const FilterSheet({super.key, required this.model});
 
   @override
   State<FilterSheet> createState() => _FilterSheetState();
 }
 
 class _FilterSheetState extends VMAState<FilterSheet> {
-  final _defaultWeightRange = const RangeValues(0, 50);
-  final _defaultHeightRange = const RangeValues(0, 50);
-  final _defaultWidthRange = const RangeValues(0, 50);
-
   late RangeValues _weightRange;
   late RangeValues _heightRange;
   late RangeValues _widthRange;
 
-  void _resetFilter() {
+  void _setFilter({bool resetValues = false}) {
+    if (resetValues) widget.model.resetSearchParameters();
     setState(() {
-      _weightRange = _defaultWeightRange;
-      _heightRange = _defaultHeightRange;
-      _widthRange = _defaultWidthRange;
+      _weightRange =
+          RangeValues(widget.model.minWeight, widget.model.maxWeight);
+      _heightRange =
+          RangeValues(widget.model.minHeight, widget.model.maxHeight);
+      _widthRange = RangeValues(widget.model.minWidth, widget.model.maxWidth);
     });
   }
 
   @override
   void initState() {
     super.initState();
-    _weightRange = _defaultWeightRange;
-    _heightRange = _defaultHeightRange;
-    _widthRange = _defaultWidthRange;
+    setState(() {
+      widget.model.loadBreeds();
+    });
+    _setFilter();
   }
 
   @override
@@ -53,7 +56,7 @@ class _FilterSheetState extends VMAState<FilterSheet> {
                 color: Theme.of(context).primaryColor,
               ),
               TextButton(
-                onPressed: _resetFilter,
+                onPressed: () => _setFilter(resetValues: true),
                 child: const Text('Đặt lại'),
               ),
             ],
@@ -73,12 +76,40 @@ class _FilterSheetState extends VMAState<FilterSheet> {
                   runSpacing: 10,
                   children: [
                     SelectableLabel(
-                      text: PigHealthStatus.normal.name,
-                      onTap: () => {},
+                      isSelected: widget.model.healthStatuses
+                          .contains(PigHealthStatus.normal.name),
+                      text: PigHealthStatusTransformer.tranformToText(
+                        PigHealthStatus.normal,
+                      ),
+                      onTap: () {
+                        final String status =
+                            PigHealthStatusTransformer.tranformToText(
+                          PigHealthStatus.normal,
+                        );
+                        if (widget.model.healthStatuses.contains(status)) {
+                          widget.model.healthStatuses.remove(status);
+                        } else {
+                          widget.model.healthStatuses.add(status);
+                        }
+                      },
                     ),
                     SelectableLabel(
-                      text: PigHealthStatus.sick.name,
-                      onTap: () => {},
+                      isSelected: widget.model.healthStatuses
+                          .contains(PigHealthStatus.sick.name),
+                      text: PigHealthStatusTransformer.tranformToText(
+                        PigHealthStatus.sick,
+                      ),
+                      onTap: () {
+                        final String status =
+                            PigHealthStatusTransformer.tranformToText(
+                          PigHealthStatus.sick,
+                        );
+                        if (widget.model.healthStatuses.contains(status)) {
+                          widget.model.healthStatuses.remove(status);
+                        } else {
+                          widget.model.healthStatuses.add(status);
+                        }
+                      },
                     ),
                   ],
                 ),
@@ -100,6 +131,8 @@ class _FilterSheetState extends VMAState<FilterSheet> {
                               values: _weightRange,
                               onChanged: (RangeValues values) => setState(() {
                                 _weightRange = values;
+                                widget.model.minWeight = _weightRange.start;
+                                widget.model.maxWeight = _weightRange.end;
                               }),
                               max: 150,
                               divisions: 10,
@@ -117,6 +150,8 @@ class _FilterSheetState extends VMAState<FilterSheet> {
                               values: _heightRange,
                               onChanged: (RangeValues values) => setState(() {
                                 _heightRange = values;
+                                widget.model.minHeight = _heightRange.start;
+                                widget.model.maxHeight = _heightRange.end;
                               }),
                               max: 200,
                               divisions: 10,
@@ -134,6 +169,8 @@ class _FilterSheetState extends VMAState<FilterSheet> {
                               values: _widthRange,
                               onChanged: (RangeValues values) => setState(() {
                                 _widthRange = values;
+                                widget.model.minWidth = _widthRange.start;
+                                widget.model.maxWidth = _widthRange.end;
                               }),
                               max: 100,
                               divisions: 10,
@@ -154,21 +191,36 @@ class _FilterSheetState extends VMAState<FilterSheet> {
                   padding: EdgeInsets.all(8.0),
                   child: Text('Giống', style: TextStyle(color: Colors.white)),
                 ),
-                content: Wrap(
-                  alignment: WrapAlignment.start,
-                  spacing: 10,
-                  runSpacing: 10,
-                  // FIXME: Load breeds from API
-                  children: [
-                    SelectableLabel(text: 'Vietnamese', onTap: () => {}),
-                    SelectableLabel(text: 'Yorkshire', onTap: () => {}),
-                    SelectableLabel(text: 'Landrace', onTap: () => {}),
-                    SelectableLabel(text: 'Duroc', onTap: () => {}),
-                    SelectableLabel(text: 'Vietnamese', onTap: () => {}),
-                    SelectableLabel(text: 'Yorkshire', onTap: () => {}),
-                    SelectableLabel(text: 'Landrace', onTap: () => {}),
-                    SelectableLabel(text: 'Duroc', onTap: () => {}),
-                  ],
+                content: FutureBuilder<List<String>>(
+                  future: widget.model.breeds,
+                  builder: (
+                    BuildContext futureContext,
+                    AsyncSnapshot<List<String>> snapshot,
+                  ) {
+                    final List<String> breeds = snapshot.data ?? [];
+
+                    return Wrap(
+                      alignment: WrapAlignment.start,
+                      spacing: 10,
+                      runSpacing: 10,
+                      children: [
+                        ...breeds.map(
+                          (String breed) => SelectableLabel(
+                            isSelected:
+                                widget.model.selectedBreeds.contains(breed),
+                            text: breed,
+                            onTap: () {
+                              if (widget.model.selectedBreeds.contains(breed)) {
+                                widget.model.selectedBreeds.remove(breed);
+                              } else {
+                                widget.model.selectedBreeds.add(breed);
+                              }
+                            },
+                          ),
+                        ),
+                      ],
+                    );
+                  },
                 ),
               ),
             ],

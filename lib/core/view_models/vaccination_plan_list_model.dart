@@ -13,7 +13,13 @@ class VaccinationPlanListModel extends Model {
   }
 
   Future<void> loadVaccinationPlans(String herdId) async {
-    final plans = await _repository.getVaccinationPlansByHerd(herdId);
+    List<VaccinationPlan> plans = [];
+    if (herdId.isEmpty) {
+      plans = await _repository.getAllVaccinationPlans();
+    } else {
+      plans = await _repository.getVaccinationPlansByHerd(herdId);
+    }
+
     plans.sort((current, next) => next.startDate.compareTo(current.startDate));
     vaccinationPlans = Future.value(plans);
   }

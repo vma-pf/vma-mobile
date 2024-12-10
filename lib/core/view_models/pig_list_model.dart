@@ -3,11 +3,30 @@ import 'package:vma/core/models/pig.dart';
 import 'package:vma/core/repositories/pig_repository.dart';
 
 class PigListModel extends Model {
-  late PigRepository _repository;
+  final _repository = PigRepository();
 
-  PigListModel() {
-    _repository = PigRepository();
+  String _herdId = '';
+  set herdId(String value) {
+    _herdId = value;
   }
+
+  // Search parameters
+  String searchText = '';
+  Set<String> selectedBreeds = {};
+  Set<String> healthStatuses = {};
+  double minWeight = 0;
+  double minHeight = 0;
+  double minWidth = 0;
+  double maxWeight = 50;
+  double maxHeight = 50;
+  double maxWidth = 50;
+  // Default values
+  final double _defaultMinWeight = 0;
+  final double _defaultMinHeight = 0;
+  final double _defaultMinWidth = 0;
+  final double _defaultMaxWeight = 50;
+  final double _defaultMaxHeight = 50;
+  final double _defaultMaxWidth = 50;
 
   int _pageIndex = 1;
   int get pageIndex => _pageIndex;
@@ -30,10 +49,59 @@ class PigListModel extends Model {
     notifyListeners();
   }
 
+  Future<List<String>> _breeds = Future.value([]);
+  Future<List<String>> get breeds => _breeds;
+  set breeds(Future<List<String>> value) {
+    _breeds = value;
+    notifyListeners();
+  }
+
   Future<void> loadPigs() async {
-    final response = await _repository.getAllPigs(pageSize, pageIndex);
+    // final query = {
+    //   'filter': 'herdId($_herdId)',
+    // };
+    // final response = await _repository.searchPigs(query,
+    //     pageIndex: pageIndex, pageSize: pageSize);
+    // final response = await _repository.getAllPigs(pageSize, pageIndex);
+    final response =
+        await _repository.getPigsByHerdId(_herdId, pageSize, pageIndex);
     pageSize = response.pageSize;
     pageIndex = response.pageIndex;
     pigs = Future.value(response.data);
+  }
+
+  Future<void> loadBreeds() async {
+    breeds = _repository.getAllBreeds();
+  }
+
+  // TODO: all api to search
+  Future<void> searchPigs() async {
+    final codeQuery = 'pigCode($searchText)';
+    final heightQuery =
+        'height(${minHeight.toString()}-${maxHeight.toString()})';
+    final weightQuery =
+        'weight(${minWeight.toString()}-${maxWeight.toString()})';
+    final widthQuery = 'width(${minWidth.toString()}-${maxWidth.toString()})';
+    final breedQuery = 'breed(${selectedBreeds.join('-')})';
+    final heathStatusQuery = 'healthStatus(${healthStatuses.join('-')})';
+    final query = {
+      'filter':
+          '$codeQuery$heightQuery$weightQuery$widthQuery$breedQuery$heathStatusQuery',
+    };
+    final response = await _repository.searchPigs(query);
+    pigs = Future.value(response.data);
+  }
+
+  void resetSearchParameters() {
+    _herdId = '';
+    minWeight = _defaultMinWeight;
+    minHeight = _defaultMinHeight;
+    minWidth = _defaultMinWidth;
+    maxWeight = _defaultMaxWeight;
+    maxHeight = _defaultMaxHeight;
+    maxWidth = _defaultMaxWidth;
+
+    healthStatuses.clear();
+    selectedBreeds.clear();
   }
 }

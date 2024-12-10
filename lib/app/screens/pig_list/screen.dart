@@ -7,7 +7,8 @@ import 'package:vma/core/view_models/pig_list_model.dart';
 import 'package:vma/core/models/pig.dart';
 
 class PigList extends StatefulWidget {
-  const PigList({super.key});
+  final String herdId;
+  const PigList({super.key, required this.herdId});
 
   @override
   State<PigList> createState() => _PigListState();
@@ -19,6 +20,7 @@ class _PigListState extends VMAState<PigList> {
   @override
   void initState() {
     super.initState();
+    _model.herdId = widget.herdId;
     _model.loadPigs();
   }
 
@@ -32,22 +34,26 @@ class _PigListState extends VMAState<PigList> {
         model: _model,
         child: ScopedModelDescendant<PigListModel>(
           builder: (context, child, model) {
-            return FutureBuilder<List<Pig>>(
-              future: _model.pigs,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
-                } else if (snapshot.hasError) {
-                  return Center(child: Text('Error: ${snapshot.error}'));
-                } else {
-                  var pigs = snapshot.data ?? [];
+            return Column(
+              children: [
+                const SizedBox(height: 10),
+                vma.SearchBar(model: _model),
+                const SizedBox(height: 10),
+                FutureBuilder<List<Pig>>(
+                  future: _model.pigs,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (snapshot.hasError) {
+                      return Center(child: Text('Error: ${snapshot.error}'));
+                    } else {
+                      var pigs = snapshot.data ?? [];
 
-                  return Column(
-                    children: [
-                      const SizedBox(height: 10),
-                      const vma.SearchBar(),
-                      const SizedBox(height: 10),
-                      Expanded(
+                      if (pigs.isEmpty) {
+                        return Center(child: Text('Không có heo nào'));
+                      }
+
+                      return Expanded(
                         child: ListView.builder(
                           padding: const EdgeInsets.symmetric(
                             horizontal: 10,
@@ -59,11 +65,11 @@ class _PigListState extends VMAState<PigList> {
                             return PigItem(pig: pig);
                           },
                         ),
-                      ),
-                    ],
-                  );
-                }
-              },
+                      );
+                    }
+                  },
+                ),
+              ],
             );
           },
         ),

@@ -10,4 +10,9 @@ class DateTimeHelper {
     String formattedDateTime = DateFormat('dd-MM-yyyy HH:mm').format(dateTime);
     return formattedDateTime;
   }
+
+  static bool isDefaultDate(DateTime dateTime) {
+    String formattedDateTime = DateFormat('dd-MM-yyyy').format(dateTime);
+    return formattedDateTime == '01-01-0001';
+  }
 }

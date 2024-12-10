@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:vma/app/common/vma_state.dart';
+import 'package:vma/app/screens/herds/screen.dart';
 import 'package:vma/app/screens/home/widgets/navigation_item.dart';
 import 'package:vma/app/screens/medicine_requests/screen.dart';
-import 'package:vma/app/screens/pig_list/screen.dart';
 import 'package:vma/app/screens/treatment_plans/common-disease-treatment-guide/screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -27,9 +27,9 @@ class _HomeScreenState extends VMAState<HomeScreen> {
           ),
           children: [
             NavigationItem(
-              destination: const PigList(),
+              destination: const HerdsScreen(),
               assetPath: 'assets/images/pig.png',
-              text: 'Danh sách heo',
+              text: 'Danh sách đàn heo',
               backgroundColor: Colors.green.withOpacity(0.8),
               textColor: Colors.white,
             ),

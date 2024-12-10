@@ -105,7 +105,7 @@ class DetailInfo extends StatelessWidget {
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
             child: Text(
-              pigDetail.code,
+              StringHelper.formatPigCode(pigDetail.code),
               textAlign: TextAlign.center,
               style: const TextStyle(
                 fontSize: 28,

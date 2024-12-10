@@ -51,109 +51,113 @@ class _CommonDiseaseDetailState extends VMAState<CommonDiseaseDetail> {
                     if (data == null) {
                       return const Center(child: CircularProgressIndicator());
                     }
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          data.title ?? '',
-                          style: TextStyle(
-                            fontSize: 28, // Font size for title
-                            fontWeight: FontWeight.bold, // Bold for the title
+                    return SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            data.title ?? '',
+                            style: TextStyle(
+                              fontSize: 28, // Font size for title
+                              fontWeight: FontWeight.bold, // Bold for the title
+                            ),
                           ),
-                        ),
-                        SizedBox(height: 8),
-                        RichText(
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: 'Mức độ: ',
-                                style: TextStyle(
-                                  fontSize: 16, // Font size
-                                  fontWeight:
-                                      FontWeight.bold, // Bold for "Điều trị"
-                                  color: Colors.black,
+                          SizedBox(height: 8),
+                          RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: 'Mức độ: ',
+                                  style: TextStyle(
+                                    fontSize: 16, // Font size
+                                    fontWeight:
+                                        FontWeight.bold, // Bold for "Điều trị"
+                                    color: Colors.black,
+                                  ),
                                 ),
-                              ),
-                              TextSpan(
-                                text: data.diseaseType ?? '',
-                                style: TextStyle(
-                                  fontSize: 16, // Font size for the treatment
-                                  color: Colors.black,
+                                TextSpan(
+                                  text: data.diseaseType ?? '',
+                                  style: TextStyle(
+                                    fontSize: 16, // Font size for the treatment
+                                    color: Colors.black,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                        SizedBox(height: 8), // Spacing between elements
-                        RichText(
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: 'Mô tả: ',
-                                style: TextStyle(
-                                  fontSize: 16, // Font size
-                                  fontWeight:
-                                      FontWeight.bold, // Bold for "Mô tả"
-                                  color: Colors.black, // Ensure text is visible
+                          SizedBox(height: 8), // Spacing between elements
+                          RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: 'Mô tả: ',
+                                  style: TextStyle(
+                                    fontSize: 16, // Font size
+                                    fontWeight:
+                                        FontWeight.bold, // Bold for "Mô tả"
+                                    color:
+                                        Colors.black, // Ensure text is visible
+                                  ),
                                 ),
-                              ),
-                              TextSpan(
-                                text: data.description ?? '',
-                                style: TextStyle(
-                                  fontSize: 16, // Font size for the description
-                                  color: Colors.black,
+                                TextSpan(
+                                  text: data.description ?? '',
+                                  style: TextStyle(
+                                    fontSize:
+                                        16, // Font size for the description
+                                    color: Colors.black,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                        SizedBox(height: 8),
-                        RichText(
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: 'Triệu chứng: ',
-                                style: TextStyle(
-                                  fontSize: 16, // Font size
-                                  fontWeight:
-                                      FontWeight.bold, // Bold for "Triệu chứng"
-                                  color: Colors.black,
+                          SizedBox(height: 8),
+                          RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: 'Triệu chứng: ',
+                                  style: TextStyle(
+                                    fontSize: 16, // Font size
+                                    fontWeight: FontWeight
+                                        .bold, // Bold for "Triệu chứng"
+                                    color: Colors.black,
+                                  ),
                                 ),
-                              ),
-                              TextSpan(
-                                text: data.symptom ?? '',
-                                style: TextStyle(
-                                  fontSize: 16, // Font size for the symptom
-                                  color: Colors.black,
+                                TextSpan(
+                                  text: data.symptom ?? '',
+                                  style: TextStyle(
+                                    fontSize: 16, // Font size for the symptom
+                                    color: Colors.black,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                        SizedBox(height: 8),
-                        RichText(
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: 'Điều trị: ',
-                                style: TextStyle(
-                                  fontSize: 16, // Font size
-                                  fontWeight:
-                                      FontWeight.bold, // Bold for "Điều trị"
-                                  color: Colors.black,
+                          SizedBox(height: 8),
+                          RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: 'Điều trị: ',
+                                  style: TextStyle(
+                                    fontSize: 16, // Font size
+                                    fontWeight:
+                                        FontWeight.bold, // Bold for "Điều trị"
+                                    color: Colors.black,
+                                  ),
                                 ),
-                              ),
-                              TextSpan(
-                                text: data.treatment ?? '',
-                                style: TextStyle(
-                                  fontSize: 16, // Font size for the treatment
-                                  color: Colors.black,
+                                TextSpan(
+                                  text: data.treatment ?? '',
+                                  style: TextStyle(
+                                    fontSize: 16, // Font size for the treatment
+                                    color: Colors.black,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     );
                   }
                 },

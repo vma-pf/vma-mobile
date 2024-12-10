@@ -14,7 +14,7 @@ class VaccinationSchedule extends StatefulWidget {
 }
 
 class _VaccinationScheduleState extends VMAState<VaccinationSchedule> {
-  final VaccinationSchedulesModel _model = VaccinationSchedulesModel();
+  final _model = VaccinationSchedulesModel();
 
   late final ValueNotifier<List<models.VaccinationSchedule>> _selectedEvents;
   CalendarFormat _calendarFormat = CalendarFormat.month;
@@ -95,8 +95,6 @@ class _VaccinationScheduleState extends VMAState<VaccinationSchedule> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Colors.transparent,
-      // appBar: customAppBar(context, 'Lịch tiêm phòng'),
       body: ScopedModel(
         model: _model,
         child: ScopedModelDescendant<VaccinationSchedulesModel>(

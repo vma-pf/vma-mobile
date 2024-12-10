@@ -35,16 +35,18 @@ class _WarningScreenState extends VMAState<WarningScreen> {
                 AsyncSnapshot<List<Abnormality>> snapshot,
               ) {
                 if (snapshot.connectionState == ConnectionState.done) {
-                  final abnormalities = snapshot.data ?? [];
+                  final List<Abnormality> abnormalities = snapshot.data ?? [];
 
                   if (abnormalities.isEmpty) {
                     return const Center(
-                      child: CircularProgressIndicator(),
+                      child: Text('Không có cảnh báo'),
                     );
-                    // return const Center(
-                    //   child: Text('No data'),
-                    // );
                   }
+
+                  abnormalities.sort(
+                    (current, next) =>
+                        next.createdAt.compareTo(current.createdAt),
+                  );
 
                   return ListView.builder(
                     itemCount: abnormalities.length,
