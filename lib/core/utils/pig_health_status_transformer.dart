@@ -4,9 +4,9 @@ class PigHealthStatusTransformer {
   static String tranformToText(PigHealthStatus status) {
     switch (status) {
       case PigHealthStatus.normal:
-        return 'Khỏe';
-      case PigHealthStatus.sick:
         return 'Bình thường';
+      case PigHealthStatus.sick:
+        return 'Bệnh';
       case PigHealthStatus.unknown:
         return '';
     }

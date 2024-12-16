@@ -76,8 +76,11 @@ class _FilterSheetState extends VMAState<FilterSheet> {
                   runSpacing: 10,
                   children: [
                     SelectableLabel(
-                      isSelected: widget.model.healthStatuses
-                          .contains(PigHealthStatus.normal.name),
+                      isSelected: widget.model.healthStatuses.contains(
+                        PigHealthStatusTransformer.tranformToText(
+                          PigHealthStatus.normal,
+                        ),
+                      ),
                       text: PigHealthStatusTransformer.tranformToText(
                         PigHealthStatus.normal,
                       ),
@@ -94,8 +97,11 @@ class _FilterSheetState extends VMAState<FilterSheet> {
                       },
                     ),
                     SelectableLabel(
-                      isSelected: widget.model.healthStatuses
-                          .contains(PigHealthStatus.sick.name),
+                      isSelected: widget.model.healthStatuses.contains(
+                        PigHealthStatusTransformer.tranformToText(
+                          PigHealthStatus.sick,
+                        ),
+                      ),
                       text: PigHealthStatusTransformer.tranformToText(
                         PigHealthStatus.sick,
                       ),
