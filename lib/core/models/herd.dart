@@ -5,7 +5,7 @@ class Herd {
   final int totalNumber;
   final String status;
   final DateTime expectedEndDate;
-  final DateTime actualEndDate;
+  final DateTime? actualEndDate;
   final DateTime startDate;
   final double averageWeight;
   final String code;
@@ -18,7 +18,7 @@ class Herd {
     required this.totalNumber,
     required this.status,
     required this.expectedEndDate,
-    required this.actualEndDate,
+    this.actualEndDate,
     required this.startDate,
     required this.averageWeight,
     required this.code,
@@ -33,7 +33,9 @@ class Herd {
       totalNumber: json['totalNumber'],
       status: json['status'],
       expectedEndDate: DateTime.parse(json['expectedEndDate']),
-      actualEndDate: DateTime.parse(json['actualEndDate']),
+      actualEndDate: json['actualEndDate'] != null
+          ? DateTime.parse(json['actualEndDate'])
+          : null,
       startDate: DateTime.parse(json['startDate']),
       averageWeight: json['averageWeight'],
       code: json['code'],
