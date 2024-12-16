@@ -41,7 +41,7 @@ class _TreatmentGuideListState extends VMAState<TreatmentGuideList> {
                   return Center(child: Text('Error: ${snapshot.error}'));
                 } else {
                   final List<TreatmentGuide>? treatmentGuides = snapshot.data;
-                  if (treatmentGuides == null) {
+                  if (treatmentGuides == null || treatmentGuides.isEmpty) {
                     return const Center(
                       child: Text('Không tìm thấy thông tin'),
                     );

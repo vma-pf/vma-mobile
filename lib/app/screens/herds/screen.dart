@@ -37,6 +37,13 @@ class _HerdScreenState extends VMAState<HerdsScreen> {
                   (BuildContext context, AsyncSnapshot<List<Herd>> snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
                   final List<Herd> herds = snapshot.data ?? [];
+
+                  if (herds.isEmpty) {
+                    return const Center(
+                      child: Text('Không tìm thấy thông tin'),
+                    );
+                  }
+
                   return ListView.builder(
                     itemCount: herds.length,
                     itemBuilder: (context, index) {

@@ -41,7 +41,7 @@ class _CommonDiseaseListState extends VMAState<CommonDiseaseList> {
                   return Center(child: Text('Error: ${snapshot.error}'));
                 } else {
                   final List<CommonDisease>? commonDiseases = snapshot.data;
-                  if (commonDiseases == null) {
+                  if (commonDiseases == null || commonDiseases.isEmpty) {
                     return const Center(
                       child: Text('Không tìm thấy thông tin'),
                     );
