@@ -79,6 +79,17 @@ AppBar customAppBar(
           EventManager.fire(NotificationReceivedEvent());
         },
         itemBuilder: (BuildContext context) {
+          if (notifications.isEmpty) {
+            return [
+              PopupMenuItem<int>(
+                value: 0,
+                child: Center(
+                  child: Text('Không có thông báo mới'),
+                ),
+              ),
+            ];
+          }
+
           return List.generate(
             notifications.length,
             (index) {
