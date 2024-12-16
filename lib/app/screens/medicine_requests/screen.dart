@@ -46,7 +46,7 @@ class _MedicineRequestsScreenState extends VMAState<MedicineRequestsScreen> {
                   final List<InventoryRequest>? medicineRequests =
                       snapshot.data;
 
-                  if (medicineRequests == null) {
+                  if (medicineRequests == null || medicineRequests.isEmpty) {
                     return const Center(
                       child: Text('Không tìm thấy thông tin'),
                     );
