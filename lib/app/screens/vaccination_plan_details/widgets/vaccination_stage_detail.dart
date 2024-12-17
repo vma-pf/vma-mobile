@@ -31,6 +31,7 @@ class VaccinationStageDetailState extends VMAState<VaccinationStageDetail> {
     super.initState();
     _stage = widget.vaccinationStage;
     _model.loadMedicines(_stage.id);
+    _model.isStageDone = _stage.isDone;
     EventManager.register<VaccinationStageUpdatedEvent>(_handleStageUpdated);
     EventManager.register<MedicinesRequestedEvent>(_handleStageUpdated);
   }
@@ -111,6 +112,9 @@ class VaccinationStageDetailState extends VMAState<VaccinationStageDetail> {
   }
 
   String _getButtonLabel() {
+    if (_model.isStageDone) {
+      return 'Đã hoàn thành';
+    }
     if (_model.canUpdateStage) {
       return 'Cập nhật';
     }

@@ -29,6 +29,13 @@ class VaccinationStageDetailsModel extends Model {
     notifyListeners();
   }
 
+  bool _isStageDone = false;
+  bool get isStageDone => _isStageDone;
+  set isStageDone(bool value) {
+    _isStageDone = value;
+    notifyListeners();
+  }
+
   void loadMedicines(String stageId) async {
     final result = await _repository.getMedicinesByStageId(stageId);
     canRequestMedicines =
