@@ -92,7 +92,7 @@ class HerdItem extends StatelessWidget {
             _buildTextInfo('Số lượng', herd.totalNumber.toString()),
             _buildTextInfo(
               'Cân nặng trung bình',
-              '${herd.averageWeight.toString()} kg',
+              '${herd.averageWeight.toStringAsFixed(2)} kg',
             ),
             Text(
               'Mô tả: ${herd.description}',
