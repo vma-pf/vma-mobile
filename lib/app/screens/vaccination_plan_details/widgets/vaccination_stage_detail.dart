@@ -23,6 +23,7 @@ class VaccinationStageDetail extends StatefulWidget {
 class VaccinationStageDetailState extends VMAState<VaccinationStageDetail> {
   late final VaccinationStage _stage;
   final _model = VaccinationStageDetailsModel();
+  String _buttonText = 'Cập nhật';
 
   Set<String> selectedPigIds = <String>{};
 
@@ -30,10 +31,16 @@ class VaccinationStageDetailState extends VMAState<VaccinationStageDetail> {
   void initState() {
     super.initState();
     _stage = widget.vaccinationStage;
-    _model.loadMedicines(_stage.id);
     _model.isStageDone = _stage.isDone;
+    _model.applyDate = _stage.applyStageTime;
+    prepareData();
     EventManager.register<VaccinationStageUpdatedEvent>(_handleStageUpdated);
     EventManager.register<MedicinesRequestedEvent>(_handleStageUpdated);
+  }
+
+  Future<void> prepareData() async {
+    await _model.loadMedicines(_stage.id);
+    _updateButtonLabel();
   }
 
   void selectPig(String pigId) {
@@ -111,21 +118,41 @@ class VaccinationStageDetailState extends VMAState<VaccinationStageDetail> {
     _model.requestMedicines();
   }
 
-  String _getButtonLabel() {
-    if (_model.isStageDone) {
-      return 'Đã hoàn thành';
-    }
-    if (_model.canUpdateStage) {
-      return 'Cập nhật';
-    }
-    if (_model.canRequestMedicines) {
-      return 'Yêu cầu';
-    }
-    return 'Cập nhật';
+  // String _getButtonLabel() {
+  //   if (_model.isStageDone) {
+  //     return 'Đã hoàn thành';
+  //   }
+  //   if (_model.canUpdateStage) {
+  //     return 'Cập nhật';
+  //   }
+  //   if (_model.canRequestMedicines) {
+  //     return 'Yêu cầu';
+  //   }
+  //   return 'Cập nhật';
+  // }
+
+  void _updateButtonLabel() {
+    // if (_model.isStageDone) {
+    //   _buttonText = 'Đã hoàn thành';
+    // } else if (_model.canUpdateStage) {
+    //   _buttonText = 'Cập nhật';
+    // } else if (_model.canRequestMedicines) {
+    //   _buttonText = 'Yêu cầu';
+    // }
+    super.setState(() {
+      if (_model.isStageDone) {
+        _buttonText = 'Đã hoàn thành';
+      } else if (_model.canUpdateStage) {
+        _buttonText = 'Cập nhật';
+      } else if (_model.canRequestMedicines) {
+        _buttonText = 'Yêu cầu';
+      }
+    });
   }
 
-  void _handleStageUpdated(EventBase event) {
-    _model.loadMedicines(_stage.id);
+  Future<void> _handleStageUpdated(EventBase event) async {
+    await _model.loadMedicines(_stage.id);
+    _updateButtonLabel();
   }
 
   @override
@@ -212,7 +239,7 @@ class VaccinationStageDetailState extends VMAState<VaccinationStageDetail> {
                         backgroundColor: Theme.of(context).primaryColor,
                         foregroundColor: Colors.white,
                       ),
-                      child: Text(_getButtonLabel()),
+                      child: Text(_buttonText),
                     ),
                   ],
                 ),

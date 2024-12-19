@@ -81,11 +81,11 @@ class _LayoutPageState extends State<LayoutPage> {
       title: 'Lịch tiêm phòng',
       screen: const VaccinationSchedule(),
     ),
-    NavigationItem(
-      icon: CupertinoIcons.video_camera_solid,
-      title: 'Chuồng',
-      screen: const CameraScreen(),
-    ),
+    // NavigationItem(
+    //   icon: CupertinoIcons.video_camera_solid,
+    //   title: 'Chuồng',
+    //   screen: const CameraScreen(),
+    // ),
     NavigationItem(
       icon: CupertinoIcons.exclamationmark_triangle_fill,
       title: 'Cảnh báo',

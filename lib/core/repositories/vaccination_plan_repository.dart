@@ -65,21 +65,24 @@ class VaccinationPlanRepository {
     return Future.value(medicines);
   }
 
-  Future<void> updateVaccinationStage(
+  Future<bool> updateVaccinationStage(
     String stageId,
     List<String> pigIds,
   ) async {
+    final body = {'vaccinationStageId': stageId, 'pigIds': pigIds};
     final result = await ApiCaller.instance.request(
-      path: '/vaccination-stages/$stageId/medicines',
-      method: ApiMethod.get,
-      data: pigIds,
+      path: '/update-pig-vaccination-stage',
+      method: ApiMethod.put,
+      data: body,
     );
 
     result.either((success) {
-      // TODO: handle successful response
+      return true;
     }, (error) {
-      // TODO: handle error
+      return false;
     });
+
+    return false;
   }
 
   Future<void> requestMedicines(

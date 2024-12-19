@@ -74,7 +74,6 @@ class PigListModel extends Model {
     breeds = _repository.getAllBreeds();
   }
 
-  // TODO: all api to search
   Future<void> searchPigs() async {
     final codeQuery = 'pigCode($searchText)';
     final heightQuery =
@@ -84,9 +83,10 @@ class PigListModel extends Model {
     final widthQuery = 'width(${minWidth.toString()}-${maxWidth.toString()})';
     final breedQuery = 'breed(${selectedBreeds.join('-')})';
     final heathStatusQuery = 'healthStatus(${healthStatuses.join('-')})';
+    final herdIdQuery = 'herdId($_herdId)';
     final query = {
       'filter':
-          '$codeQuery$heightQuery$weightQuery$widthQuery$breedQuery$heathStatusQuery',
+          '$herdIdQuery$codeQuery$heightQuery$weightQuery$widthQuery$breedQuery$heathStatusQuery',
     };
     final response = await _repository.searchPigs(query);
     pigs = Future.value(response.data);

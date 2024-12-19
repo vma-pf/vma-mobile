@@ -8,6 +8,8 @@ import 'package:vma/core/repositories/vaccination_plan_repository.dart';
 class VaccinationStageDetailsModel extends Model {
   final _repository = VaccinationPlanRepository();
 
+  DateTime? applyDate;
+
   Future<List<Medicine>> _medicines = Future.value([]);
   Future<List<Medicine>> get medicines => _medicines;
   set medicines(Future<List<Medicine>> value) {
@@ -36,19 +38,23 @@ class VaccinationStageDetailsModel extends Model {
     notifyListeners();
   }
 
-  void loadMedicines(String stageId) async {
+  Future<void> loadMedicines(String stageId) async {
     final result = await _repository.getMedicinesByStageId(stageId);
     canRequestMedicines =
         result.any((element) => element.status == "Chờ xử lý");
     canUpdateStage = !canRequestMedicines &&
-        result.every((element) => element.status == "Đã duyệt");
+        result.every((element) => element.status == "Đã duyệt") &&
+        (applyDate == null ? true : _isBeforeOrEqualToday(applyDate!));
     medicines = Future.value(result);
   }
 
-  void updateVaccinationStage(Set<String> pigIds, String stageId) {
-    // TODO: call api
-    _repository.updateVaccinationStage(stageId, pigIds.toList());
-    final updateEvent = VaccinationStageUpdatedEvent(success: true);
+  Future<void> updateVaccinationStage(
+    Set<String> pigIds,
+    String stageId,
+  ) async {
+    final bool updateSuccess =
+        await _repository.updateVaccinationStage(stageId, pigIds.toList());
+    final updateEvent = VaccinationStageUpdatedEvent(success: updateSuccess);
     EventManager.fire(updateEvent);
   }
 
@@ -65,5 +71,14 @@ class VaccinationStageDetailsModel extends Model {
       final requestEvent = MedicinesRequestedEvent(success: false);
       EventManager.fire(requestEvent);
     });
+  }
+
+  bool _isBeforeOrEqualToday(DateTime date) {
+    final today = DateTime.now();
+    final todayDateOnly = DateTime(today.year, today.month, today.day);
+    final dateOnly = DateTime(date.year, date.month, date.day);
+
+    return dateOnly.isBefore(todayDateOnly) ||
+        dateOnly.isAtSameMomentAs(todayDateOnly);
   }
 }
