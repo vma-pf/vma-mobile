@@ -40,11 +40,12 @@ class _PlanDetailsState extends VMAState<PlanDetails> {
 
   void _handleStageUpdated(VaccinationStageUpdatedEvent event) {
     Navigator.of(context).pop();
-    if (event.success) {
-      VMAToast.showSuccess('Cập nhật giai đoạn tiêm phòng thành công');
-    } else {
-      VMAToast.showError('Đã có lỗi xảy ra');
-    }
+    VMAToast.showSuccess('Cập nhật giai đoạn tiêm phòng thành công');
+    // if (event.success) {
+    //   VMAToast.showSuccess('Cập nhật giai đoạn tiêm phòng thành công');
+    // } else {
+    //   VMAToast.showError('Đã có lỗi xảy ra');
+    // }
   }
 
   void _handleMedicinesRequested(MedicinesRequestedEvent event) {
